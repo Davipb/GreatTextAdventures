@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace GreatTextAdventures
 {
-	class Program
+	public abstract class Action
 	{
-		static void Main(string[] args)
-		{
-			System.Initialize();
-			System.Loop();
-		}
+		public abstract IEnumerable<string> Aliases { get; }
+		public abstract void Do(string action);
 	}
 }

@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
+    <Compile Include="Actions\Look.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="Directions.cs" />
     <Compile Include="Item.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="Rooms\GenericRoom.cs" />
+    <Compile Include="System.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

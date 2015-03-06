@@ -13,5 +13,9 @@ namespace GreatTextAdventures
 		public abstract bool CanExit { get; }
 
 		public abstract string Describe();
+		public virtual void Update(bool active) 
+		{
+			Items.ForEach(x => x.Update(active));
+		}
 	}	
 }

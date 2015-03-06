@@ -10,5 +10,7 @@ namespace GreatTextAdventures
 	{
 		public string Name { get; set; }
 		public string Description { get; set; }
+
+		public void Update(bool active) { /* ¯\_(ツ)_/¯ */ }
 	}
 }

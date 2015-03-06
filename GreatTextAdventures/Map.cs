@@ -13,6 +13,15 @@ namespace GreatTextAdventures
 		public int[] CurrentPosition { get; set; }
 		public Room CurrentRoom { get { return rooms[CurrentPosition]; } }
 
+		public Map()
+		{
+			CurrentPosition = new[] { 0, 0 };
+
+			rooms = new Dictionary<int[], Room>();
+			rooms.Add(CurrentPosition, GenerateRandomRoom());
+			
+		}
+
 		public void Move(Directions target)
 		{
 			if (!CurrentRoom.Exits.HasFlag(target) || !CurrentRoom.CanExit) return;
@@ -27,6 +36,11 @@ namespace GreatTextAdventures
 
 			// Move to the required position
 			CurrentPosition = pos;
+		}
+
+		public void Update()
+		{
+			CurrentRoom.Update(true);
 		}
 
 		Room GenerateRandomRoom()
