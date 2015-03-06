@@ -8,21 +8,24 @@ namespace GreatTextAdventures.Rooms
 {
 	public class GenericRoom : Room
 	{
-		public override bool CanExit { get { return true; } }
-
-		public override string Describe()
-		{
-			return "a dark room";
-		}
+		public override bool CanExit { get { return true; } }		
 
 		public override void Update(bool active)
 		{
 			// ¯\_(ツ)_/¯
 		}
 
-		public GenericRoom() : base()
+		public GenericRoom(Directions obligatory = Directions.None) : base(obligatory)
 		{
-			Exits = Directions.North | Directions.East | Directions.South | Directions.West;
+			foreach(Directions d in Enum.GetValues(typeof(Directions)))
+			{
+				if (System.RNG.Next(1, 101) % 2 == 0)
+				{
+					Exits |= d;
+				}
+			}
+
+			Items = new List<Item>();
 		}
 	}
 }

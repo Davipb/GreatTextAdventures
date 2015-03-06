@@ -10,13 +10,17 @@ namespace GreatTextAdventures
 	{
 		public static List<Action> Actions { get; set; }
 		public static Map CurrentMap { get; set; }
+		public static Random RNG { get; set; }
 
 		public static void Initialize()
 		{
+			RNG = new Random();
+
 			Actions = new List<Action>();
 			Actions.Add(new Actions.LookAction());
+			Actions.Add(new Actions.MoveAction());
 
-			CurrentMap = new Map();
+			CurrentMap = new Map();			
 		}
 
 		public static void Loop()
@@ -45,14 +49,17 @@ namespace GreatTextAdventures
 							// If there's a valid action, invoke it and set the flag
 							act.Do(input.Substring(alias.Length).Trim());
 							didAction = true;
+							break;
 						}
 					}
+
+					if (didAction) break;
 				}
 
 				// User entered an invalid input
 				if (!didAction)
 				{
-					Console.WriteLine("Unknown action {0}", input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]);
+					Console.WriteLine("Unknown action '{0}'", input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]);
 				}				
 			}
 		}

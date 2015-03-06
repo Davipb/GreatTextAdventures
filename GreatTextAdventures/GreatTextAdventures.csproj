@@ -43,7 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
-    <Compile Include="Actions\Look.cs" />
+    <Compile Include="Actions\LookAction.cs" />
+    <Compile Include="Actions\MoveAction.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="Directions.cs" />
     <Compile Include="Item.cs" />

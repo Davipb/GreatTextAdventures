@@ -12,10 +12,27 @@ namespace GreatTextAdventures
 		public Directions Exits { get; set; }
 		public abstract bool CanExit { get; }
 
-		public abstract string Describe();
+		public virtual string Describe()
+		{
+			StringBuilder sb = new StringBuilder("a room. ");
+
+			if (Exits != Directions.None)
+			{
+				sb.Append("There are exits to ");
+				sb.Append(Exits.ToString());
+			}			
+
+			return sb.ToString();
+		}
+
 		public virtual void Update(bool active) 
 		{
 			Items.ForEach(x => x.Update(active));
+		}
+
+		public Room(Directions obligatory)
+		{
+			Exits = obligatory;
 		}
 	}	
 }
