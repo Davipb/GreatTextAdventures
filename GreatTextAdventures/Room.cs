@@ -29,10 +29,5 @@ namespace GreatTextAdventures
 		{
 			Items.ForEach(x => x.Update(active));
 		}
-
-		public Room(Directions obligatory)
-		{
-			Exits = obligatory;
-		}
 	}	
 }

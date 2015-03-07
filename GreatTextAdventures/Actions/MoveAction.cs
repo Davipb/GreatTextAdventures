@@ -25,19 +25,19 @@ namespace GreatTextAdventures.Actions
 			{
 				case "up":
 				case "north":
-					System.CurrentMap.Move(Directions.North);
+					GameSystem.CurrentMap.Move(Directions.North);
 					break;
 				case "down":
 				case "south":
-					System.CurrentMap.Move(Directions.South);
+					GameSystem.CurrentMap.Move(Directions.South);
 					break;
 				case "right":
 				case "east":
-					System.CurrentMap.Move(Directions.East);
+					GameSystem.CurrentMap.Move(Directions.East);
 					break;
 				case "left":
 				case "west":
-					System.CurrentMap.Move(Directions.West);
+					GameSystem.CurrentMap.Move(Directions.West);
 					break;
 				default:
 					Console.WriteLine("Unknown direction '{0}'", action);

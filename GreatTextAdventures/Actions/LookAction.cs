@@ -23,13 +23,13 @@ namespace GreatTextAdventures.Actions
 			if (string.IsNullOrWhiteSpace(action) || action == "around" || action == "room")
 			{
 				// Just look at the room, in general
-				Console.WriteLine("You are in a {0}.", System.CurrentMap.CurrentRoom.Describe());
+				Console.WriteLine("You are in a {0}.", GameSystem.CurrentMap.CurrentRoom.Describe());
 			}
 			else
 			{
 				bool found = false;
 
-				foreach (var item in System.CurrentMap.CurrentRoom.Items)
+				foreach (var item in GameSystem.CurrentMap.CurrentRoom.Items)
 				{
 					if (item.Name.ToLowerInvariant() == action)
 					{

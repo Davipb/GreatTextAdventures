@@ -10,8 +10,8 @@ namespace GreatTextAdventures
 	{
 		static void Main(string[] args)
 		{
-			System.Initialize();
-			System.Loop();
+			GameSystem.Initialize();
+			GameSystem.Loop();
 		}
 	}
 }

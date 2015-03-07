@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreatTextAdventures
 {
-	public static class System
+	public static class GameSystem
 	{
 		public static List<Action> Actions { get; set; }
 		public static Map CurrentMap { get; set; }
@@ -19,6 +19,7 @@ namespace GreatTextAdventures
 			Actions = new List<Action>();
 			Actions.Add(new Actions.LookAction());
 			Actions.Add(new Actions.MoveAction());
+			Actions.Add(new Actions.DebugAction());
 
 			CurrentMap = new Map();			
 		}

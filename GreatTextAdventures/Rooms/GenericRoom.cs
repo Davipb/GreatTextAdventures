@@ -6,26 +6,54 @@ using System.Threading.Tasks;
 
 namespace GreatTextAdventures.Rooms
 {
+	/// <summary>
+	/// A generic room with no special events
+	/// </summary>
 	public class GenericRoom : Room
 	{
-		public override bool CanExit { get { return true; } }		
+		public override bool CanExit { get { return true; } }
 
-		public override void Update(bool active)
+		public GenericRoom()
 		{
-			// ¯\_(ツ)_/¯
+			Exits = Directions.None;
+			Items = new List<Item>();
 		}
 
-		public GenericRoom(Directions obligatory = Directions.None) : base(obligatory)
+		public static Room Random(Directions obligatory, Directions blocked)
 		{
-			foreach(Directions d in Enum.GetValues(typeof(Directions)))
+			GenericRoom room = new GenericRoom();
+
+			List<Directions> newExits = new List<Directions>();
+
+			// Loop through each possible exit
+			foreach (Directions d in Enum.GetValues(typeof(Directions)))
 			{
-				if (System.RNG.Next(1, 101) % 2 == 0)
+				if (obligatory.HasFlag(d))
 				{
-					Exits |= d;
+					// Must have this exit, add it
+					room.Exits |= d;
+				}
+				else if (blocked.HasFlag(d))
+				{
+					// Exit is blocked by another room, skip it
+					continue;
+				}
+				else
+				{
+					// Exit is neither obligatory nor blocked, add it to the new exits list
+					newExits.Add(d);
+					
 				}
 			}
 
-			Items = new List<Item>();
+			// Shuffle the new exits list and take a random amount of new exits
+			newExits = newExits.OrderBy(x => GameSystem.RNG.Next()).Take(GameSystem.RNG.Next(1, newExits.Count)).ToList();
+
+			// Add the selected new exits
+			newExits.ForEach(x => room.Exits |= x);
+
+			return room;
+
 		}
 	}
 }
