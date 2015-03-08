@@ -1,9 +1,8 @@
 ﻿[
 	{
 		"DisplayName": [ "rock" ],
-		"CodeNames": [ "rock" ],
-		"Description": [ "It's a rock" ],
-		"Multiplier": 1
+		"CodeNames": [ "rock", "stone" ],
+		"Description": [ "It's a rock" ]
 	},
 	{
 		"DisplayName": [ "engraved stone", "marked stone", "written stone" ],
@@ -15,7 +14,25 @@
 			"It looks arcane and ancient, but you can't decipher its meaning",
 			"It's the most beautiful thing you've ever seen, but you have no idea of what it means",
 			"\"Bob's stone engraving shop, now with bigger stones!\". Huh."
-		],
-		"Multiplier": 0.5
+		]
+	},
+	{
+		"DisplayName": [ "blood stain" ],
+		"CodeNames": [ "blood", "stain", "blood stain" ],
+		"Description":
+		[
+			"It looks fresh",
+			"That must've hurt",
+			"It's old and dry",
+			"Looks like something was written here, but it has since decayed and became unreadable"
+		]
+	},
+	{
+		"DisplayName": [ "old sign" ],
+		"CodeNames": [ "sign", "old sign" ],
+		"Description":		
+		[
+			"The text has decayed being recognition"
+		]
 	}
 ]
