@@ -12,7 +12,7 @@ namespace GreatTextAdventures.Rooms
 	public class GenericRoom : Room
 	{
 		public const int MaxDecorations = 3;
-		public const int DecorationChance = 100;
+		public const int DecorationChance = 25;
 
 		public override bool CanExit { get; set; }
 
@@ -58,13 +58,8 @@ namespace GreatTextAdventures.Rooms
 
 			// Add random decorations to the room
 			if (GameSystem.RNG.Next(0, 101) < DecorationChance)
-			{
-				int max = GameSystem.RNG.Next(MaxDecorations);
-
-				for (int i = 0; i < max; i++)
-				{
-					room.Items.Add(GreatTextAdventures.Items.DecorationItem.Random());
-				}
+			{				
+				room.Items.AddRange(GreatTextAdventures.Items.DecorationItem.Random(GameSystem.RNG.Next(MaxDecorations)));
 			}
 
 			return room;

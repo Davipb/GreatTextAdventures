@@ -25,7 +25,7 @@ namespace GreatTextAdventures
 
 			if (Items.Count > 0)
 			{
-				sb.Append("You can see ");
+				sb.Append("You can see: ");
 
 				foreach(Item i in Items)
 				{

@@ -1,13 +1,13 @@
 ﻿[
 	{
-		"DisplayName": [ "A rock" ],
+		"DisplayName": [ "rock" ],
 		"CodeNames": [ "rock" ],
 		"Description": [ "It's a rock" ],
 		"Multiplier": 1
 	},
 	{
-		"DisplayName": [ "An engraved stone", "A marked stone", "A written stone" ],
-		"CodeNames": [ "engraved stone", "marked stone", "written stone" ],
+		"DisplayName": [ "engraved stone", "marked stone", "written stone" ],
+		"CodeNames": [ "engraved stone", "marked stone", "written stone", "stone" ],
 		"Description":
 		[
 			"It has weird symbols you can't decipher",
