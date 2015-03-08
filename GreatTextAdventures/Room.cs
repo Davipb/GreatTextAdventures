@@ -27,7 +27,7 @@ namespace GreatTextAdventures
 			{
 				sb.Append("You can see: ");
 
-				foreach(Item i in Members)
+				foreach(ILookable i in Members)
 				{
 					sb.Append(i.DisplayName);
 					sb.Append(", ");

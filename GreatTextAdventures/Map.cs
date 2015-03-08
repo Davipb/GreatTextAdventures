@@ -22,6 +22,11 @@ namespace GreatTextAdventures
 			rooms = new Dictionary<string, Room>();
 			GenerateRandomRoom(CurrentPosition);
 
+			People.MerchantPerson merc = new People.MerchantPerson();
+			merc.AddDebug();
+
+			CurrentRoom.Members.Add(merc);
+
 			// Describe new location
 			Console.WriteLine("You are in a {0}", CurrentRoom.Describe());
 		}

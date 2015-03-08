@@ -18,6 +18,17 @@ namespace GreatTextAdventures
 
 		public void Update() { /* ¯\_(ツ)_/¯ */ }
 
+		public Person()
+		{
+			DisplayName = "ERROR";
+			CodeNames = new[] { "error" };
+			Description = "SOMETHING BROKE";
+
+			Health = 0;
+			Inventory = new List<Item>();
+			Currency = 0;
+		}
+
 		public virtual void Talk()
 		{
 			Console.WriteLine("{0} doesn't answer", DisplayName);

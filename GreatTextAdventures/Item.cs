@@ -16,6 +16,17 @@ namespace GreatTextAdventures
 		public bool CanEquip { get; set; } 
 		public ulong Price { get; set; }
 
+		public Item()
+		{
+			DisplayName = "ERROR";
+			CodeNames = new[] { "error" };
+			Description = "SOMETHING BROKE";
+
+			CanTake = false;
+			CanEquip = false;
+			Price = 0;
+		}
+
 		public void Update() { /* ¯\_(ツ)_/¯ */ }
 		public void Use()
 		{
