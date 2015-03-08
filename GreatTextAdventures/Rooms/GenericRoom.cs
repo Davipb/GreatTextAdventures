@@ -19,7 +19,7 @@ namespace GreatTextAdventures.Rooms
 		public GenericRoom()
 		{
 			Exits = Directions.None;
-			Items = new List<Item>();
+			Members = new List<ILookable>();
 			CanExit = true;
 		}
 
@@ -59,7 +59,7 @@ namespace GreatTextAdventures.Rooms
 			// Add random decorations to the room
 			if (GameSystem.RNG.Next(0, 101) < DecorationChance)
 			{				
-				room.Items.AddRange(GreatTextAdventures.Items.DecorationItem.Random(GameSystem.RNG.Next(MaxDecorations)));
+				room.Members.AddRange(GreatTextAdventures.Items.DecorationItem.Random(GameSystem.RNG.Next(MaxDecorations)));
 			}
 
 			return room;

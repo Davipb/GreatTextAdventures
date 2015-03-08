@@ -10,13 +10,19 @@ namespace GreatTextAdventures.Actions
 	{
 		public override IEnumerable<string> Aliases
 		{
-			get { yield return "look"; }
+			get 
+			{ 
+				yield return "look";
+				yield return "examine";
+				yield return "analyze";
+			}
 		}
 
 		public override void Do(string action)
 		{
 			if (action.StartsWith("at"))
 			{
+				// Remove 'at', so we can accept a more natural speech style (look at stuff, instead of look stuff)
 				action = action.Substring(2).Trim();
 			}
 
@@ -27,34 +33,17 @@ namespace GreatTextAdventures.Actions
 			}
 			else
 			{
-				Item[] found = GameSystem.CurrentMap.CurrentRoom.Items.Where(x => x.CodeNames.Contains(action)).ToArray();
+				// Get all the items or creatures with the codename 'action'
+				IList<ILookable> found = GameSystem.CurrentMap.CurrentRoom.Members.Where(x => x.CodeNames.Contains(action)).ToList();
 
-				if (found.Length == 0)
+				if (found.Count == 0)
 				{
 					Console.WriteLine("There is no '{0}'.", action);
 				}
-				else if (found.Length > 1)
+				else if (found.Count > 1)
 				{
 					Console.WriteLine("There are multiple '{0}'. Please specify:", action);
-
-					for (int i = 0; i < found.Length; i++)
-					{
-						Console.WriteLine("{0}. {1}", i + 1, found[i].DisplayName);
-					}
-
-					while(true)
-					{
-						int pressed;
-
-						if (int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out pressed))
-						{
-							if (pressed > 0 && pressed <= found.Length)
-							{								
-								Console.WriteLine(found[pressed - 1].Description);
-								break;
-							}
-						}
-					}
+					Console.WriteLine(GameSystem.Choice<ILookable>(found, found.Select(x => x.DisplayName).ToList()).DisplayName);
 				}
 				else
 				{

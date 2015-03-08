@@ -10,9 +10,11 @@ namespace GreatTextAdventures.Items
 {
 	public class DecorationItem : Item
 	{
-		public override string DisplayName {get; set;}
-		public override IEnumerable<string> CodeNames {get; set;}
-		public override string Description {get; set;}
+		public DecorationItem()
+		{
+			CanTake = false;
+			Price = 0;
+		}
 
 		public static IEnumerable<DecorationItem> Random(int amount)
 		{
@@ -22,6 +24,7 @@ namespace GreatTextAdventures.Items
 			// Randomly select 'amount' of them
 			IEnumerable<JObject> selected = items.OrderBy(x => GameSystem.RNG.Next()).Take(amount).Select(x => (JObject)x);
 
+			// Initialize and return every selected decoration
 			foreach(var decor in selected)
 			{
 				DecorationItem result = new DecorationItem();

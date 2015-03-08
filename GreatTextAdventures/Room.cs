@@ -8,7 +8,7 @@ namespace GreatTextAdventures
 {
 	public abstract class Room
 	{
-		public List<Item> Items { get; set; }
+		public List<ILookable> Members { get; set; }
 		public Directions Exits { get; set; }
 		public abstract bool CanExit { get; set; }
 
@@ -23,11 +23,11 @@ namespace GreatTextAdventures
 				sb.Append(". ");
 			}
 
-			if (Items.Count > 0)
+			if (Members.Count > 0)
 			{
 				sb.Append("You can see: ");
 
-				foreach(Item i in Items)
+				foreach(Item i in Members)
 				{
 					sb.Append(i.DisplayName);
 					sb.Append(", ");
@@ -42,7 +42,7 @@ namespace GreatTextAdventures
 
 		public virtual void Update() 
 		{
-			Items.ForEach(x => x.Update());
+			Members.ForEach(x => x.Update());
 		}
 	}	
 }

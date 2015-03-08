@@ -6,20 +6,21 @@ using System.Threading.Tasks;
 
 namespace GreatTextAdventures
 {
-	public abstract class Item : ILookable
+	public abstract class Person : ILookable
 	{
 		public string DisplayName { get; set; }
 		public IEnumerable<string> CodeNames { get; set; }
 		public string Description { get; set; }
 
-		public bool CanTake { get; set; }
-		public bool CanEquip { get; set; } 
-		public ulong Price { get; set; }
+		public int Health { get; set; }
+		public List<Item> Inventory { get; set; }
+		public ulong Currency { get; set; }
 
 		public void Update() { /* ¯\_(ツ)_/¯ */ }
-		public void Use()
+
+		public virtual void Talk()
 		{
-			Console.WriteLine("You can't use {0}.", DisplayName);
+			Console.WriteLine("{0} doesn't answer", DisplayName);
 		}
 	}
 }

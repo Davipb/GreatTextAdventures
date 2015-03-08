@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace GreatTextAdventures
 {
-	public abstract class Creature
+	public interface ILookable
 	{
-		public string Name { get; set; }
+		string DisplayName { get; }
+		IEnumerable<string> CodeNames { get; }
+		string Description { get; }
+
+		void Update();
 	}
 }
