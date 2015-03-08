@@ -40,9 +40,9 @@ namespace GreatTextAdventures
 			return sb.ToString();
 		}
 
-		public virtual void Update(bool active) 
+		public virtual void Update() 
 		{
-			Items.ForEach(x => x.Update(active));
+			Items.ForEach(x => x.Update());
 		}
 	}	
 }

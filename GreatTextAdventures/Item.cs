@@ -12,6 +12,6 @@ namespace GreatTextAdventures
 		public abstract IEnumerable<string> CodeNames { get; set; }
 		public abstract string Description { get; set; }
 
-		public void Update(bool active) { /* ¯\_(ツ)_/¯ */ }
+		public void Update() { /* ¯\_(ツ)_/¯ */ }
 	}
 }

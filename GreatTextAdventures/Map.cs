@@ -54,7 +54,7 @@ namespace GreatTextAdventures
 
 		public void Update()
 		{
-			CurrentRoom.Update(true);
+			CurrentRoom.Update();
 		}
 
 		public Bitmap Draw(int size)
