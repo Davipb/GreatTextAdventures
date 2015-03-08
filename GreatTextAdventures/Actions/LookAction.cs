@@ -31,7 +31,7 @@ namespace GreatTextAdventures.Actions
 
 				foreach (var item in GameSystem.CurrentMap.CurrentRoom.Items)
 				{
-					if (item.Name.ToLowerInvariant() == action)
+					if (item.CodeNames.Contains(action))
 					{
 						Console.WriteLine(item.Description);
 						found = true;

@@ -16,6 +16,8 @@ namespace GreatTextAdventures.Actions
 				yield return "leave";
 				yield return "walk";
 				yield return "run";
+				yield return "go";
+				yield return "enter";
 			}
 		}
 

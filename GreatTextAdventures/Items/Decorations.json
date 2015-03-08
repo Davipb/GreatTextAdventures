@@ -1,0 +1,21 @@
+﻿[
+	{
+		"DisplayName": [ "A rock" ],
+		"CodeNames": [ "rock" ],
+		"Description": [ "It's a rock" ],
+		"Multiplier": 1
+	},
+	{
+		"DisplayName": [ "An engraved stone", "A marked stone", "A written stone" ],
+		"CodeNames": [ "engraved stone", "marked stone", "written stone" ],
+		"Description":
+		[
+			"It has weird symbols you can't decipher",
+			"It looks like some type of ancient writing",
+			"It looks arcane and ancient, but you can't decipher its meaning",
+			"It's the most beautiful thing you've ever seen, but you have no idea of what it means",
+			"\"Bob's stone engraving shop, now with bigger stones!\". Huh."
+		],
+		"Multiplier": 0.5
+	}
+]

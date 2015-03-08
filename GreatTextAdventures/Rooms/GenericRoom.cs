@@ -11,12 +11,16 @@ namespace GreatTextAdventures.Rooms
 	/// </summary>
 	public class GenericRoom : Room
 	{
-		public override bool CanExit { get { return true; } }
+		public const int MaxDecorations = 3;
+		public const int DecorationChance = 100;
+
+		public override bool CanExit { get; set; }
 
 		public GenericRoom()
 		{
 			Exits = Directions.None;
 			Items = new List<Item>();
+			CanExit = true;
 		}
 
 		public static Room Random(Directions obligatory, Directions blocked)
@@ -52,8 +56,18 @@ namespace GreatTextAdventures.Rooms
 			// Add the selected new exits
 			newExits.ForEach(x => room.Exits |= x);
 
-			return room;
+			// Add random decorations to the room
+			if (GameSystem.RNG.Next(0, 101) < DecorationChance)
+			{
+				int max = GameSystem.RNG.Next(MaxDecorations);
 
+				for (int i = 0; i < max; i++)
+				{
+					room.Items.Add(GreatTextAdventures.Items.DecorationItem.Random());
+				}
+			}
+
+			return room;
 		}
 	}
 }
