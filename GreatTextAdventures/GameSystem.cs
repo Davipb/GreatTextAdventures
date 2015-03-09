@@ -21,6 +21,7 @@ namespace GreatTextAdventures
 			Actions.Add(new Actions.LookAction());
 			Actions.Add(new Actions.MoveAction());
 			Actions.Add(new Actions.DebugAction());
+			Actions.Add(new Actions.TalkAction());
 
 			CurrentMap = new Map();			
 		}
@@ -109,7 +110,7 @@ namespace GreatTextAdventures
 						{
 							return items[(page * 8) + selected - 1];
 						}
-						else if (selected < items.Count % 8)
+						else if (selected <= items.Count % 8)
 						{
 							return items[(page * 8) + selected - 1];
 						}

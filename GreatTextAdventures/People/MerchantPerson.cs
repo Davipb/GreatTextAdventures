@@ -34,14 +34,11 @@ namespace GreatTextAdventures.People
 			if (GameSystem.Choice<bool>(new[] {true, false}, new[] {"Buy", "Sell"}))
 			{
 				// Buying
-				Console.WriteLine();
-				Console.WriteLine("Whaddya buyin'?");
-
 				Item chosen = GameSystem.Choice<Item>
 					(Inventory, 
 					Inventory.Select(x => 
 					    string.Format(
-						  "{0}\t-\t{1}", 
+						  "{1}$\t- {0}", 
 						  x.DisplayName, 
 						  (ulong)((double)x.Price * SellInflation)))
 					  .ToList()
@@ -65,9 +62,6 @@ namespace GreatTextAdventures.People
 			else
 			{
 				// Selling
-				Console.WriteLine();
-				Console.WriteLine("Whaddya sellin'?");
-
 				Item chosen = GameSystem.Choice<Item>
 					(GameSystem.Player.Inventory,
 					GameSystem.Player.Inventory.Select(x =>

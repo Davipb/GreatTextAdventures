@@ -42,8 +42,10 @@ namespace GreatTextAdventures.Actions
 				}
 				else if (found.Count > 1)
 				{
-					Console.WriteLine("There are multiple '{0}'. Please specify:", action);
-					Console.WriteLine(GameSystem.Choice<ILookable>(found, found.Select(x => x.DisplayName).ToList()).DisplayName);
+					ILookable chosen = GameSystem.Choice<ILookable>(found, found.Select(x => x.DisplayName).ToList());
+					Console.Clear();
+
+					Console.WriteLine(chosen.Description);
 				}
 				else
 				{

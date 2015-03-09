@@ -23,6 +23,12 @@ namespace GreatTextAdventures.Actions
 
 		public override void Do(string action)
 		{
+			if (string.IsNullOrWhiteSpace(action))
+			{
+				Console.WriteLine("Which direction?");
+				return;
+			}
+
 			switch (action)
 			{
 				case "up":
