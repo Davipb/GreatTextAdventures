@@ -112,16 +112,12 @@ namespace GreatTextAdventures
 
 		void GenerateRandomRoom(int[] pos)
 		{
-			Debug.WriteLine("Generating room at {0};{1}", pos[0], pos[1]);
-
 			Directions obligatory = Directions.None;
 			Directions blocked = Directions.None;
 
 			// Check each possible exit
 			foreach(Directions d in Enum.GetValues(typeof(Directions)))
 			{
-				Debug.WriteLine("Checking {0}", d);
-
 				int[] newpos = MovePosition(pos, d);
 				string key = PosToString(newpos);
 
@@ -129,24 +125,16 @@ namespace GreatTextAdventures
 				{
 					if (rooms[key].Exits.HasFlag(OppositeDirection(d)))
 					{
-						Debug.WriteLine("Room at {0};{1}, has exit to {2} obligating {3}", newpos[0], newpos[1], OppositeDirection(d), d);
-
 						// Generated room must have exit to that side
 						obligatory |= d;
 					}
 					else
 					{
-						Debug.WriteLine("Room at {0};{1}, doesn't exit to {2} blocking {3}", newpos[0], newpos[1], OppositeDirection(d), d);
-
 						// Generated room must be blocked to that side
 						blocked |= d;
 					}
 				}
-
-				Debug.WriteLine("pos = {0};{1}", pos[0], pos[1]);
 			}
-
-			Debug.WriteLine("Done checking.{0}Obligatory: {1}{0}Blocked: {2}", Environment.NewLine, obligatory, blocked);
 
 			rooms.Add(PosToString(pos), Rooms.GenericRoom.Random(obligatory, blocked));
 			
@@ -154,16 +142,12 @@ namespace GreatTextAdventures
 
 		int[] MovePosition(int[] pos, Directions dir)
 		{
-			Debug.Write(string.Format("MovePosition: {0};{1} + {2} = ", pos[0], pos[1], dir));
-
 			int[] result = new[] { pos[0], pos[1] };
 
 			if (dir.HasFlag(Directions.North)) result[1]--;
 			if (dir.HasFlag(Directions.South)) result[1]++;
 			if (dir.HasFlag(Directions.West)) result[0]--;
 			if (dir.HasFlag(Directions.East)) result[0]++;
-
-			Debug.WriteLine("{0};{1}", pos[0], pos[1]);
 
 			return result;
 		}
