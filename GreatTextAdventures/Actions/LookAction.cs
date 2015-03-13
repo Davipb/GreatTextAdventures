@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GreatTextAdventures.Actions
 {
@@ -43,8 +41,6 @@ namespace GreatTextAdventures.Actions
 				else if (found.Count > 1)
 				{
 					ILookable chosen = GameSystem.Choice<ILookable>(found, found.Select(x => x.DisplayName).ToList());
-					Console.Clear();
-
 					Console.WriteLine(chosen.Description);
 				}
 				else

@@ -51,6 +51,7 @@
     <Compile Include="Actions\DebugAction.cs" />
     <Compile Include="Actions\LookAction.cs" />
     <Compile Include="Actions\MoveAction.cs" />
+    <Compile Include="Actions\OpenAction.cs" />
     <Compile Include="Actions\TalkAction.cs" />
     <Compile Include="Directions.cs" />
     <Compile Include="ILookable.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="Items\LootChestItem.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Person.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="Rooms\GenericRoom.cs" />

@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Drawing;
 
 namespace GreatTextAdventures.Actions
 {
@@ -17,20 +12,26 @@ namespace GreatTextAdventures.Actions
 
 		public override void Do(string action)
 		{
+			// Arguments are obligatory
+			if (string.IsNullOrWhiteSpace(action))
+			{
+				Console.WriteLine("Invalid command");
+				return;
+			}
+
 			string[] split = action.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
 			if (split.Length == 0)
 			{
-				// Show help
+				// Show general help
 				Console.WriteLine("Debug:");
 				Console.WriteLine("\tdebug map [size] [file]");
-				Console.WriteLine("\t\tsize: integer specifying the map radius, from 0;0");
-				Console.WriteLine("\t\tfile: file to save the map to");
 			}
 			else if (split[0] == "map")
 			{
 				if (split.Length != 3)
 				{
+					// Show 'map' help
 					Console.WriteLine("Usage:");
 					Console.WriteLine("\tdebug map [size] [file]");
 					Console.WriteLine("\t\tsize: integer specifying the map radius, from 0;0");

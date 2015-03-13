@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GreatTextAdventures
 {
@@ -12,6 +10,12 @@ namespace GreatTextAdventures
 		public static Map CurrentMap { get; set; }
 		public static Random RNG { get; set; }
 		public static Person Player { get; set; }
+
+		static void Main(string[] args)
+		{
+			GameSystem.Initialize();
+			GameSystem.Loop();
+		}
 
 		public static void Initialize()
 		{
@@ -26,6 +30,9 @@ namespace GreatTextAdventures
 			CurrentMap = new Map();			
 		}
 
+		/// <summary>
+		/// Performs the main game loop
+		/// </summary>
 		public static void Loop()
 		{
 			while(true)
@@ -67,54 +74,45 @@ namespace GreatTextAdventures
 			}
 		}
 
+		/// <summary>
+		/// Asks the user to choose one item out of a list
+		/// </summary>
+		/// <typeparam name="T">The type of items the list contains</typeparam>
+		/// <param name="items">The list to choose from</param>
+		/// <param name="displayNames">The names to present the user with when choosing</param>
+		/// <returns>The item chosen by the user</returns>
 		public static T Choice<T>(IList<T> items, IList<string> displayNames = null)
 		{
+			// Must have items list
 			if (items == null) throw new ArgumentNullException("items");
+			// If no display list is provided, default to "ToString" representation
 			if (displayNames == null) displayNames = items.Select(x => x.ToString()).ToList();
 
-			int page = 0;
-			int maxPages = items.Count / 8;
-
-			while (true)
+			// Display all items to the user
+			for (int i = 0; i < items.Count; i++ )
 			{
-				Console.Clear();
+				Console.WriteLine("{0}. {1}", i + 1, displayNames[i]);
+			}
 
-				for (int i = 0; i < 8; i++)
+			Console.WriteLine();
+			Console.WriteLine("Write input:");
+
+			while(true)
+			{
+				string input = Console.ReadLine();
+				int output;
+
+				if (int.TryParse(input, out output) && output > 0 && output <= items.Count)
 				{
-					// Prevent 'Index out of Bounds'
-					if (items.Count <= (page * 8) + i) break;
-
-					Console.WriteLine("{0}. {1}", i % 9 + 1, displayNames[(page * 8) + i]);
+					return items[output - 1];
 				}
-
-				if (page > 0) Console.WriteLine("9. Previous Page");
-				if (page < maxPages) Console.WriteLine("0. Next Page");
-
-				int selected;
-
-				if (int.TryParse(Console.ReadKey(true).KeyChar.ToString(), out selected))
+				else
 				{
-					if (selected == 0 && page < maxPages)
-					{
-						page++;
-						continue;
-					}
-					else if (selected == 9 && page > 0)
-					{
-						page--;
-						continue;
-					}
-					else if (selected > 0 && selected < 9)
-					{
-						if (page != maxPages)
-						{
-							return items[(page * 8) + selected - 1];
-						}
-						else if (selected <= items.Count % 8)
-						{
-							return items[(page * 8) + selected - 1];
-						}
-					}
+					// Clear the user input, clearing the whole line
+					int currentLineCursor = Console.CursorTop - 1;
+					Console.SetCursorPosition(0, Console.CursorTop - 1);
+					Console.Write(new string(' ', Console.WindowWidth));
+					Console.SetCursorPosition(0, currentLineCursor);
 				}
 			}
 		}

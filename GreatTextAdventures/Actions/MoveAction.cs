@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GreatTextAdventures.Actions
 {
@@ -23,12 +20,14 @@ namespace GreatTextAdventures.Actions
 
 		public override void Do(string action)
 		{
+			// Must have arguments
 			if (string.IsNullOrWhiteSpace(action))
 			{
 				Console.WriteLine("Which direction?");
 				return;
 			}
 
+			// Move to the desired location
 			switch (action)
 			{
 				case "up":
