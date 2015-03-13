@@ -13,8 +13,6 @@ namespace GreatTextAdventures
 		public string Description { get; set; }
 
 		public bool CanTake { get; set; }
-		public bool CanEquip { get; set; } 
-		public ulong Price { get; set; }
 
 		public Item()
 		{
@@ -23,8 +21,6 @@ namespace GreatTextAdventures
 			Description = "SOMETHING BROKE";
 
 			CanTake = false;
-			CanEquip = false;
-			Price = 0;
 		}
 
 		public void Update() { /* ¯\_(ツ)_/¯ */ }

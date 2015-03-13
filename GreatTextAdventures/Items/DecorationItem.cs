@@ -13,7 +13,6 @@ namespace GreatTextAdventures.Items
 		public DecorationItem()
 		{
 			CanTake = false;
-			Price = 0;
 		}
 
 		public static IEnumerable<DecorationItem> Random(int amount)

@@ -13,6 +13,7 @@ namespace GreatTextAdventures.Rooms
 	{
 		public const int MaxDecorations = 3;
 		public const int DecorationChance = 25;
+		public const int LootChance = 5;
 
 		public override bool CanExit { get; set; }
 
@@ -60,6 +61,12 @@ namespace GreatTextAdventures.Rooms
 			if (GameSystem.RNG.Next(0, 101) < DecorationChance)
 			{				
 				room.Members.AddRange(GreatTextAdventures.Items.DecorationItem.Random(GameSystem.RNG.Next(MaxDecorations)));
+			}
+
+			// Add random loot to the room
+			if (GameSystem.RNG.Next(0, 101) < LootChance)
+			{
+				room.Members.Add(Items.LootChestItem.Random());
 			}
 
 			return room;

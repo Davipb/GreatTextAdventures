@@ -56,6 +56,8 @@
     <Compile Include="ILookable.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Items\DecorationItem.cs" />
+    <Compile Include="Items\IContainer.cs" />
+    <Compile Include="Items\LootChestItem.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="Rooms\GenericRoom.cs" />
     <Compile Include="GameSystem.cs" />
+    <Compile Include="Items\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -71,9 +74,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="People\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
