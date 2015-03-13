@@ -14,7 +14,6 @@ namespace GreatTextAdventures
 
 		public int Health { get; set; }
 		public List<Item> Inventory { get; set; }
-		public ulong Currency { get; set; }
 
 		public void Update() { /* ¯\_(ツ)_/¯ */ }
 
@@ -26,7 +25,6 @@ namespace GreatTextAdventures
 
 			Health = 0;
 			Inventory = new List<Item>();
-			Currency = 0;
 		}
 
 		public virtual void Talk()
