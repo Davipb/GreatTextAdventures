@@ -26,6 +26,8 @@ namespace GreatTextAdventures
 			Actions.Add(new Actions.MoveAction());
 			Actions.Add(new Actions.DebugAction());
 			Actions.Add(new Actions.TalkAction());
+			Actions.Add(new Actions.OpenAction());
+			Actions.Add(new Actions.HelpAction());
 
 			CurrentMap = new Map();			
 		}
@@ -69,7 +71,7 @@ namespace GreatTextAdventures
 				// User entered an invalid input
 				if (!didAction)
 				{
-					Console.WriteLine("Unknown action '{0}'", input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]);
+					Console.WriteLine("Unknown action '{0}'. Type 'help' for a list of actions.", input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]);
 				}				
 			}
 		}

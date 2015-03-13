@@ -43,5 +43,12 @@ namespace GreatTextAdventures.Actions
 
 			container.Open();
 		}
+
+		public override void Help()
+		{
+			Console.WriteLine("Open:");
+			Console.WriteLine("\topen *target*");
+			Console.WriteLine("\t\ttarget: What to open");
+		}
 	}
 }

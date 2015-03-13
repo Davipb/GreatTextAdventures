@@ -48,5 +48,13 @@ namespace GreatTextAdventures.Actions
 				}
 			}
 		}
+
+		public override void Help()
+		{
+			Console.WriteLine("Talk:");
+			Console.WriteLine("\ttalk *target*");
+			Console.WriteLine("\ttalk with *target*");
+			Console.WriteLine("\t\ttarget: Who to talk with");
+		}
 	}
 }

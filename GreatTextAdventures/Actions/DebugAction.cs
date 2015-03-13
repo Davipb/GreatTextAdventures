@@ -23,19 +23,14 @@ namespace GreatTextAdventures.Actions
 
 			if (split.Length == 0)
 			{
-				// Show general help
-				Console.WriteLine("Debug:");
-				Console.WriteLine("\tdebug map [size] [file]");
+				// Show help
+				Help();
 			}
 			else if (split[0] == "map")
 			{
 				if (split.Length != 3)
 				{
-					// Show 'map' help
-					Console.WriteLine("Usage:");
-					Console.WriteLine("\tdebug map [size] [file]");
-					Console.WriteLine("\t\tsize: integer specifying the map radius, from 0;0");
-					Console.WriteLine("\t\tfile: file to save the map to");
+					Console.WriteLine("Invalid number of arguments");
 					return;
 				}
 
@@ -58,6 +53,14 @@ namespace GreatTextAdventures.Actions
 					Console.WriteLine("Invalid size '{0}'", split[1]);
 				}								
 			}
+		}
+
+		public override void Help()
+		{
+			Console.WriteLine("Debug:");
+			Console.WriteLine("\tdebug map *size* *file*");
+			Console.WriteLine("\tsize: Radius, centered in 0;0, of the map to show");
+			Console.WriteLine("\tfile: Path of the file where the map will be saved. Can be absolute or relative");
 		}
 	}
 }

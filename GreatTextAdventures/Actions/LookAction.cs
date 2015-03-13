@@ -47,8 +47,15 @@ namespace GreatTextAdventures.Actions
 				{
 					Console.WriteLine(found[0].Description);
 				}
-			}
-			
+			}			
+		}
+
+		public override void Help()
+		{
+			Console.WriteLine("Look:");
+			Console.WriteLine("\tlook *target*");
+			Console.WriteLine("\tlook at *target*");
+			Console.WriteLine("\t\ttarget: Who or What to look at");
 		}
 	}
 }

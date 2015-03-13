@@ -6,5 +6,6 @@ namespace GreatTextAdventures
 	{
 		public abstract IEnumerable<string> Aliases { get; }
 		public abstract void Do(string action);
+		public abstract void Help();
 	}
 }

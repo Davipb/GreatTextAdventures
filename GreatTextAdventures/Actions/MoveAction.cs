@@ -51,5 +51,12 @@ namespace GreatTextAdventures.Actions
 					break;
 			}
 		}
+
+		public override void Help()
+		{
+			Console.WriteLine("Move:");
+			Console.WriteLine("\tmove *direction*");
+			Console.WriteLine("\t\tdirection: Direction to move to. Can be: North/Up, South/Down, East/Right, or West/Left");
+		}
 	}
 }
