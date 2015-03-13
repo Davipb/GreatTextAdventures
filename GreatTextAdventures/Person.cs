@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreatTextAdventures.Items;
+using System;
 using System.Collections.Generic;
 
 namespace GreatTextAdventures
@@ -10,7 +11,7 @@ namespace GreatTextAdventures
 		public string Description { get; set; }
 
 		public int Health { get; set; }
-		public List<Item> Inventory { get; set; }
+		public Weapon EquippedWeapon { get; set; }
 
 		public void Update() { /* ¯\_(ツ)_/¯ */ }
 
@@ -21,7 +22,7 @@ namespace GreatTextAdventures
 			Description = "SOMETHING BROKE";
 
 			Health = 0;
-			Inventory = new List<Item>();
+			EquippedWeapon = null;
 		}
 
 		public virtual void Talk()
