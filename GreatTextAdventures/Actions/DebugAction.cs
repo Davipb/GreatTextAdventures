@@ -53,6 +53,11 @@ namespace GreatTextAdventures.Actions
 					Console.WriteLine("Invalid size '{0}'", split[1]);
 				}								
 			}
+			else if (split[0] == "error")
+			{
+				Console.WriteLine("Throwing exception");
+				throw new Exception("Controlled Exception");
+			}
 		}
 
 		public override void Help()

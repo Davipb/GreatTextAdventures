@@ -13,8 +13,30 @@ namespace GreatTextAdventures
 
 		static void Main(string[] args)
 		{
+#if DEBUG
 			GameSystem.Initialize();
 			GameSystem.Loop();
+#else
+			try
+			{
+				GameSystem.Initialize();
+				GameSystem.Loop();
+			}
+			catch (Exception e)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine();
+				Console.WriteLine("Unexpected error!");
+				Console.WriteLine(e.Message);
+				Console.WriteLine();
+				Console.WriteLine("Press s to show Stack Trace or any other key to exit");
+				if (char.ToLower(Console.ReadKey(true).KeyChar) == 's')
+				{
+					Console.WriteLine(e.StackTrace);
+					Console.ReadKey();
+				}
+			}
+#endif
 		}
 
 		public static void Initialize()
