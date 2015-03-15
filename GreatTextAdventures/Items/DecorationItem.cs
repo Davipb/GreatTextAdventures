@@ -7,11 +7,6 @@ namespace GreatTextAdventures.Items
 {
 	public class DecorationItem : Item
 	{
-		public DecorationItem()
-		{
-			CanTake = false;
-		}
-
 		public static IEnumerable<DecorationItem> Random(int amount)
 		{
 			// Read all possible decorations

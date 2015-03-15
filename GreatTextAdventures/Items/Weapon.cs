@@ -4,11 +4,6 @@
 	{
 		public int Attack { get; set; }
 
-		public Weapon()
-		{
-			CanTake = true;
-		}
-
 		public static Weapon Random()
 		{
 			Weapon result = new Weapon();
