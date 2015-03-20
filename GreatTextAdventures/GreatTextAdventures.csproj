@@ -56,6 +56,7 @@
     <Compile Include="Actions\MoveAction.cs" />
     <Compile Include="Actions\OpenAction.cs" />
     <Compile Include="Actions\TalkAction.cs" />
+    <Compile Include="Actions\WaitAction.cs" />
     <Compile Include="Directions.cs" />
     <Compile Include="ILookable.cs" />
     <Compile Include="Item.cs" />
@@ -83,7 +84,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Items_2DecorationSchema_1json__JSONSchema="http://json-schema.org/draft-04/schema" Items_2Decorations_1json__JSONSchema="DecorationsSchema.json" />
+      <UserProperties Items_2Decorations_1json__JSONSchema="DecorationsSchema.json" Items_2DecorationSchema_1json__JSONSchema="http://json-schema.org/draft-04/schema" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

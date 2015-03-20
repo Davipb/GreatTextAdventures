@@ -52,6 +52,7 @@ namespace GreatTextAdventures
 			Actions.Add(new Actions.HelpAction());
 			Actions.Add(new Actions.EquipAction());
 			Actions.Add(new Actions.AttackAction());
+			Actions.Add(new Actions.WaitAction());
 
 			CurrentMap = new Map();
 
@@ -89,6 +90,7 @@ namespace GreatTextAdventures
 							if (act.Do(input.Substring(alias.Length).Trim()))
 							{
 								CurrentMap.Update();
+								Player.Update();
 							}
 							didAction = true;
 							break;
