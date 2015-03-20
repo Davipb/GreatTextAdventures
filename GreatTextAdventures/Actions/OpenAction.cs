@@ -14,30 +14,15 @@ namespace GreatTextAdventures.Actions
 
 		public override void Do(string action)
 		{
-			List<ILookable> targets = GameSystem.CurrentMap.CurrentRoom.Members.Where(x => x.CodeNames.Contains(action)).ToList();
+			ILookable found = GameSystem.GetMemberWithName(action);
 
-			ILookable selected;
+			if (found == null) return;
 
-			if (targets.Count == 0)
-			{
-				Console.WriteLine("There is no '{0}'", action);
-				return;
-			}
-			else if (targets.Count > 1)
-			{
-				Console.WriteLine("There are multiple '{0}'. Please specify:", action);
-				selected = GameSystem.Choice<ILookable>(targets, targets.Select(x => x.DisplayName).ToList());
-			}
-			else
-			{
-				selected = targets[0];
-			}
-
-			IContainer container = selected as IContainer;
+			IContainer container = found as IContainer;
 
 			if (container == null)
 			{
-				Console.WriteLine("You can't open '{0}'", selected.DisplayName);
+				Console.WriteLine("You can't open '{0}'", found.DisplayName);
 				return;
 			}
 

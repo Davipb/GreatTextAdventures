@@ -32,21 +32,11 @@ namespace GreatTextAdventures.Actions
 			else
 			{
 				// Get all the items or creatures with the codename 'action'
-				IList<ILookable> found = GameSystem.CurrentMap.CurrentRoom.Members.Where(x => x.CodeNames.Contains(action)).ToList();
+				ILookable found = GameSystem.GetMemberWithName(action);
 
-				if (found.Count == 0)
-				{
-					Console.WriteLine("There is no '{0}'.", action);
-				}
-				else if (found.Count > 1)
-				{
-					ILookable chosen = GameSystem.Choice<ILookable>(found, found.Select(x => x.DisplayName).ToList());
-					Console.WriteLine(chosen.Description);
-				}
-				else
-				{
-					Console.WriteLine(found[0].Description);
-				}
+				if (found == null) return;
+
+				Console.WriteLine(found.Description);
 			}			
 		}
 

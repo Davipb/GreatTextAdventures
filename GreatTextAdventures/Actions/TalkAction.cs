@@ -30,22 +30,19 @@ namespace GreatTextAdventures.Actions
 			else
 			{
 				// Find all people with 'action' code name
-				IList<Person> found = GameSystem.CurrentMap.CurrentRoom.Members.Where(x => x is Person && x.CodeNames.Contains(action)).Select(x => (Person)x).ToList();
+				ILookable found = GameSystem.GetMemberWithName(action);
 
-				if (found.Count == 0)
+				if (found == null) return;
+
+				Person person = found as Person;
+
+				if (person == null)
 				{
-					Console.WriteLine("There is no '{0}'", action);
+					Console.WriteLine("You can't talk with {0}", found.DisplayName);
+					return;
 				}
-				else if (found.Count > 1)
-				{
-					Console.WriteLine("There are multiple '{0}'. Please specify:");
-					Person chosen = GameSystem.Choice<Person>(found, found.Select(x => x.DisplayName).ToList());
-					chosen.Talk();
-				}
-				else
-				{
-					found[0].Talk();
-				}
+
+				person.Talk();
 			}
 		}
 
