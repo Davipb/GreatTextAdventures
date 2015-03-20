@@ -31,12 +31,25 @@ namespace GreatTextAdventures.Actions
 			}
 			else
 			{
-				// Get all the items or creatures with the codename 'action'
 				ILookable found = GameSystem.GetMemberWithName(action);
 
+				// Exit if input is invalid (nothing found)
 				if (found == null) return;
 
 				Console.WriteLine(found.Description);
+
+				// Write additional information based on the object's nature
+
+				Person person = found as Person;
+				if (person != null)
+				{
+					Console.WriteLine("Health: {0}", person.Health);
+
+					if (person.EquippedWeapon != null)
+						Console.WriteLine("Weapon: {0} ({1})", person.EquippedWeapon.DisplayName, person.EquippedWeapon.Attack);
+					else
+						Console.WriteLine("Weapon: None");
+				}
 			}			
 		}
 
