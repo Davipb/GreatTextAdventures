@@ -50,6 +50,7 @@ namespace GreatTextAdventures
 			Actions.Add(new Actions.TalkAction());
 			Actions.Add(new Actions.OpenAction());
 			Actions.Add(new Actions.HelpAction());
+			Actions.Add(new Actions.EquipAction());
 
 			CurrentMap = new Map();			
 		}
@@ -138,6 +139,29 @@ namespace GreatTextAdventures
 					Console.Write(new string(' ', Console.WindowWidth));
 					Console.SetCursorPosition(0, currentLineCursor);
 				}
+			}
+		}
+
+		public static ILookable GetMemberWithName(string name)
+		{
+			IList<ILookable> found = (from item in CurrentMap.CurrentRoom.Members
+									  where item.CodeNames.Contains(name)
+									  select item)
+									 .ToList();
+
+			if (found.Count == 0)
+			{
+				Console.WriteLine("There is no '{0}'", name);
+				return null;
+			}
+			else if (found.Count > 1)
+			{
+				Console.WriteLine("There are multiple '{0}'. Please specify.");
+				return Choice<ILookable>(found, found.Select(x => x.DisplayName).ToList());
+			}
+			else
+			{
+				return found[0];
 			}
 		}
 	}
