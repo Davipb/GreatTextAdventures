@@ -13,6 +13,7 @@ namespace GreatTextAdventures
 
 		static void Main(string[] args)
 		{
+			Console.Title = "Great Text Adventures";
 #if DEBUG
 			GameSystem.Initialize();
 			GameSystem.Loop();
