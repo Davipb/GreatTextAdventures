@@ -13,7 +13,7 @@ namespace GreatTextAdventures
 		public int Health { get; set; }
 		public Weapon EquippedWeapon { get; set; }
 
-		public void Update() { /* ¯\_(ツ)_/¯ */ }
+		public virtual void Update() { /* ¯\_(ツ)_/¯ */ }
 
 		public Person()
 		{
