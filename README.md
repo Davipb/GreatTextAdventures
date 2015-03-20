@@ -17,6 +17,6 @@ If you want to contribute, though, just send me a pull request!
 	- [ ] Random loot
 	- [ ] Random creatures
 - Combat & Items
-	- [ ] Equipment *(WIP)*
+	- [x] Equipment
 	- [ ] Damage
 	- [ ] AI
