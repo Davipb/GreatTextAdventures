@@ -1,0 +1,19 @@
+﻿{
+	"Names":
+	[
+		"Buster",
+		"Rapier",
+		"Rod",
+		"Knuckles"
+	],
+
+	"Modifiers":	
+	[
+		[ "Terrible", -10 ],
+		[ "Bad", -5 ],
+		[ "Used", -1 ],
+		[ "Sharpened", 1 ],
+		[ "Blessed", 5 ],
+		[ "Masterful", 10 ]
+	]
+}
