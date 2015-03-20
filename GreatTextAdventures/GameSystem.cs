@@ -52,7 +52,9 @@ namespace GreatTextAdventures
 			Actions.Add(new Actions.HelpAction());
 			Actions.Add(new Actions.EquipAction());
 
-			CurrentMap = new Map();			
+			CurrentMap = new Map();
+
+			Player = new PlayerPerson();
 		}
 
 		/// <summary>
@@ -146,8 +148,10 @@ namespace GreatTextAdventures
 		{
 			IList<ILookable> found = (from item in CurrentMap.CurrentRoom.Members
 									  where item.CodeNames.Contains(name)
-									  select item)
+									  select item)									  
 									 .ToList();
+
+			if (Player.CodeNames.Contains(name)) found.Add(Player);
 
 			if (found.Count == 0)
 			{
