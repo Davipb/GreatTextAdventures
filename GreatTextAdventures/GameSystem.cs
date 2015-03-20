@@ -69,6 +69,7 @@ namespace GreatTextAdventures
 				Console.WriteLine();
 				Console.Write("> ");
 
+				// Standardize all input to trimmed lowercase
 				string input = Console.ReadLine().Trim().ToLowerInvariant();
 
 				// Beautification
@@ -84,8 +85,11 @@ namespace GreatTextAdventures
 					{
 						if (input.StartsWith(alias))
 						{
-							// If there's a valid action, invoke it and set the flag
-							act.Do(input.Substring(alias.Length).Trim());
+							// If the action allows it, update the game
+							if (act.Do(input.Substring(alias.Length).Trim()))
+							{
+								CurrentMap.Update();
+							}
 							didAction = true;
 							break;
 						}

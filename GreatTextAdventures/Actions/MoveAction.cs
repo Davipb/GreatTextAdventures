@@ -18,13 +18,13 @@ namespace GreatTextAdventures.Actions
 			}
 		}
 
-		public override void Do(string action)
+		public override bool Do(string action)
 		{
 			// Must have arguments
 			if (string.IsNullOrWhiteSpace(action))
 			{
 				Console.WriteLine("Which direction?");
-				return;
+				return false;
 			}
 
 			// Move to the desired location
@@ -50,6 +50,8 @@ namespace GreatTextAdventures.Actions
 					Console.WriteLine("Unknown direction '{0}'", action);
 					break;
 			}
+
+			return true;
 		}
 
 		public override void Help()

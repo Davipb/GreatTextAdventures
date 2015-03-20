@@ -10,13 +10,13 @@ namespace GreatTextAdventures.Actions
 			get { yield return "debug"; }
 		}
 
-		public override void Do(string action)
+		public override bool Do(string action)
 		{
 			// Arguments are obligatory
 			if (string.IsNullOrWhiteSpace(action))
 			{
 				Console.WriteLine("Invalid command");
-				return;
+				return false;
 			}
 
 			string[] split = action.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -31,7 +31,7 @@ namespace GreatTextAdventures.Actions
 				if (split.Length != 3)
 				{
 					Console.WriteLine("Invalid number of arguments");
-					return;
+					return false;
 				}
 
 				int size;
@@ -58,6 +58,8 @@ namespace GreatTextAdventures.Actions
 				Console.WriteLine("Throwing exception");
 				throw new Exception("Controlled Exception");
 			}
+
+			return false;
 		}
 
 		public override void Help()

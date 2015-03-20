@@ -12,21 +12,23 @@ namespace GreatTextAdventures.Actions
 			get { yield return "open"; }
 		}
 
-		public override void Do(string action)
+		public override bool Do(string action)
 		{
 			ILookable found = GameSystem.GetMemberWithName(action);
 
-			if (found == null) return;
+			if (found == null) return false;
 
 			IContainer container = found as IContainer;
 
 			if (container == null)
 			{
 				Console.WriteLine("You can't open '{0}'", found.DisplayName);
-				return;
+				return false;
 			}
 
 			container.Open();
+
+			return true;
 		}
 
 		public override void Help()

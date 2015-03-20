@@ -17,29 +17,31 @@ namespace GreatTextAdventures.Actions
 			}
 		}
 
-		public override void Do(string action)
+		public override bool Do(string action)
 		{
 			if (string.IsNullOrWhiteSpace(action))
 			{				
 				Console.WriteLine("Attack what?");
-				return;
+				return false;
 			}
 
 			ILookable found = GameSystem.GetMemberWithName(action);
 
 			// Exit if input is invalid (nothing found)
-			if (found == null) return;
+			if (found == null) return false;
 
 			Person person = found as Person;
 
 			if (person == null)
 			{
 				Console.WriteLine("You can't attack {0}", found.DisplayName);
-				return;
+				return false;
 			}
 
 			person.Health -= GameSystem.Player.EquippedWeapon.Attack;
 			Console.WriteLine("Attacked {0} for {1} damage.", person.DisplayName, GameSystem.Player.EquippedWeapon.Attack);
+
+			return true;
 		}
 
 		public override void Help()

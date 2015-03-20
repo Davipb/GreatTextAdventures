@@ -17,25 +17,25 @@ namespace GreatTextAdventures.Actions
 			}
 		}
 
-		public override void Do(string action)
+		public override bool Do(string action)
 		{
 			if (string.IsNullOrWhiteSpace(action))
 			{
 				Console.WriteLine("Equip what?");
-				return;
+				return false;
 			}
 
 			ILookable found = GameSystem.GetMemberWithName(action);
 
 			// If no items were found, return
-			if (found == null) return;
+			if (found == null) return false;
 
 			Items.Weapon weapon = found as Items.Weapon;
 
 			if (weapon == null)
 			{
 				Console.WriteLine("You can't equip {0}", found.DisplayName);
-				return;
+				return false;
 			}
 
 			// Drop the currently equipped weapon
@@ -57,6 +57,8 @@ namespace GreatTextAdventures.Actions
 
 			// Warn the player
 			Console.WriteLine("You equipped {0}", GameSystem.Player.EquippedWeapon.DisplayName);
+
+			return true;
 		}
 
 		public override void Help()

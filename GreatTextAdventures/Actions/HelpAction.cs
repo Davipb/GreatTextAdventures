@@ -12,7 +12,7 @@ namespace GreatTextAdventures.Actions
 			get { yield return "help"; }
 		}
 
-		public override void Do(string action)
+		public override bool Do(string action)
 		{
 			if (string.IsNullOrEmpty(action))
 			{
@@ -31,7 +31,7 @@ namespace GreatTextAdventures.Actions
 					Console.WriteLine(sb);
 				}
 
-				return;
+				return false;
 			}
 
 			foreach(Action a in GameSystem.Actions)
@@ -39,11 +39,13 @@ namespace GreatTextAdventures.Actions
 				if (a.Aliases.Contains(action))
 				{
 					a.Help();
-					return;
+					return false;
 				}
 			}
 
 			Console.WriteLine("Unknown action '{0}'. Type only 'help' for a list of actions.", action);
+
+			return false;
 		}
 
 		public override void Help()

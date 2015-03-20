@@ -8,14 +8,14 @@ namespace GreatTextAdventures.Actions
 	{
 		public override IEnumerable<string> Aliases
 		{
-			get 
-			{ 
+			get
+			{
 				yield return "talk";
 				yield return "speak";
 			}
 		}
 
-		public override void Do(string action)
+		public override bool Do(string action)
 		{
 			if (action.StartsWith("with"))
 			{
@@ -26,24 +26,25 @@ namespace GreatTextAdventures.Actions
 			if (string.IsNullOrWhiteSpace(action))
 			{
 				Console.WriteLine("Talk with who?");
+				return false;
 			}
-			else
+
+			// Find all people with 'action' code name
+			ILookable found = GameSystem.GetMemberWithName(action);
+
+			if (found == null) return false;
+
+			Person person = found as Person;
+
+			if (person == null)
 			{
-				// Find all people with 'action' code name
-				ILookable found = GameSystem.GetMemberWithName(action);
-
-				if (found == null) return;
-
-				Person person = found as Person;
-
-				if (person == null)
-				{
-					Console.WriteLine("You can't talk with {0}", found.DisplayName);
-					return;
-				}
-
-				person.Talk();
+				Console.WriteLine("You can't talk with {0}", found.DisplayName);
+				return false;
 			}
+
+			person.Talk();
+
+			return true;
 		}
 
 		public override void Help()

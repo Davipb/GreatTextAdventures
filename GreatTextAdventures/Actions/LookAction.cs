@@ -16,7 +16,7 @@ namespace GreatTextAdventures.Actions
 			}
 		}
 
-		public override void Do(string action)
+		public override bool Do(string action)
 		{
 			if (action.StartsWith("at"))
 			{
@@ -34,7 +34,7 @@ namespace GreatTextAdventures.Actions
 				ILookable found = GameSystem.GetMemberWithName(action);
 
 				// Exit if input is invalid (nothing found)
-				if (found == null) return;
+				if (found == null) return false;
 
 				Console.WriteLine(found.Description);
 
@@ -50,7 +50,9 @@ namespace GreatTextAdventures.Actions
 					else
 						Console.WriteLine("Weapon: None");
 				}
-			}			
+			}
+
+			return false;
 		}
 
 		public override void Help()
