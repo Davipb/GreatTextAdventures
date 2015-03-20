@@ -14,7 +14,7 @@ namespace GreatTextAdventures
 			CodeNames = new[] { "self", "me" };
 			Description = "How can a being describe oneself? Is there such thing as existence?";
 
-			Health = 100;
+			Health = 20;
 			EquippedWeapon = Items.Weapon.Random();
 		}
 

@@ -102,7 +102,18 @@ namespace GreatTextAdventures
 				if (!didAction)
 				{
 					Console.WriteLine("Unknown action '{0}'. Type 'help' for a list of actions.", input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]);
-				}				
+				}
+			
+				// Check for player death
+				if (Player.Health <= 0)
+				{
+					Console.WriteLine();
+					Console.WriteLine("*****YOU HAVE DIED*****");
+					Console.WriteLine();
+					Console.WriteLine("Press any key to exit");
+					Console.ReadKey();
+					break;
+				}
 			}
 		}
 

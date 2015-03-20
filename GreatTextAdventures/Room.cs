@@ -39,7 +39,10 @@ namespace GreatTextAdventures
 
 		public virtual void Update() 
 		{
-			Members.ForEach(x => x.Update());
+			// Clone the list so the original can be manipulated without generating errors
+			List<ILookable> clone = new List<ILookable>(Members);
+
+			clone.ForEach(x => x.Update());
 		}
 	}	
 }

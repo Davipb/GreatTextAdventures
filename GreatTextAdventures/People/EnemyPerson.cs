@@ -22,6 +22,8 @@ namespace GreatTextAdventures.People
 		{
 			base.Update();
 
+			if (Health <= 0) return;
+
 			Console.WriteLine("{0} attacks you for {1} damage", DisplayName, EquippedWeapon.Attack);
 			GameSystem.Player.Health -= EquippedWeapon.Attack;
 		}
