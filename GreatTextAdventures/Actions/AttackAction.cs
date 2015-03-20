@@ -39,6 +39,7 @@ namespace GreatTextAdventures.Actions
 			}
 
 			person.Health -= GameSystem.Player.EquippedWeapon.Attack;
+			Console.WriteLine("Attacked {0} for {1} damage.", person.DisplayName, GameSystem.Player.EquippedWeapon.Attack);
 		}
 
 		public override void Help()
