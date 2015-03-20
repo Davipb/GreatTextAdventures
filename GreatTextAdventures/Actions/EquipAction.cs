@@ -61,8 +61,9 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("equip *item*");
-			Console.WriteLine("\titem: The item to equip");
+			Console.WriteLine("Equip:");
+			Console.WriteLine("\tequip *item*");
+			Console.WriteLine("\t\titem: Item to equip");
 		}
 	}
 }
