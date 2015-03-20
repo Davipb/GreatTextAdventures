@@ -4,30 +4,29 @@ using System.Linq;
 
 namespace GreatTextAdventures.Items
 {
-	public class LootChestItem : Item, IContainer
+	public class LootChestItem : ILookable, IContainer
 	{
-		public IList<Item> Items { get; set; }
-		bool opened = false;
+		public string DisplayName { get { return "Chest"; } }
+		public string Description { get { return "A large wooden chest begging to be opened. What are you waiting for?"; } }
+		public IEnumerable<string> CodeNames
+		{
+			get
+			{
+				yield return "chest";
+				yield return "box";
+			}
+		}
+
+		public IList<ILookable> Content { get; set; }
 
 		public LootChestItem()
 		{
-			DisplayName = "chest";
-			CodeNames = new[] { "chest", "box" };
-			Description = "A wooden chest begging to be opened. What are you waiting for?";
-			Items = new List<Item>();
+			Content = new List<ILookable>();
 		}
 
 		public void Open()
 		{
-			if (opened)
-			{
-				Console.WriteLine("You've already emptied it");
-				return;
-			}
-
-			opened = true;
-
-			if (Items == null || !Items.Any())
+			if (Content == null || !Content.Any())
 			{
 				Console.WriteLine("It's empty.");				
 				return;
@@ -35,11 +34,13 @@ namespace GreatTextAdventures.Items
 
 			Console.Write("Inside the chest you find: ");
 
-			foreach (var item in Items)
+			foreach (var item in Content)
 			{
 				Console.Write(item.DisplayName + ", ");
-				GameSystem.CurrentMap.CurrentRoom.Members.Add(item);
+				GameSystem.CurrentMap.CurrentRoom.Members.Add(item);				
 			}
+
+			Content.Clear();
 
 			Console.WriteLine();
 		}
@@ -47,9 +48,11 @@ namespace GreatTextAdventures.Items
 		public static LootChestItem Random()
 		{
 			LootChestItem result = new LootChestItem();
-			result.Items.Add(Weapon.Random());
+			result.Content.Add(Weapon.Random());
 
 			return result;
 		}
+
+		public void Update() { /* ¯\_(ツ)_/¯ */ }
 	}
 }

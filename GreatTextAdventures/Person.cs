@@ -1,14 +1,28 @@
 ﻿using GreatTextAdventures.Items;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace GreatTextAdventures
 {
 	public abstract class Person : ILookable
 	{
-		public string DisplayName { get; set; }
-		public IEnumerable<string> CodeNames { get; set; }
-		public string Description { get; set; }
+		public abstract string DisplayName { get; }
+		public abstract IEnumerable<string> CodeNames { get; }
+
+		public string Description 
+		{ 
+			get
+			{
+				StringBuilder sb = new StringBuilder();
+				sb.AppendLine(DisplayName);
+				sb.AppendFormat("Health: {0}", Health);
+				sb.AppendLine();
+				sb.AppendFormat("Weapon: {0}", EquippedWeapon == null ? "None" : EquippedWeapon.DisplayName);
+
+				return sb.ToString();				
+			}
+		}
 
 		private int health;
 		public int Health
@@ -26,7 +40,7 @@ namespace GreatTextAdventures
 
 				if (EquippedWeapon != null)
 				{
-					Console.WriteLine("{0} dropped {1} ({2})", DisplayName, EquippedWeapon.DisplayName, EquippedWeapon.Attack);
+					Console.WriteLine("{0} dropped {1}", DisplayName, EquippedWeapon.DisplayName, EquippedWeapon.Attack);
 
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(EquippedWeapon);
 					EquippedWeapon = null;
@@ -38,10 +52,6 @@ namespace GreatTextAdventures
 
 		public Person()
 		{
-			DisplayName = "ERROR";
-			CodeNames = new[] { "error" };
-			Description = "SOMETHING BROKE";
-
 			Health = 0;
 			EquippedWeapon = null;
 		}

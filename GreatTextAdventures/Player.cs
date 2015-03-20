@@ -8,13 +8,22 @@ namespace GreatTextAdventures
 {
 	public class PlayerPerson : Person
 	{
+		public override string DisplayName
+		{
+			get { return "You"; }
+		}
+		public override IEnumerable<string> CodeNames
+		{
+			get
+			{
+				yield return "self";
+				yield return "me";
+			}
+		}
+
 		public PlayerPerson()
 		{
-			DisplayName = "You";
-			CodeNames = new[] { "self", "me" };
-			Description = "How can a being describe oneself? Is there such thing as existence?";
-
-			Health = 20;
+			Health = 100;
 			EquippedWeapon = Items.Weapon.Random();
 		}
 

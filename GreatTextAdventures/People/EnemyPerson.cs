@@ -8,12 +8,17 @@ namespace GreatTextAdventures.People
 {
 	public class EnemyPerson : Person
 	{
+		public override string DisplayName
+		{
+			get { return "Debug Enemy"; }
+		}
+		public override IEnumerable<string> CodeNames
+		{
+			get { yield return "enemy"; }
+		}
+
 		public EnemyPerson()
 		{
-			DisplayName = "Enemy";
-			CodeNames = new[] { "enemy" };
-			Description = "DEBUG ENEMY";
-
 			Health = 20;
 			EquippedWeapon = Items.Weapon.Random();
 		}

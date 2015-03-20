@@ -5,6 +5,6 @@ namespace GreatTextAdventures.Items
 	public interface IContainer
 	{
 		void Open();
-		IList<Item> Items { get; set; }
+		IList<ILookable> Content { get; set; }
 	}
 }

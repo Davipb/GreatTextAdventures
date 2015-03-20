@@ -37,19 +37,6 @@ namespace GreatTextAdventures.Actions
 				if (found == null) return false;
 
 				Console.WriteLine(found.Description);
-
-				// Write additional information based on the object's nature
-
-				Person person = found as Person;
-				if (person != null)
-				{
-					Console.WriteLine("Health: {0}", person.Health);
-
-					if (person.EquippedWeapon != null)
-						Console.WriteLine("Weapon: {0} ({1})", person.EquippedWeapon.DisplayName, person.EquippedWeapon.Attack);
-					else
-						Console.WriteLine("Weapon: None");
-				}
 			}
 
 			return false;

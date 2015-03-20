@@ -5,8 +5,12 @@ using System.Linq;
 
 namespace GreatTextAdventures.Items
 {
-	public class DecorationItem : Item
+	public class DecorationItem : ILookable
 	{
+		public string DisplayName { get; set; }
+		public string Description { get; set; }
+		public IEnumerable<string> CodeNames { get; set; }
+
 		public static IEnumerable<DecorationItem> Random(int amount)
 		{
 			// Read all possible decorations
@@ -27,5 +31,7 @@ namespace GreatTextAdventures.Items
 				yield return result;
 			}			
 		}
+
+		public void Update() { /* ¯\_(ツ)_/¯ */ }
 	}
 }
