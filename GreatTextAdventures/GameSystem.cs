@@ -51,6 +51,7 @@ namespace GreatTextAdventures
 			Actions.Add(new Actions.OpenAction());
 			Actions.Add(new Actions.HelpAction());
 			Actions.Add(new Actions.EquipAction());
+			Actions.Add(new Actions.AttackAction());
 
 			CurrentMap = new Map();
 
