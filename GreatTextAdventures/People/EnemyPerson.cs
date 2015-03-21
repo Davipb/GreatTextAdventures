@@ -20,8 +20,9 @@ namespace GreatTextAdventures.People
 			get { yield return "enemy"; }
 		}
 
-		public EnemyPerson()
+		public EnemyPerson(int level)
 		{
+			Level = level;
 			Health = 20;
 			EquippedWeapon = Items.Weapon.Random(this.Level);
 		}
