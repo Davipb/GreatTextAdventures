@@ -14,9 +14,11 @@ If you want to contribute, though, just send me a pull request!
 - Random room generation
 	- [x] Basic room connection
 	- [x] Random room decorations
-	- [ ] Random loot
+	- [x] Random loot
 	- [ ] Random creatures
 - Combat & Items
 	- [x] Equipment
-	- [ ] Damage
-	- [ ] AI
+	- [x] Damage
+	- [x] Experience & Leveling
+	- [ ] AI *(WIP)*
+	- [ ] Blacksmithing
