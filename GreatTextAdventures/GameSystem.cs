@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using GreatTextAdventures.People;
+using GreatTextAdventures.Actions;
+using GreatTextAdventures.Items;
+using GreatTextAdventures.Rooms;
+
 namespace GreatTextAdventures
 {
 	public static class GameSystem
 	{
-		public static List<Action> Actions { get; set; }
+		public static List<GameAction> Actions { get; set; }
 		public static Map CurrentMap { get; set; }
 		public static Random RNG { get; set; }
 		public static Person Player { get; set; }
@@ -44,16 +49,16 @@ namespace GreatTextAdventures
 		{
 			RNG = new Random();
 
-			Actions = new List<Action>();
-			Actions.Add(new Actions.LookAction());
-			Actions.Add(new Actions.MoveAction());
-			Actions.Add(new Actions.DebugAction());
-			Actions.Add(new Actions.TalkAction());
-			Actions.Add(new Actions.OpenAction());
-			Actions.Add(new Actions.HelpAction());
-			Actions.Add(new Actions.EquipAction());
-			Actions.Add(new Actions.AttackAction());
-			Actions.Add(new Actions.WaitAction());
+			Actions = new List<GameAction>();
+			Actions.Add(new LookAction());
+			Actions.Add(new MoveAction());
+			Actions.Add(new DebugAction());
+			Actions.Add(new TalkAction());
+			Actions.Add(new OpenAction());
+			Actions.Add(new HelpAction());
+			Actions.Add(new EquipAction());
+			Actions.Add(new AttackAction());
+			Actions.Add(new WaitAction());
 
 			Player = new PlayerPerson();
 
@@ -183,7 +188,7 @@ namespace GreatTextAdventures
 			}
 			else if (found.Count > 1)
 			{
-				Console.WriteLine("There are multiple '{0}'. Please specify.");
+				Console.WriteLine("There are multiple '{0}'. Please specify.", name);
 				return Choice<ILookable>(found, found.Select(x => x.DisplayName).ToList());
 			}
 			else

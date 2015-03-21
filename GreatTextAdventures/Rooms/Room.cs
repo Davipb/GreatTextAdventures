@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace GreatTextAdventures
+namespace GreatTextAdventures.Rooms
 {
 	public abstract class Room
 	{
@@ -11,7 +11,7 @@ namespace GreatTextAdventures
 
 		public virtual string Describe()
 		{
-			StringBuilder sb = new StringBuilder("a room. ");
+			StringBuilder sb = new StringBuilder("You are in a room. ");
 
 			if (Exits != Directions.None)
 			{
@@ -31,7 +31,6 @@ namespace GreatTextAdventures
 				}
 
 				sb.Remove(sb.Length - 2, 2);
-				sb.Append(". ");
 			}
 
 			return sb.ToString();

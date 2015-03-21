@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace GreatTextAdventures.Actions
 {
-	public class OpenAction : Action
+	public class OpenAction : GameAction
 	{
 		public override IEnumerable<string> Aliases
 		{

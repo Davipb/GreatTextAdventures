@@ -13,7 +13,7 @@ namespace GreatTextAdventures.Items
 				if (Content == null || !Content.Any())
 					return "Chest (empty)";
 				else
-					return "Chest";
+					return string.Format("Chest ({0} items)", Content.Count);
 			} 
 		}
 		public string Description { get { return "A large wooden chest begging to be opened. What are you waiting for?"; } }

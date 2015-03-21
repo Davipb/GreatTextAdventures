@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 
+using GreatTextAdventures.Rooms;
+
 namespace GreatTextAdventures
 {
 	public class Map

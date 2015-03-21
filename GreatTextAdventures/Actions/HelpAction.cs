@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GreatTextAdventures.Actions
 {
-	public class HelpAction : Action
+	public class HelpAction : GameAction
 	{
 		public override IEnumerable<string> Aliases
 		{
@@ -17,7 +17,7 @@ namespace GreatTextAdventures.Actions
 			if (string.IsNullOrEmpty(action))
 			{
 				Console.WriteLine("List of actions, grouped per line (actions in the same group have the same function):");
-				foreach(Action a in GameSystem.Actions)
+				foreach(GameAction a in GameSystem.Actions)
 				{
 					StringBuilder sb = new StringBuilder();
 
@@ -34,7 +34,7 @@ namespace GreatTextAdventures.Actions
 				return false;
 			}
 
-			foreach(Action a in GameSystem.Actions)
+			foreach(GameAction a in GameSystem.Actions)
 			{
 				if (a.Aliases.Contains(action))
 				{
@@ -52,7 +52,7 @@ namespace GreatTextAdventures.Actions
 		{
 			Console.WriteLine("Help:");
 			Console.WriteLine("\thelp *action*");
-			Console.WriteLine("\t\taction: Action to get help with");
+			Console.WriteLine("\t\taction: GameAction to get help with");
 		}
 	}
 }

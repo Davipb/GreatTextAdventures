@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreatTextAdventures.Actions
 {
-	public class WaitAction : Action
+	public class WaitAction : GameAction
 	{
 		public override IEnumerable<string> Aliases
 		{

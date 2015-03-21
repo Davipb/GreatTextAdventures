@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using GreatTextAdventures.People;
+
 namespace GreatTextAdventures.Actions
 {
-	public class AttackAction : Action
+	public class AttackAction : GameAction
 	{
 		public override IEnumerable<string> Aliases
 		{

@@ -9,7 +9,7 @@ namespace GreatTextAdventures.Items
 {
 	public class Weapon : ILookable
 	{
-		public string DisplayName { get { return string.Format("{0} {1} ({2})", nameModifier, name, Attack); } }
+		public string DisplayName { get { return string.Format("{0} {1} (Atk {2})", nameModifier, name, Attack); } }
 		public string Description { get { throw new NotImplementedException(); } }
 		public IEnumerable<string> CodeNames { get { yield return name.ToLowerInvariant(); } }
 

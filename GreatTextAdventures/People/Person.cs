@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GreatTextAdventures
+namespace GreatTextAdventures.People
 {
 	public abstract class Person : ILookable
 	{
@@ -32,8 +32,10 @@ namespace GreatTextAdventures
 		public int Health
 		{
 			get { return health; }
-			set { health = Math.Max(value, 0); }
+			set { health = Math.Max(0, Math.Min(MaxHealth, value)); }
 		}
+
+		public abstract int MaxHealth { get; }
 
 		public Weapon EquippedWeapon { get; set; }
 
@@ -80,12 +82,6 @@ namespace GreatTextAdventures
 
 				GameSystem.CurrentMap.CurrentRoom.Members.Remove(this);
 			}
-		}
-
-		public Person()
-		{
-			Health = 0;
-			EquippedWeapon = null;
 		}
 
 		public virtual void Talk()

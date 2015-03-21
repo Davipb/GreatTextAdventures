@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action.cs" />
+    <Compile Include="Actions\Action.cs" />
     <Compile Include="Actions\AttackAction.cs" />
     <Compile Include="Actions\DebugAction.cs" />
     <Compile Include="Actions\EquipAction.cs" />
@@ -64,10 +64,10 @@
     <Compile Include="Items\LootChestItem.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="People\EnemyPerson.cs" />
-    <Compile Include="Person.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="People\Person.cs" />
+    <Compile Include="People\PlayerPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Room.cs" />
+    <Compile Include="Rooms\Room.cs" />
     <Compile Include="Rooms\GenericRoom.cs" />
     <Compile Include="GameSystem.cs" />
     <Compile Include="Items\Weapon.cs" />
@@ -86,7 +86,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Items_2DecorationSchema_1json__JSONSchema="http://json-schema.org/draft-04/schema" Items_2Decorations_1json__JSONSchema="" />
+      <UserProperties Items_2Decorations_1json__JSONSchema="" Items_2DecorationSchema_1json__JSONSchema="http://json-schema.org/draft-04/schema" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

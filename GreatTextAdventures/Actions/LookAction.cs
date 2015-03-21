@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GreatTextAdventures.Actions
 {
-	public class LookAction : Action
+	public class LookAction : GameAction
 	{
 		public override IEnumerable<string> Aliases
 		{
@@ -27,7 +27,7 @@ namespace GreatTextAdventures.Actions
 			if (string.IsNullOrWhiteSpace(action) || action == "around" || action == "room")
 			{
 				// Just look at the room, in general
-				Console.WriteLine("You are in a {0}", GameSystem.CurrentMap.CurrentRoom.Describe());
+				Console.WriteLine(GameSystem.CurrentMap.CurrentRoom.Describe());
 			}
 			else
 			{

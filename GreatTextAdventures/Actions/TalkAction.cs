@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using GreatTextAdventures.People;
+
 namespace GreatTextAdventures.Actions
 {
-	public class TalkAction : Action
+	public class TalkAction : GameAction
 	{
 		public override IEnumerable<string> Aliases
 		{

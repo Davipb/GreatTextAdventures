@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GreatTextAdventures.Actions
 {
-	public class DebugAction : Action
+	public class DebugAction : GameAction
 	{
 		public override IEnumerable<string> Aliases
 		{

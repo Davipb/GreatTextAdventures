@@ -37,7 +37,7 @@
 	},
 	{
 		"DisplayName": [ "Crushed door", "Ruined door", "Buried door" ],
-		"CodeNames": [ "door" ],
+		"CodeNames": [ "door", "crushed door", "ruined door", "buried door" ],
 		"Description":		
 		[
 			"The door is surrounded by rubble and doesn't even budge",

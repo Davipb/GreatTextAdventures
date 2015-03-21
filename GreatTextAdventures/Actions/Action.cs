@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace GreatTextAdventures
+namespace GreatTextAdventures.Actions
 {
-	public abstract class Action
+	public abstract class GameAction
 	{
 		/// <summary>
 		/// All possible names this action will respond to
@@ -11,7 +11,7 @@ namespace GreatTextAdventures
 		/// <summary>
 		/// Performs the action
 		/// </summary>
-		/// <param name="action">Action's parameters</param>
+		/// <param name="action">GameAction's parameters</param>
 		/// <returns>Should the game update?</returns>
 		public abstract bool Do(string action);
 		/// <summary>

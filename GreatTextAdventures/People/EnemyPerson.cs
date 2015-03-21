@@ -15,17 +15,21 @@ namespace GreatTextAdventures.People
 
 		public override string DisplayName
 		{
-			get { return string.Format("Debug Enemy (Lv {0})", Level); }
+			get { return string.Format("Enemy (Lv {0})", Level); }
 		}
 		public override IEnumerable<string> CodeNames
 		{
 			get { yield return "enemy"; }
 		}
-
-		public EnemyPerson(int level)
+		public override int MaxHealth
 		{
+			get { return HealthMinimum + (Level - 1) * HealthPerLevel; }
+		}
+
+		public EnemyPerson(int level) : base()
+		{			
 			Level = level;
-			Health = HealthMinimum + (Level - 1) * HealthPerLevel;
+			Health = MaxHealth;
 			EquippedWeapon = Items.Weapon.Random(this.Level);
 		}
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreatTextAdventures
+namespace GreatTextAdventures.People
 {
 	public class PlayerPerson : Person
 	{
@@ -21,9 +21,14 @@ namespace GreatTextAdventures
 			}
 		}
 
-		public PlayerPerson()
+		public override int MaxHealth
 		{
-			Health = 100;
+			get { return 100 + (Level - 1) * 10; }
+		}
+
+		public PlayerPerson() : base()
+		{
+			Health = MaxHealth;
 			EquippedWeapon = Items.Weapon.Random(Level);
 		}
 

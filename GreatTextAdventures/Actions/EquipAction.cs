@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreatTextAdventures.Actions
 {
-	public class EquipAction : Action
+	public class EquipAction : GameAction
 	{
 		public override IEnumerable<string> Aliases
 		{
@@ -42,7 +42,7 @@ namespace GreatTextAdventures.Actions
 			if (GameSystem.Player.EquippedWeapon != null)
 			{
 				// Warn the player
-				Console.WriteLine("You dropped {0}.", GameSystem.Player.EquippedWeapon.DisplayName);
+				Console.WriteLine("You dropped {0}", GameSystem.Player.EquippedWeapon.DisplayName);
 
 				// Add the equipped weapon to the room
 				GameSystem.CurrentMap.CurrentRoom.Members.Add(GameSystem.Player.EquippedWeapon);
