@@ -58,6 +58,60 @@ namespace GreatTextAdventures.Actions
 				Console.WriteLine("Throwing exception");
 				throw new Exception("Controlled Exception");
 			}
+			else if (split[0] == "weapon")
+			{
+				if (split.Length != 2)
+				{
+					Console.WriteLine("Invalid number of arguments");
+					return false;
+				}
+
+				int level;
+
+				if (int.TryParse(split[1], out level))
+				{
+					Items.Weapon spawn = Items.Weapon.Random(level);
+					GameSystem.CurrentMap.CurrentRoom.Members.Add(spawn);
+
+					Console.WriteLine("Spawned {0}", spawn.DisplayName);
+					return false;
+				}
+				else
+				{					
+					Console.WriteLine("Invalid level '{0}'", split[1]);
+					return false;
+				}
+			}
+			else if (split[0] == "loot")
+			{
+				GameSystem.CurrentMap.CurrentRoom.Members.Add(Items.LootChestItem.Random());
+				Console.WriteLine("Spawned chest");
+				return false;
+			}
+			else if (split[0] == "enemy")
+			{
+				if (split.Length != 2)
+				{
+					Console.WriteLine("Invalid number of arguments");
+					return false;
+				}
+
+				int level;
+
+				if (int.TryParse(split[1], out level))
+				{
+					People.EnemyPerson spawn = new People.EnemyPerson(level);
+					GameSystem.CurrentMap.CurrentRoom.Members.Add(spawn);
+
+					Console.WriteLine("Spawned {0}", spawn.DisplayName);
+					return false;
+				}
+				else
+				{
+					Console.WriteLine("Invalid level '{0}'", split[1]);
+					return false;
+				}
+			}
 
 			return false;
 		}
@@ -66,8 +120,14 @@ namespace GreatTextAdventures.Actions
 		{
 			Console.WriteLine("Debug:");
 			Console.WriteLine("\tdebug map *size* *file*");
-			Console.WriteLine("\tsize: Radius, centered in 0;0, of the map to show");
-			Console.WriteLine("\tfile: Path of the file where the map will be saved. Can be absolute or relative");
+			Console.WriteLine("\t\tsize: Radius, centered in 0;0, of the map to show");
+			Console.WriteLine("\t\tfile: Path of the file where the map will be saved");
+			Console.WriteLine("\tdebug error");
+			Console.WriteLine("\tdebug weapon *level*");
+			Console.WriteLine("\t\tlevel: Level of the weapon to spawn");
+			Console.WriteLine("\tdebug enemy *level*");
+			Console.WriteLine("\t\tlevel: Level of the enemy to spawn");
+			Console.WriteLine("\tdebug loot");
 		}
 	}
 }

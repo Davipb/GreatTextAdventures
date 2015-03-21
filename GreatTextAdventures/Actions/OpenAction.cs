@@ -14,6 +14,12 @@ namespace GreatTextAdventures.Actions
 
 		public override bool Do(string action)
 		{
+			if (string.IsNullOrWhiteSpace(action))
+			{
+				Console.WriteLine("Open what?");
+				return false;
+			}
+
 			ILookable found = GameSystem.GetMemberWithName(action);
 
 			if (found == null) return false;

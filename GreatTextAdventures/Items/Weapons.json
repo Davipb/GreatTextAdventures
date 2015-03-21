@@ -4,16 +4,24 @@
 		"Buster",
 		"Rapier",
 		"Rod",
-		"Knuckles"
+		"Knuckles",
+		"Stick",
+		"Dagger"
 	],
 
-	"Modifiers":	
+	"Modifiers":
 	[
+		[ "Useless", -100 ],
+		[ "Cursed", -20 ],
 		[ "Terrible", -10 ],
 		[ "Bad", -5 ],
+		[ "Weak", -4 ],
 		[ "Used", -1 ],
+		[ "Common", 0 ],
 		[ "Sharpened", 1 ],
+		[ "Strong", 4 ],
 		[ "Blessed", 5 ],
-		[ "Masterful", 10 ]
+		[ "Masterful", 10 ],
+		[ "Shiny", 15]
 	]
 }

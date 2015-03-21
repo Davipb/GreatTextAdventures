@@ -65,6 +65,8 @@ namespace GreatTextAdventures
 		/// </summary>
 		public static void Loop()
 		{
+			Console.WriteLine(Player.Description);
+
 			while(true)
 			{
 				// Beautification
@@ -76,6 +78,8 @@ namespace GreatTextAdventures
 
 				// Beautification
 				Console.WriteLine();
+
+				if (string.IsNullOrWhiteSpace(input)) continue;
 
 				// Flag to know whether or not the user entered a correct input
 				bool didAction = false;

@@ -14,6 +14,7 @@ namespace GreatTextAdventures.Actions
 			{
 				yield return "attack";
 				yield return "kill";
+				yield return "hit";
 			}
 		}
 

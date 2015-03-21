@@ -1,11 +1,11 @@
 ﻿[
 	{
-		"DisplayName": [ "rock" ],
+		"DisplayName": [ "Rock" ],
 		"CodeNames": [ "rock", "stone" ],
 		"Description": [ "It's a rock" ]
 	},
 	{
-		"DisplayName": [ "engraved stone", "marked stone", "written stone" ],
+		"DisplayName": [ "Engraved stone", "Marked stone", "Written stone" ],
 		"CodeNames": [ "engraved stone", "marked stone", "written stone", "stone" ],
 		"Description":
 		[
@@ -13,11 +13,11 @@
 			"It looks like some type of ancient writing",
 			"It looks arcane and ancient, but you can't decipher its meaning",
 			"It's the most beautiful thing you've ever seen, but you have no idea of what it means",
-			"\"Bob's stone engraving shop, now with bigger stones!\". Huh."
+			"\"Bob's stone engraving shop, now with bigger stones!\". Huh"
 		]
 	},
 	{
-		"DisplayName": [ "blood stain" ],
+		"DisplayName": [ "Blood stain" ],
 		"CodeNames": [ "blood", "stain", "blood stain" ],
 		"Description":
 		[
@@ -28,11 +28,20 @@
 		]
 	},
 	{
-		"DisplayName": [ "old sign" ],
+		"DisplayName": [ "Old sign" ],
 		"CodeNames": [ "sign", "old sign" ],
-		"Description":		
+		"Description":
 		[
 			"The text has decayed being recognition"
+		]
+	},
+	{
+		"DisplayName": [ "Crushed door", "Ruined door", "Buried door" ],
+		"CodeNames": [ "door" ],
+		"Description":		
+		[
+			"The door is surrounded by rubble and doesn't even budge",
+			"You can barely see the door through all the fallen rocks blocking the path"
 		]
 	}
 ]

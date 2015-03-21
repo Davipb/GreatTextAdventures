@@ -44,7 +44,6 @@ namespace GreatTextAdventures
 			set 
 			{ 
 				level = Math.Max(1, value);
-				Experience = 0;
 			}
 		}
 
@@ -57,8 +56,8 @@ namespace GreatTextAdventures
 				experience = value;
 				while (experience >= NeededExperience)
 				{
-					Level++;
 					experience -= NeededExperience;
+					Level++;					
 					Console.WriteLine("{0} grew to level {1}!", DisplayName, Level);
 				}
 			}
@@ -73,7 +72,7 @@ namespace GreatTextAdventures
 
 				if (EquippedWeapon != null)
 				{
-					Console.WriteLine("{0} dropped {1}", DisplayName, EquippedWeapon.DisplayName, EquippedWeapon.Attack);
+					Console.WriteLine("{0} dropped {1}", DisplayName, EquippedWeapon.DisplayName);
 
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(EquippedWeapon);
 					EquippedWeapon = null;

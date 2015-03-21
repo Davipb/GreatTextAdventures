@@ -15,7 +15,7 @@ namespace GreatTextAdventures.People
 
 		public override string DisplayName
 		{
-			get { return "Debug Enemy"; }
+			get { return string.Format("Debug Enemy (Lv {0})", Level); }
 		}
 		public override IEnumerable<string> CodeNames
 		{
@@ -36,9 +36,11 @@ namespace GreatTextAdventures.People
 			if (Health <= 0)
 			{
 				int delta = this.Level - GameSystem.Player.Level;
-
 				// Math.Max is used to ensure the 'delta bonus' is always positive
-				GameSystem.Player.Experience += ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
+				int exp = ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
+
+				Console.WriteLine("{0} dropped {1} experience", DisplayName, exp);
+				GameSystem.Player.Experience += exp;				
 
 				return;
 			}
