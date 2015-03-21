@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using GreatTextAdventures.Spells;
+
 namespace GreatTextAdventures.People
 {
 	public abstract class Person : ILookable
@@ -20,7 +22,9 @@ namespace GreatTextAdventures.People
 				sb.AppendLine();
 				sb.AppendFormat("Experience: {0}/{1}", Experience, NeededExperience);
 				sb.AppendLine();
-				sb.AppendFormat("Health: {0}", Health);
+				sb.AppendFormat("Health: {0}/{1}", Health, MaxHealth);
+				sb.AppendLine();
+				sb.AppendFormat("Mana: {0}/{1}", Mana, MaxMana);
 				sb.AppendLine();
 				sb.AppendFormat("Weapon: {0}", EquippedWeapon == null ? "None" : EquippedWeapon.DisplayName);
 
@@ -37,7 +41,14 @@ namespace GreatTextAdventures.People
 
 		public abstract int MaxHealth { get; }
 
-		public Weapon EquippedWeapon { get; set; }
+		private int mana;
+		public int Mana
+		{
+			get { return mana; }
+			set { mana = Math.Max(0, Math.Min(MaxMana, value)); }
+		}
+
+		public abstract int MaxMana { get; }		
 
 		protected int level = 1;
 		public int Level
@@ -66,6 +77,10 @@ namespace GreatTextAdventures.People
 		}
 		public long NeededExperience { get { return Level * Level; } }
 
+		public List<GameSpell> KnownSpells { get; set; }
+
+		public Weapon EquippedWeapon { get; set; }
+
 		public virtual void Update() 
 		{ 
 			if (Health <= 0)
@@ -87,6 +102,14 @@ namespace GreatTextAdventures.People
 		public virtual void Talk()
 		{
 			Console.WriteLine("{0} doesn't answer", DisplayName);
+		}
+
+		protected void Initialize()
+		{
+			Health = MaxHealth;
+			Mana = MaxMana;
+
+			KnownSpells = new List<GameSpell>();
 		}
 	}
 }

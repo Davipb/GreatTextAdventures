@@ -12,25 +12,35 @@ namespace GreatTextAdventures.People
 		const int ExperienceDeltaMultiplier = 10;
 		const int HealthMinimum = 15;
 		const int HealthPerLevel = 5;
+		const int ManaMinimum = 10;
+		const int ManaPerLevel = 5;
 
 		public override string DisplayName
 		{
 			get { return string.Format("Enemy (Lv {0})", Level); }
 		}
+
 		public override IEnumerable<string> CodeNames
 		{
 			get { yield return "enemy"; }
 		}
+
 		public override int MaxHealth
 		{
 			get { return HealthMinimum + (Level - 1) * HealthPerLevel; }
 		}
 
+		public override int MaxMana
+		{
+			get { return ManaMinimum + (Level - 1) * ManaPerLevel; }
+		}
+
 		public EnemyPerson(int level) : base()
 		{			
 			Level = level;
-			Health = MaxHealth;
 			EquippedWeapon = Items.Weapon.Random(this.Level);
+
+			Initialize();
 		}
 
 		public override void Update()
