@@ -10,6 +10,8 @@ namespace GreatTextAdventures.People
 	{
 		const int ExperiencePerLevel = 3;
 		const int ExperienceDeltaMultiplier = 10;
+		const int HealthMinimum = 15;
+		const int HealthPerLevel = 5;
 
 		public override string DisplayName
 		{
@@ -23,7 +25,7 @@ namespace GreatTextAdventures.People
 		public EnemyPerson(int level)
 		{
 			Level = level;
-			Health = 20;
+			Health = HealthMinimum + (Level - 1) * HealthPerLevel;
 			EquippedWeapon = Items.Weapon.Random(this.Level);
 		}
 
