@@ -24,7 +24,7 @@ namespace GreatTextAdventures
 		public PlayerPerson()
 		{
 			Health = 100;
-			EquippedWeapon = Items.Weapon.Random();
+			EquippedWeapon = Items.Weapon.Random(Level);
 		}
 
 		public override void Talk()

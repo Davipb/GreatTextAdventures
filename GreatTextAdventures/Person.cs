@@ -16,6 +16,10 @@ namespace GreatTextAdventures
 			{
 				StringBuilder sb = new StringBuilder();
 				sb.AppendLine(DisplayName);
+				sb.AppendFormat("Level: {0}", Level);
+				sb.AppendLine();
+				sb.AppendFormat("Experience: {0}/{1}", Experience, NeededExperience);
+				sb.AppendLine();
 				sb.AppendFormat("Health: {0}", Health);
 				sb.AppendLine();
 				sb.AppendFormat("Weapon: {0}", EquippedWeapon == null ? "None" : EquippedWeapon.DisplayName);
@@ -30,7 +34,36 @@ namespace GreatTextAdventures
 			get { return health; }
 			set { health = Math.Max(value, 0); }
 		}
+
 		public Weapon EquippedWeapon { get; set; }
+
+		protected int level = 1;
+		public int Level
+		{
+			get { return level; }
+			set 
+			{ 
+				level = Math.Max(1, value);
+				Experience = 0;
+			}
+		}
+
+		protected long experience = 0;
+		public long Experience
+		{
+			get { return experience; }
+			set
+			{
+				experience = value;
+				while (experience >= NeededExperience)
+				{
+					Level++;
+					experience -= NeededExperience;
+					Console.WriteLine("{0} grew to level {1}!", DisplayName, Level);
+				}
+			}
+		}
+		public long NeededExperience { get { return Level * Level; } }
 
 		public virtual void Update() 
 		{ 

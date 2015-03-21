@@ -13,7 +13,7 @@ namespace GreatTextAdventures.Items
 		public string Description { get { throw new NotImplementedException(); } }
 		public IEnumerable<string> CodeNames { get { yield return name.ToLowerInvariant(); } }
 
-		public int Attack { get { return attack + attackModifier; } }
+		public int Attack { get { return Math.Max(1, attack + attackModifier); } }
 
 		protected string name;
 		protected string nameModifier;
@@ -28,7 +28,7 @@ namespace GreatTextAdventures.Items
 			this.attackModifier = attackModifier;
 		}
 
-		public static Weapon Random()
+		public static Weapon Random(int level)
 		{
 			JObject weapons = JObject.Parse(File.ReadAllText(@"Items\Weapons.json"));
 			JArray names = (JArray)weapons["Names"];
@@ -37,7 +37,7 @@ namespace GreatTextAdventures.Items
 			JArray chosenModifier = (JArray)modifiers.OrderBy(x => GameSystem.RNG.Next()).First();
 			string chosenName = (string)names.OrderBy(x => GameSystem.RNG.Next()).First();
 
-			return new Weapon(chosenName, (string)chosenModifier[0], GameSystem.RNG.Next(0, 101), (int)chosenModifier[1]);
+			return new Weapon(chosenName, (string)chosenModifier[0], GameSystem.RNG.Next(level * 5, level * 10), (int)chosenModifier[1]);
 		}
 
 		public void Update() { /* ¯\_(ツ)_/¯ */ }

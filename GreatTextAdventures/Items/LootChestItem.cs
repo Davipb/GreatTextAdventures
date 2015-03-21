@@ -57,7 +57,7 @@ namespace GreatTextAdventures.Items
 		public static LootChestItem Random()
 		{
 			LootChestItem result = new LootChestItem();
-			result.Content.Add(Weapon.Random());
+			result.Content.Add(Weapon.Random(GameSystem.Player.Level));
 
 			return result;
 		}
