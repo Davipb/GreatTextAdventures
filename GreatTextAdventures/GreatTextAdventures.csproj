@@ -72,6 +72,7 @@
     <Compile Include="GameSystem.cs" />
     <Compile Include="Items\Weapon.cs" />
     <Compile Include="Spells\GameSpell.cs" />
+    <Compile Include="Spells\HealSpell.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
