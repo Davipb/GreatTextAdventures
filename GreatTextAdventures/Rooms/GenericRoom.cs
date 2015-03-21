@@ -9,9 +9,10 @@ namespace GreatTextAdventures.Rooms
 	/// </summary>
 	public class GenericRoom : Room
 	{
-		public const int MaxDecorations = 3;
-		public const int DecorationChance = 25;
-		public const int LootChance = 5;
+		const int MaxDecorations = 3;
+		const int DecorationChance = 25;
+		const int LootChance = 5;
+		const int EnemyChance = 5;
 
 		public override bool CanExit { get; set; }
 
@@ -56,16 +57,17 @@ namespace GreatTextAdventures.Rooms
 			newExits.ForEach(x => room.Exits |= x);
 
 			// Add random decorations to the room
-			if (GameSystem.RNG.Next(0, 101) < DecorationChance)
-			{				
+			if (GameSystem.RNG.Next(0, 101) < DecorationChance)			
 				room.Members.AddRange(GreatTextAdventures.Items.DecorationItem.Random(GameSystem.RNG.Next(MaxDecorations)));
-			}
 
 			// Add random loot to the room
 			if (GameSystem.RNG.Next(0, 101) < LootChance)
-			{
 				room.Members.Add(Items.LootChestItem.Random());
-			}
+
+			// Add random enemies to the room
+			if (GameSystem.RNG.Next(0, 101) < EnemyChance)
+				room.Members.Add(new People.EnemyPerson());
+			
 
 			return room;
 		}

@@ -6,7 +6,16 @@ namespace GreatTextAdventures.Items
 {
 	public class LootChestItem : ILookable, IContainer
 	{
-		public string DisplayName { get { return "Chest"; } }
+		public string DisplayName 
+		{ 
+			get 
+			{
+				if (Content == null || !Content.Any())
+					return "Chest (empty)";
+				else
+					return "Chest";
+			} 
+		}
 		public string Description { get { return "A large wooden chest begging to be opened. What are you waiting for?"; } }
 		public IEnumerable<string> CodeNames
 		{
