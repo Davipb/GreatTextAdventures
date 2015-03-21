@@ -41,6 +41,8 @@ namespace GreatTextAdventures.People
 			EquippedWeapon = Items.Weapon.Random(Level);
 
 			Initialize();
+
+			KnownSpells.Add(new GreatTextAdventures.Spells.HealSpell(1));
 		}
 
 		public override void Update()

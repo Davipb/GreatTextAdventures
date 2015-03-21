@@ -33,17 +33,24 @@ namespace GreatTextAdventures.Spells
 			get { return CostPerLevel * level; }
 		}
 
-		public override void Cast(Person caster, Person target)
+		public HealSpell(int level)
+		{
+			this.level = level;
+		}
+
+		public override bool Cast(Person caster, Person target)
 		{
 			if (caster.Mana < Cost)
 			{
 				Console.WriteLine("Not enough mana!");
-				return;
+				return false;
 			}
 
 			caster.Mana -= Cost;
 			target.Health += HealPerLevel * level;
-			Console.WriteLine("{0} was healed for {1} health", target.DisplayName, HealPerLevel * level);
+			Console.WriteLine("{0} healed {1} for {2} health", caster.DisplayName, target.DisplayName, HealPerLevel * level);
+
+			return true;
 		}
 	}
 }

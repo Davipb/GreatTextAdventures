@@ -1,5 +1,6 @@
 ﻿using GreatTextAdventures.Items;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -102,6 +103,29 @@ namespace GreatTextAdventures.People
 		public virtual void Talk()
 		{
 			Console.WriteLine("{0} doesn't answer", DisplayName);
+		}
+
+		public GameSpell GetSpellWithName(string name)
+		{
+			IList<GameSpell> found = (from item in KnownSpells
+									  where item.CodeNames.Contains(name)
+									  select item)
+									 .ToList();
+
+			if (found.Count == 0)
+			{
+				Console.WriteLine("There is no '{0}'", name);
+				return null;
+			}
+			else if (found.Count > 1)
+			{
+				Console.WriteLine("There are multiple '{0}'. Please specify.", name);
+				return GameSystem.Choice<GameSpell>(found, found.Select(x => x.DisplayName).ToList());
+			}
+			else
+			{
+				return found[0];
+			}
 		}
 
 		protected void Initialize()

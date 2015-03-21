@@ -16,6 +16,6 @@ namespace GreatTextAdventures.Spells
 
 		public abstract int Cost { get; }
 
-		public abstract void Cast(Person caster, Person target);
+		public abstract bool Cast(Person caster, Person target);
 	}
 }

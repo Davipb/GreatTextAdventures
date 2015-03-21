@@ -59,6 +59,7 @@ namespace GreatTextAdventures
 			Actions.Add(new EquipAction());
 			Actions.Add(new AttackAction());
 			Actions.Add(new WaitAction());
+			Actions.Add(new CastAction());
 
 			Player = new PlayerPerson();
 
