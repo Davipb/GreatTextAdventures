@@ -55,9 +55,9 @@ namespace GreatTextAdventures
 			Actions.Add(new Actions.AttackAction());
 			Actions.Add(new Actions.WaitAction());
 
-			CurrentMap = new Map();
-
 			Player = new PlayerPerson();
+
+			CurrentMap = new Map();			
 		}
 
 		/// <summary>

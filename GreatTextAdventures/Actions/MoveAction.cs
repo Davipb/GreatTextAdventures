@@ -51,7 +51,7 @@ namespace GreatTextAdventures.Actions
 					break;
 			}
 
-			return true;
+			return false;
 		}
 
 		public override void Help()

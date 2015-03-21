@@ -36,6 +36,8 @@ namespace GreatTextAdventures.People
 
 				// Math.Max is used to ensure the 'delta bonus' is always positive
 				GameSystem.Player.Experience += ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
+
+				return;
 			}
 
 			Console.WriteLine("{0} attacks you for {1} damage", DisplayName, EquippedWeapon.Attack);

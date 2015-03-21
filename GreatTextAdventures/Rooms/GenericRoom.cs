@@ -11,8 +11,8 @@ namespace GreatTextAdventures.Rooms
 	{
 		const int MaxDecorations = 3;
 		const int DecorationChance = 25;
-		const int LootChance = 5;
-		const int EnemyChance = 5;
+		const int LootChance = 25;
+		const int EnemyChance = 10;
 
 		public override bool CanExit { get; set; }
 
