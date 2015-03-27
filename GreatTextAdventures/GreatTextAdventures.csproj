@@ -57,6 +57,7 @@
     <Compile Include="Actions\MoveAction.cs" />
     <Compile Include="Actions\OpenAction.cs" />
     <Compile Include="Actions\TalkAction.cs" />
+    <Compile Include="Actions\UseAction.cs" />
     <Compile Include="Actions\WaitAction.cs" />
     <Compile Include="Directions.cs" />
     <Compile Include="ILookable.cs" />

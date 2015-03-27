@@ -15,7 +15,7 @@ namespace GreatTextAdventures.People
 
 		public override string DisplayName
 		{
-			get { return "You"; }
+			get { return "Player"; }
 		}
 		public override IEnumerable<string> CodeNames
 		{
