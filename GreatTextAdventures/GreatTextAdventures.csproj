@@ -66,6 +66,7 @@
     <Compile Include="Items\IUsable.cs" />
     <Compile Include="Items\LootChestItem.cs" />
     <Compile Include="Items\ManaFountain.cs" />
+    <Compile Include="Items\SpellTome.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="People\EnemyPerson.cs" />
     <Compile Include="People\Person.cs" />

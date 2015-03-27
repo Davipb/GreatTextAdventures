@@ -34,5 +34,11 @@ namespace GreatTextAdventures.Spells
 
 			return true;
 		}
+
+		public static IEnumerable<GameSpell> AllSpells(int level)
+		{
+			yield return new HealSpell(level);
+			yield return new FireballSpell(level);
+		}
 	}
 }
