@@ -48,8 +48,6 @@ namespace GreatTextAdventures.People
 		public override void Update()
 		{
 			base.Update();
-
-			Mana += 5;
 		}
 
 		public override void Talk()

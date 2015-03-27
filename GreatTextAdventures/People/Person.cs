@@ -28,6 +28,13 @@ namespace GreatTextAdventures.People
 				sb.AppendFormat("Mana: {0}/{1}", Mana, MaxMana);
 				sb.AppendLine();
 				sb.AppendFormat("Weapon: {0}", EquippedWeapon == null ? "None" : EquippedWeapon.DisplayName);
+				sb.AppendLine();
+				if (KnownSpells != null && KnownSpells.Any())
+				{
+					sb.Append("Known Spells: ");
+					KnownSpells.ForEach(x => sb.AppendFormat("{0} ({1} mana), ", x.DisplayName, x.Cost));
+					sb.Remove(sb.Length - 2, 2);
+				}
 
 				return sb.ToString();				
 			}
