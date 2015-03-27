@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using GreatTextAdventures.People;
+using GreatTextAdventures.Items;
+
 namespace GreatTextAdventures.Rooms
 {
 	/// <summary>
@@ -13,6 +16,7 @@ namespace GreatTextAdventures.Rooms
 		const int DecorationChance = 25;
 		const int LootChance = 25;
 		const int EnemyChance = 10;
+		const int ManaFountainChance = 100;
 
 		public override bool CanExit { get; set; }
 
@@ -58,18 +62,21 @@ namespace GreatTextAdventures.Rooms
 
 			// Add random decorations to the room
 			if (GameSystem.RNG.Next(0, 101) < DecorationChance)			
-				room.Members.AddRange(GreatTextAdventures.Items.DecorationItem.Random(GameSystem.RNG.Next(MaxDecorations)));
+				room.Members.AddRange(DecorationItem.Random(GameSystem.RNG.Next(MaxDecorations)));
 
 			// Add random loot to the room
 			if (GameSystem.RNG.Next(0, 101) < LootChance)
-				room.Members.Add(Items.LootChestItem.Random());
+				room.Members.Add(LootChestItem.Random());
 
 			// Add random enemies to the room
 			if (GameSystem.RNG.Next(0, 101) < EnemyChance)
 			{
 				int player = GameSystem.Player.Level;
-				room.Members.Add(new People.EnemyPerson(GameSystem.RNG.Next(player - 2, player + 2)));
+				room.Members.Add(new EnemyPerson(GameSystem.RNG.Next(player - 2, player + 2)));
 			}
+
+			if (GameSystem.RNG.Next(0, 101) < ManaFountainChance)
+				room.Members.Add(new ManaFountain());
 			
 
 			return room;
