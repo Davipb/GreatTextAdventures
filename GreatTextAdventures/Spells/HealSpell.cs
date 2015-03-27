@@ -13,8 +13,6 @@ namespace GreatTextAdventures.Spells
 		const int HealPerLevel = 5;
 		const int CostPerLevel = 10;
 
-		private int level;
-
 		public override string DisplayName { get { return string.Format("Heal {0}", level); } }
 		public override IEnumerable<string> CodeNames
 		{
@@ -33,10 +31,7 @@ namespace GreatTextAdventures.Spells
 			get { return CostPerLevel * level; }
 		}
 
-		public HealSpell(int level)
-		{
-			this.level = level;
-		}
+		public HealSpell(int level) : base(level) { }
 
 		public override bool Cast(Person caster, Person target)
 		{
