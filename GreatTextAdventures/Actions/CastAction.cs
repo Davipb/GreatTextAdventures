@@ -20,7 +20,13 @@ namespace GreatTextAdventures.Actions
 		{
 			if (string.IsNullOrWhiteSpace(action))
 			{
-				Console.WriteLine("Cast what?");
+				foreach(GameSpell knownSpell in GameSystem.Player.KnownSpells)
+				{
+					Console.WriteLine(knownSpell.DisplayName);
+					Console.WriteLine("Cost: {0} mana", knownSpell.Cost);
+					Console.WriteLine(knownSpell.Description);
+					Console.WriteLine();	
+				}
 				return false;
 			}
 

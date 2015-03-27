@@ -22,6 +22,17 @@ namespace GreatTextAdventures.Spells
 			this.level = level;
 		}
 
-		public abstract bool Cast(Person caster, Person target);
+		public virtual bool Cast(Person caster, Person target)
+		{
+			if (caster.Mana < Cost)
+			{
+				Console.WriteLine("Not enough mana!");
+				return false;
+			}
+
+			caster.Mana -= Cost;
+
+			return true;
+		}
 	}
 }

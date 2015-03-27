@@ -42,7 +42,7 @@ namespace GreatTextAdventures.People
 
 			Initialize();
 
-			KnownSpells.Add(new GreatTextAdventures.Spells.HealSpell(1));
+			KnownSpells.Add(new GreatTextAdventures.Spells.FireballSpell(1));
 		}
 
 		public override void Update()
