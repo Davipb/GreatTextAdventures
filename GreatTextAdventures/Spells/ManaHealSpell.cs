@@ -46,6 +46,7 @@ namespace GreatTextAdventures.Spells
 			target.Health -= HealthCost;
 			target.Mana += ManaHeal;
 
+			Console.WriteLine("{0} used {1}!", caster.DisplayName, this.DisplayName);
 			Console.WriteLine("{0} lost {1} health", target.DisplayName, HealthCost);
 			Console.WriteLine("{0} recovered {1} mana", target.DisplayName, ManaHeal);
 

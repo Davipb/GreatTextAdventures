@@ -47,6 +47,8 @@ namespace GreatTextAdventures.Spells
 
 			if (!base.Cast(caster, target)) return false;
 
+			Console.WriteLine("{0} used {1} at {2}!", caster.DisplayName, this.DisplayName, target.DisplayName);
+
 			caster.Health -= HealthPerLevel * level;
 			Console.WriteLine("{0} was damaged for {1} health", caster.DisplayName, HealthPerLevel * level);
 
