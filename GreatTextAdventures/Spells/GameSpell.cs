@@ -39,6 +39,8 @@ namespace GreatTextAdventures.Spells
 		{
 			yield return new HealSpell(level);
 			yield return new FireballSpell(level);
+			yield return new ManaHealSpell(level);
+			yield return new BloodlustSpell(level);
 		}
 	}
 }

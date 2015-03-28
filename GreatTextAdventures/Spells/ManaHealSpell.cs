@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using GreatTextAdventures.People;
+
+namespace GreatTextAdventures.Spells
+{
+	public class ManaHealSpell : GameSpell
+	{
+		const int HealthPerLevel = 10;
+		const int ManaPerLevel = 20;
+
+		public override string DisplayName { get { return string.Format("Refresh {0}", level); } }
+		public override IEnumerable<string> CodeNames 
+		{ 
+			get 
+			{ 
+				yield return "refresh";
+				yield return string.Format("refresh {0}", level);
+			} 
+		}
+		public override string Description { get { return string.Format("Damage {0} health and restore {1} mana", HealthPerLevel * level, ManaPerLevel * level); } }
+		public override int Cost { get { return 0; } }
+
+		public ManaHealSpell(int level) : base(level) { }
+
+		public override bool Cast(Person caster, Person target)
+		{
+			if (caster != target)
+			{
+				Console.WriteLine("Can only cast at yourself");
+				return false;
+			}
+
+			if (target.Health < HealthPerLevel * level)
+			{
+				Console.WriteLine("Not enough health!");
+				return false;
+			}
+
+			target.Health -= HealthPerLevel * level;
+			target.Mana += ManaPerLevel * level;
+
+			return true;
+		}
+	}
+}

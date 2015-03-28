@@ -76,9 +76,11 @@
     <Compile Include="Rooms\GenericRoom.cs" />
     <Compile Include="GameSystem.cs" />
     <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Spells\BloodlustSpell.cs" />
     <Compile Include="Spells\FireballSpell.cs" />
     <Compile Include="Spells\GameSpell.cs" />
     <Compile Include="Spells\HealSpell.cs" />
+    <Compile Include="Spells\ManaHealSpell.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -94,7 +96,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Items_2DecorationSchema_1json__JSONSchema="http://json-schema.org/draft-04/schema" Items_2Decorations_1json__JSONSchema="" />
+      <UserProperties Items_2Decorations_1json__JSONSchema="" Items_2DecorationSchema_1json__JSONSchema="http://json-schema.org/draft-04/schema" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
