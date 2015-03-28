@@ -68,6 +68,7 @@
     <Compile Include="Items\ManaFountain.cs" />
     <Compile Include="Items\SpellTome.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="People\WizardPerson.cs" />
     <Compile Include="People\ThugPerson.cs" />
     <Compile Include="People\Person.cs" />
     <Compile Include="People\PlayerPerson.cs" />

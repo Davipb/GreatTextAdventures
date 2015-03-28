@@ -22,8 +22,10 @@ namespace GreatTextAdventures.Spells
 				yield return string.Format("refresh {0}", level);
 			} 
 		}
-		public override string Description { get { return string.Format("Damage {0} health and restore {1} mana", HealthPerLevel * level, ManaPerLevel * level); } }
+		public override string Description { get { return string.Format("Damage {0} health and restore {1} mana", HealthCost, ManaHeal); } }
 		public override int Cost { get { return 0; } }
+		public int HealthCost { get { return HealthPerLevel * level; } }
+		public int ManaHeal { get { return ManaPerLevel * level; } }
 
 		public ManaHealSpell(int level) : base(level) { }
 
@@ -41,8 +43,11 @@ namespace GreatTextAdventures.Spells
 				return false;
 			}
 
-			target.Health -= HealthPerLevel * level;
-			target.Mana += ManaPerLevel * level;
+			target.Health -= HealthCost;
+			target.Mana += ManaHeal;
+
+			Console.WriteLine("{0} lost {1} health", target.DisplayName, HealthCost);
+			Console.WriteLine("{0} recovered {1} mana", target.DisplayName, ManaHeal);
 
 			return true;
 		}

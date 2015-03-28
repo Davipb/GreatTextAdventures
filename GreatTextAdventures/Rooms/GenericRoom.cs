@@ -71,8 +71,17 @@ namespace GreatTextAdventures.Rooms
 			// Add random enemies to the room
 			if (GameSystem.RNG.Next(0, 101) < EnemyChance)
 			{
-				int player = GameSystem.Player.Level;
-				room.Members.Add(new ThugPerson(GameSystem.RNG.Next(player - 2, player + 2)));
+				int level = GameSystem.RNG.Next(GameSystem.Player.Level - 2, GameSystem.Player.Level + 2);
+				
+				switch(GameSystem.RNG.Next(0, 2))
+				{
+					case 0:
+						room.Members.Add(new ThugPerson(level));
+						break;
+					case 1:
+						room.Members.Add(new WizardPerson(level));
+						break;
+				}
 			}
 
 			if (GameSystem.RNG.Next(0, 101) < ManaFountainChance)

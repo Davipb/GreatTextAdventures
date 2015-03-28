@@ -41,8 +41,6 @@ namespace GreatTextAdventures.People
 			EquippedWeapon = Items.Weapon.Random(Level);
 
 			Initialize();
-
-			KnownSpells.Add(new GreatTextAdventures.Spells.FireballSpell(1));
 		}
 
 		public override void Update()

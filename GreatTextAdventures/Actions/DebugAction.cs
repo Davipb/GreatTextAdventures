@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using GreatTextAdventures.People;
+
 namespace GreatTextAdventures.Actions
 {
 	public class DebugAction : GameAction
@@ -90,7 +92,7 @@ namespace GreatTextAdventures.Actions
 			}
 			else if (split[0] == "enemy")
 			{
-				if (split.Length != 2)
+				if (split.Length != 3)
 				{
 					Console.WriteLine("Invalid number of arguments");
 					return false;
@@ -98,12 +100,23 @@ namespace GreatTextAdventures.Actions
 
 				int level;
 
-				if (int.TryParse(split[1], out level))
+				if (int.TryParse(split[2], out level))
 				{
-					People.ThugPerson spawn = new People.ThugPerson(level);
-					GameSystem.CurrentMap.CurrentRoom.Members.Add(spawn);
+					switch(split[1])
+					{
+						case "thug":
+							GameSystem.CurrentMap.CurrentRoom.Members.Add(new ThugPerson(level));
+							Console.WriteLine("Spawned Thug level {0}", level);
+							break;
+						case "wizard":
+							GameSystem.CurrentMap.CurrentRoom.Members.Add(new WizardPerson(level));
+							Console.WriteLine("Spawned Wizard level {0}", level);
+							break;
+						default:
+							Console.WriteLine("Unknown enemy type '{0}'", split[1]);
+							break;
+					}
 
-					Console.WriteLine("Spawned {0}", spawn.DisplayName);
 					return false;
 				}
 				else
@@ -111,6 +124,14 @@ namespace GreatTextAdventures.Actions
 					Console.WriteLine("Invalid level '{0}'", split[1]);
 					return false;
 				}
+			}
+			else if (split[0] == "heal")
+			{
+				GameSystem.Player.Health = GameSystem.Player.MaxHealth;
+				GameSystem.Player.Mana = GameSystem.Player.MaxMana;
+
+				Console.WriteLine("Restored Player's health and mana");
+				return false;
 			}
 
 			return false;
@@ -125,7 +146,8 @@ namespace GreatTextAdventures.Actions
 			Console.WriteLine("\tdebug error");
 			Console.WriteLine("\tdebug weapon *level*");
 			Console.WriteLine("\t\tlevel: Level of the weapon to spawn");
-			Console.WriteLine("\tdebug enemy *level*");
+			Console.WriteLine("\tdebug enemy *type* *level*");
+			Console.WriteLine("\t\ttype: thug, wizard");
 			Console.WriteLine("\t\tlevel: Level of the enemy to spawn");
 			Console.WriteLine("\tdebug loot");
 		}

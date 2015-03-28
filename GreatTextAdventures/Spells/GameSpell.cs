@@ -19,7 +19,7 @@ namespace GreatTextAdventures.Spells
 
 		public GameSpell(int level)
 		{
-			this.level = level;
+			this.level = Math.Max(1, level);
 		}
 
 		public virtual bool Cast(Person caster, Person target)
