@@ -72,7 +72,7 @@ namespace GreatTextAdventures.Rooms
 			if (GameSystem.RNG.Next(0, 101) < EnemyChance)
 			{
 				int player = GameSystem.Player.Level;
-				room.Members.Add(new EnemyPerson(GameSystem.RNG.Next(player - 2, player + 2)));
+				room.Members.Add(new ThugPerson(GameSystem.RNG.Next(player - 2, player + 2)));
 			}
 
 			if (GameSystem.RNG.Next(0, 101) < ManaFountainChance)

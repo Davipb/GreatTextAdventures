@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreatTextAdventures.People
 {
-	public class EnemyPerson : Person
+	public class ThugPerson : Person
 	{
 		const int ExperiencePerLevel = 3;
 		const int ExperienceDeltaMultiplier = 10;
@@ -17,12 +17,12 @@ namespace GreatTextAdventures.People
 
 		public override string DisplayName
 		{
-			get { return string.Format("Enemy (Lv {0})", Level); }
+			get { return string.Format("Thug (Lv {0})", Level); }
 		}
 
 		public override IEnumerable<string> CodeNames
 		{
-			get { yield return "enemy"; }
+			get { yield return "thug"; }
 		}
 
 		public override int MaxHealth
@@ -35,7 +35,7 @@ namespace GreatTextAdventures.People
 			get { return ManaMinimum + (Level - 1) * ManaPerLevel; }
 		}
 
-		public EnemyPerson(int level) : base()
+		public ThugPerson(int level) : base()
 		{			
 			Level = level;
 			EquippedWeapon = Items.Weapon.Random(this.Level);

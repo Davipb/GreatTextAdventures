@@ -100,7 +100,7 @@ namespace GreatTextAdventures.Actions
 
 				if (int.TryParse(split[1], out level))
 				{
-					People.EnemyPerson spawn = new People.EnemyPerson(level);
+					People.ThugPerson spawn = new People.ThugPerson(level);
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(spawn);
 
 					Console.WriteLine("Spawned {0}", spawn.DisplayName);
