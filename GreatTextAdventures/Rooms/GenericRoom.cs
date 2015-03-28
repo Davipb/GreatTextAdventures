@@ -16,7 +16,7 @@ namespace GreatTextAdventures.Rooms
 		const int DecorationChance = 25;
 		const int LootChance = 25;
 		const int EnemyChance = 10;
-		const int ManaFountainChance = 100;
+		const int ManaFountainChance = 10;
 
 		public override bool CanExit { get; set; }
 
