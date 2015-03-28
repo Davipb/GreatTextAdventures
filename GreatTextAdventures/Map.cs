@@ -21,7 +21,7 @@ namespace GreatTextAdventures
 			GenerateRandomRoom(CurrentPosition);
 
 			// Describe new location
-			Console.WriteLine("You are in a {0}", CurrentRoom.Describe());
+			Console.WriteLine(CurrentRoom.Describe());
 		}
 
 		public void Move(Directions target)
@@ -47,7 +47,7 @@ namespace GreatTextAdventures
 			Console.WriteLine("You moved {0}", Enum.GetName(typeof(Directions), target));
 
 			// Describe new location
-			Console.WriteLine("You are in a {0}", CurrentRoom.Describe());
+			Console.WriteLine(CurrentRoom.Describe());
 		}
 
 		public void Update()

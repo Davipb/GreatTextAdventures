@@ -18,8 +18,14 @@ namespace GreatTextAdventures.Actions
 
 		public override bool Do(string action)
 		{
-			if (string.IsNullOrWhiteSpace(action))
+			if (!GameSystem.Player.KnownSpells.Any())
 			{
+				Console.WriteLine("You don't know any spells");
+				return false;
+			}
+
+			if (string.IsNullOrWhiteSpace(action))
+			{				
 				foreach(GameSpell knownSpell in GameSystem.Player.KnownSpells)
 				{
 					Console.WriteLine(knownSpell.DisplayName);
