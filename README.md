@@ -15,10 +15,10 @@ If you want to contribute, though, just send me a pull request!
 	- [x] Basic room connection
 	- [x] Random room decorations
 	- [x] Random loot
-	- [ ] Random creatures
 - Combat & Items
 	- [x] Equipment
 	- [x] Damage
 	- [x] Experience & Leveling
-	- [ ] AI *(WIP)*
+	- [x] Spellcasting
+	- [x] Status Effects
 	- [ ] Blacksmithing
