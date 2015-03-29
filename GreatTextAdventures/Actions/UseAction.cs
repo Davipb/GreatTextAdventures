@@ -1,10 +1,6 @@
-﻿using System;
+﻿using GreatTextAdventures.Items;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using GreatTextAdventures.Items;
 
 namespace GreatTextAdventures.Actions
 {

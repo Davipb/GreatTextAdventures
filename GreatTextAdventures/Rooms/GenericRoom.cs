@@ -1,9 +1,8 @@
-﻿using System;
+﻿using GreatTextAdventures.Items;
+using GreatTextAdventures.People;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using GreatTextAdventures.People;
-using GreatTextAdventures.Items;
 
 namespace GreatTextAdventures.Rooms
 {

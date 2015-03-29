@@ -1,11 +1,10 @@
 ﻿using GreatTextAdventures.Items;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-
 using GreatTextAdventures.Spells;
 using GreatTextAdventures.StatusEffects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace GreatTextAdventures.People
 {

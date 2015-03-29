@@ -1,11 +1,7 @@
-﻿using System;
+﻿using GreatTextAdventures.Spells;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using GreatTextAdventures.Spells;
-using GreatTextAdventures.Actions;
 
 namespace GreatTextAdventures.People
 {

@@ -1,7 +1,6 @@
-﻿using System;
+﻿using GreatTextAdventures.People;
+using System;
 using System.Collections.Generic;
-
-using GreatTextAdventures.People;
 
 namespace GreatTextAdventures.Actions
 {

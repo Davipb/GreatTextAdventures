@@ -1,7 +1,6 @@
 ﻿using GreatTextAdventures.Items;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GreatTextAdventures.Actions
 {
