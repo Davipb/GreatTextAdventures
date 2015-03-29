@@ -26,6 +26,8 @@ namespace GreatTextAdventures.People
 		const int PunchMinimum = 1;
 		const int PunchPerLevel = 2;
 
+		bool detected = false;
+
 		public override string DisplayName
 		{
 			get { return string.Format("Wizard (Lv {0})", Level); }
@@ -68,6 +70,13 @@ namespace GreatTextAdventures.People
 				Console.WriteLine("{0} dropped {1} experience", DisplayName, exp);
 				GameSystem.Player.Experience += exp;
 
+				return;
+			}
+
+			if (!detected)
+			{
+				detected = true;
+				Console.WriteLine("{0} has detected {1}!", DisplayName, GameSystem.Player.DisplayName);
 				return;
 			}
 

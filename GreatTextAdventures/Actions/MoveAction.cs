@@ -48,10 +48,10 @@ namespace GreatTextAdventures.Actions
 					break;
 				default:
 					Console.WriteLine("Unknown direction '{0}'", action);
-					break;
+					return false;
 			}
 
-			return false;
+			return true;
 		}
 
 		public override void Help()

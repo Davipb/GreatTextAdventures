@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using GreatTextAdventures.Spells;
+using GreatTextAdventures.StatusEffects;
 
 namespace GreatTextAdventures.People
 {
@@ -58,7 +59,7 @@ namespace GreatTextAdventures.People
 
 		public abstract int MaxMana { get; }		
 
-		protected int level = 1;
+		private int level = 1;
 		public int Level
 		{
 			get { return level; }
@@ -86,11 +87,16 @@ namespace GreatTextAdventures.People
 		public long NeededExperience { get { return Level * Level; } }
 
 		public List<GameSpell> KnownSpells { get; set; }
+		public List<StatusEffect> CurrentStatus { get; set; }
 
 		public Weapon EquippedWeapon { get; set; }
 
 		public virtual void Update() 
 		{ 
+			// Copy the status effect list so the original can be modified (when effects wear off, they remove themselves)
+			List<StatusEffect> copyStatus = new List<StatusEffect>(CurrentStatus);
+			copyStatus.ForEach(x => x.Update());
+
 			if (Health <= 0)
 			{
 				Console.WriteLine("{0} died", DisplayName);
@@ -141,6 +147,7 @@ namespace GreatTextAdventures.People
 			Mana = MaxMana;
 
 			KnownSpells = new List<GameSpell>();
+			CurrentStatus = new List<StatusEffect>();
 		}
 	}
 }

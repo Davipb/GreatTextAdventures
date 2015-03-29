@@ -18,7 +18,7 @@ namespace GreatTextAdventures.Actions
 
 		public override bool Do(string action)
 		{
-			Console.WriteLine("You wait");
+			Console.WriteLine("{0} waits", GameSystem.Player.DisplayName);
 			return true;
 		}
 

@@ -72,7 +72,11 @@ namespace GreatTextAdventures
 		/// </summary>
 		public static void Loop()
 		{
+			Console.WriteLine();
 			Console.WriteLine(Player.Description);
+
+			CurrentMap.Update();
+			Player.Update();
 
 			while(true)
 			{
