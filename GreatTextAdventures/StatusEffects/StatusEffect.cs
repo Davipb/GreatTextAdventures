@@ -14,12 +14,24 @@ namespace GreatTextAdventures.StatusEffects
 		public abstract string Description { get; }
 
 		public Person Owner { get; set; }
+		public int Duration { get; set; }
+		protected int currentDuration = 0;
 
-		public StatusEffect(Person owner)
+		public StatusEffect(Person owner, int duration)
 		{
 			this.Owner = owner;
+			this.Duration = duration;
 		}
 
-		public abstract void Update();
+		public virtual void Update()
+		{
+			currentDuration++;
+			
+			if (currentDuration >= Duration)
+			{
+				Owner.CurrentStatus.Remove(this);
+				Console.WriteLine("{0}'s {1} wore off", Owner.DisplayName, DisplayName);
+			}
+		}
 	}
 }
