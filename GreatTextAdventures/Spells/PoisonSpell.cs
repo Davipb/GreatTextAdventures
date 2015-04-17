@@ -38,6 +38,8 @@ namespace GreatTextAdventures.Spells
 			get { return DurationMinimum + DurationPerLevel * (level - 1); }
 		}
 
+		public PoisonSpell(int level) : base(level) { }
+
 		public override bool Cast(Person caster, Person target)
 		{
 			if (!base.Cast(caster, target)) return false;
