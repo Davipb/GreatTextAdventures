@@ -1,4 +1,5 @@
 ﻿using GreatTextAdventures.People;
+using GreatTextAdventures.StatusEffects;
 using System;
 using System.Collections.Generic;
 
@@ -27,6 +28,7 @@ namespace GreatTextAdventures.Actions
 				// Show help
 				Help();
 			}
+			#region Map
 			else if (split[0] == "map")
 			{
 				if (split.Length != 3)
@@ -52,13 +54,17 @@ namespace GreatTextAdventures.Actions
 				else
 				{
 					Console.WriteLine("Invalid size '{0}'", split[1]);
-				}								
+				}
 			}
+			#endregion
+			#region Error
 			else if (split[0] == "error")
 			{
 				Console.WriteLine("Throwing exception");
 				throw new Exception("Controlled Exception");
 			}
+			#endregion
+			#region Weapon
 			else if (split[0] == "weapon")
 			{
 				if (split.Length != 2)
@@ -83,12 +89,16 @@ namespace GreatTextAdventures.Actions
 					return false;
 				}
 			}
+			#endregion
+			#region Loot
 			else if (split[0] == "loot")
 			{
 				GameSystem.CurrentMap.CurrentRoom.Members.Add(Items.LootChestItem.Random());
 				Console.WriteLine("Spawned chest");
 				return false;
 			}
+			#endregion
+			#region Enemy
 			else if (split[0] == "enemy")
 			{
 				if (split.Length != 3)
@@ -124,6 +134,8 @@ namespace GreatTextAdventures.Actions
 					return false;
 				}
 			}
+			#endregion
+			#region Heal
 			else if (split[0] == "heal")
 			{
 				GameSystem.Player.Health = GameSystem.Player.MaxHealth;
@@ -132,6 +144,52 @@ namespace GreatTextAdventures.Actions
 				Console.WriteLine("Restored Player's health and mana");
 				return false;
 			}
+			#endregion
+			#region Effect
+			else if (split[0] == "effect")
+			{
+				if (split.Length != 4)
+				{
+					Console.WriteLine("Invalid number of arguments");
+					return false;
+				}
+
+				// First argument is target
+				Person target = GameSystem.GetMemberWithName(split[1]) as Person;
+
+				if (target == null)
+				{
+					Console.WriteLine("Invalid target '{0}'", split[1]);
+					return false;
+				}
+
+				// Second argument is duration
+				int duration;
+				
+				if (!int.TryParse(split[2], out duration))
+				{
+					Console.WriteLine("Invalid duration '{0}'", split[2]);
+					return false;
+				}
+
+				// Third argument is effect name
+				StatusEffect effect = null;
+
+				switch(split[3].ToLowerInvariant())
+				{
+					case "poison":
+						effect = new PoisonEffect(target, duration);
+						break;
+					default:
+						Console.WriteLine("Invalid effect name '{0}'", split[3]);
+						return false;
+				}
+
+				target.CurrentStatus.Add(effect);
+
+				Console.WriteLine("Added {0} to {1} for {2} turns", effect.DisplayName, target.DisplayName, duration);
+			}
+			#endregion
 
 			return false;
 		}
