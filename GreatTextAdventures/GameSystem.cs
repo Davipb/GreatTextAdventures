@@ -183,7 +183,7 @@ namespace GreatTextAdventures
 		public static ILookable GetMemberWithName(string name)
 		{
 			IList<ILookable> found = (from item in CurrentMap.CurrentRoom.Members
-									  where item.CodeNames.Contains(name)
+									  where item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name
 									  select item)
 									 .ToList();
 
@@ -205,7 +205,7 @@ namespace GreatTextAdventures
 			}
 		}
 
-		public static string Enumerate(IList list, string multiPrefix, string onePrefix = null, string nonePrefix = null, string lastSeparator = null)
+		public static string Enumerate(IList list, string multiPrefix, string onePrefix, string nonePrefix, string lastSeparator)
 		{
 			StringBuilder sb = new StringBuilder();
 
@@ -215,12 +215,12 @@ namespace GreatTextAdventures
 				sb.Append(multiPrefix);
 				sb.Append(" ");
 				
-				sb.AppendFormat("{0} ", list[0].ToString());
+				sb.AppendFormat("{0},", list[0].ToString());
 
 				for (int i = 1; i < list.Count - 1; i++)
 					sb.AppendFormat(" {0},", list[i].ToString());
 
-				sb.AppendFormat("{0} {1}", lastSeparator ?? "", list[list.Count - 1].ToString());
+				sb.AppendFormat(" {0} {1}", lastSeparator, list[list.Count - 1].ToString());
 			}
 			else if (list.Count == 2)
 			{
@@ -229,12 +229,12 @@ namespace GreatTextAdventures
 			}
 			else if (list.Count > 0)
 			{
-				// One item, put it in format "<onePrefix/multiPrefix> a. "
+				// One item, put it in format "<onePrefix/multiPrefix> a"
 				sb.AppendFormat("{0} {1}", onePrefix ?? multiPrefix, list[0]);
 			}
 			else
 			{
-				// No items, put it in format "<nonePrefix/multiPrefix>. "
+				// No items, put it in format "<nonePrefix/multiPrefix>"
 				sb.Append(nonePrefix ?? multiPrefix);
 			}
 

@@ -108,7 +108,7 @@ namespace GreatTextAdventures
 			Directions obligatory = Directions.None;
 			Directions blocked = Directions.None;
 
-			// Check each possible exit
+			// Check every possible direction to see if a room already exists there
 			foreach(Directions d in Enum.GetValues(typeof(Directions)))
 			{
 				int[] newpos = MovePosition(pos, d);
@@ -118,12 +118,12 @@ namespace GreatTextAdventures
 				{
 					if (rooms[key].Exits.HasFlag(OppositeDirection(d)))
 					{
-						// Generated room must have exit to that side
+						// Adjacent room exists has exit to this room, so we need an exit to that side
 						obligatory |= d;
 					}
 					else
 					{
-						// Generated room must be blocked to that side
+						// Adjacent room exists but doesn't have exit to this room, so we can't have an exit to that side
 						blocked |= d;
 					}
 				}
