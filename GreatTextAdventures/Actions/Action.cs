@@ -1,4 +1,8 @@
 ﻿using System.Collections.Generic;
+using System;
+using GreatTextAdventures.Items;
+using GreatTextAdventures.People;
+using System.Linq;
 
 namespace GreatTextAdventures.Actions
 {
@@ -18,5 +22,33 @@ namespace GreatTextAdventures.Actions
 		/// Shows syntax help for the action
 		/// </summary>
 		public abstract void Help();
+
+		protected void ListItemPossibilites(ILookable item)
+		{
+			List<GameAction> possible = new List<GameAction>();
+
+			if (item as Person != null)
+			{
+				possible.Add(GameSystem.Actions.Find(x => x is AttackAction));
+				possible.Add(GameSystem.Actions.Find(x => x is TalkAction));
+			}
+
+			if (item as Weapon != null)
+			{
+				possible.Add(GameSystem.Actions.Find(x => x is EquipAction));
+			}
+
+			if (item as IContainer != null)
+			{
+				possible.Add(GameSystem.Actions.Find(x => x is OpenAction));
+			}
+
+			if (item as IUsable != null)
+			{
+				possible.Add(GameSystem.Actions.Find(x => x is UseAction));
+			}
+
+			Console.WriteLine(GameSystem.Enumerate(possible.Select(x => x.Aliases.First()).ToList(), "Try", null, "", "or"));
+		}
 	}
 }

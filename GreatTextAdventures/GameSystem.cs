@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 using GreatTextAdventures.People;
 using GreatTextAdventures.Actions;
@@ -64,7 +66,7 @@ namespace GreatTextAdventures
 
 			Player = new PlayerPerson();
 
-			CurrentMap = new Map();			
+			CurrentMap = new Map();
 		}
 
 		/// <summary>
@@ -78,7 +80,7 @@ namespace GreatTextAdventures
 			CurrentMap.Update();
 			Player.Update();
 
-			while(true)
+			while (true)
 			{
 				// Beautification
 				Console.WriteLine();
@@ -96,9 +98,9 @@ namespace GreatTextAdventures
 				bool didAction = false;
 
 				// Search for valid actions
-				foreach(var act in Actions)
+				foreach (var act in Actions)
 				{
-					foreach(var alias in act.Aliases)
+					foreach (var alias in act.Aliases)
 					{
 						if (input.StartsWith(alias))
 						{
@@ -121,7 +123,7 @@ namespace GreatTextAdventures
 				{
 					Console.WriteLine("Unknown action '{0}'. Type 'help' for a list of actions.", input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]);
 				}
-			
+
 				// Check for player death
 				if (Player.Health <= 0)
 				{
@@ -150,7 +152,7 @@ namespace GreatTextAdventures
 			if (displayNames == null) displayNames = items.Select(x => x.ToString()).ToList();
 
 			// Display all items to the user
-			for (int i = 0; i < items.Count; i++ )
+			for (int i = 0; i < items.Count; i++)
 			{
 				Console.WriteLine("{0}. {1}", i + 1, displayNames[i]);
 			}
@@ -158,7 +160,7 @@ namespace GreatTextAdventures
 			Console.WriteLine();
 			Console.WriteLine("Write input:");
 
-			while(true)
+			while (true)
 			{
 				string input = Console.ReadLine();
 				int output;
@@ -182,7 +184,7 @@ namespace GreatTextAdventures
 		{
 			IList<ILookable> found = (from item in CurrentMap.CurrentRoom.Members
 									  where item.CodeNames.Contains(name)
-									  select item)									  
+									  select item)
 									 .ToList();
 
 			if (Player.CodeNames.Contains(name)) found.Add(Player);
@@ -201,6 +203,42 @@ namespace GreatTextAdventures
 			{
 				return found[0];
 			}
+		}
+
+		public static string Enumerate(IList list, string multiPrefix, string onePrefix = null, string nonePrefix = null, string lastSeparator = null)
+		{
+			StringBuilder sb = new StringBuilder();
+
+			if (list.Count > 2)
+			{
+				// Put items in format "<multiPrefix> a, b, c, ..., d, <lastSeparator> e"
+				sb.Append(multiPrefix);
+				sb.Append(" ");
+				
+				sb.AppendFormat("{0} ", list[0].ToString());
+
+				for (int i = 1; i < list.Count - 1; i++)
+					sb.AppendFormat(" {0},", list[i].ToString());
+
+				sb.AppendFormat("{0} {1}", lastSeparator ?? "", list[list.Count - 1].ToString());
+			}
+			else if (list.Count == 2)
+			{
+				// Dual items, put them in format "<multiPrefix> a <lastSeparator> b"
+				sb.AppendFormat("{0} {1} {2} {3}", multiPrefix, list[0], lastSeparator, list[1]);
+			}
+			else if (list.Count > 0)
+			{
+				// One item, put it in format "<onePrefix/multiPrefix> a. "
+				sb.AppendFormat("{0} {1}", onePrefix ?? multiPrefix, list[0]);
+			}
+			else
+			{
+				// No items, put it in format "<nonePrefix/multiPrefix>. "
+				sb.Append(nonePrefix ?? multiPrefix);
+			}
+
+			return sb.ToString();
 		}
 	}
 }
