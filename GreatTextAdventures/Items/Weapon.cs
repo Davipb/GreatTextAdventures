@@ -3,27 +3,48 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace GreatTextAdventures.Items
 {
 	public class Weapon : ILookable
 	{
-		public string DisplayName { get { return string.Format("{0} {1} (Atk {2})", nameModifier, name, Attack); } }
-		public string Description { get { throw new NotImplementedException(); } }
-		public IEnumerable<string> CodeNames { get { yield return name.ToLowerInvariant(); } }
+		public string DisplayName { get { return string.Format("{0} {1} (Atk {2})", nameModifier, baseName, Attack); } }
+		public string Description
+		{
+			get
+			{
+				StringBuilder sb = new StringBuilder();
+				sb.AppendFormat("{0} {1}", nameModifier, baseName);
+				sb.AppendLine();
+				sb.AppendFormat("Base Attack: {0}", baseAttack);
+				sb.AppendLine();
+				sb.AppendFormat("Attack Modifier: {0}{1}", Math.Sign(attackModifier) == 0? "" : Math.Sign(attackModifier) > 0? "+" : "-", Math.Abs(attackModifier));
+				return sb.ToString();
 
-		public int Attack { get { return Math.Max(1, attack + attackModifier); } }
+			}
+		}
+		public IEnumerable<string> CodeNames 
+		{ 
+			get 
+			{ 
+				yield return baseName.ToLowerInvariant();
+				yield return (nameModifier + " " + baseName).ToLowerInvariant();
+			} 
+		}
 
-		protected string name;
+		public int Attack { get { return Math.Max(1, baseAttack + attackModifier); } }
+
+		protected string baseName;
 		protected string nameModifier;
-		protected int attack;
+		protected int baseAttack;
 		protected int attackModifier;
 
 		public Weapon(string name, string nameModifier, int attack, int attackModifier)
 		{
-			this.name = name;
+			this.baseName = name;
 			this.nameModifier = nameModifier;
-			this.attack = attack;
+			this.baseAttack = attack;
 			this.attackModifier = attackModifier;
 		}
 

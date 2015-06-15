@@ -25,15 +25,7 @@ namespace GreatTextAdventures.Rooms
 
 			if (Members.Count > 0)
 			{
-				sb.Append("You can see: ");
-
-				foreach(ILookable i in Members)
-				{
-					sb.Append(i.DisplayName);
-					sb.Append(", ");
-				}
-
-				sb.Remove(sb.Length - 2, 2);
+				sb.Append(GameSystem.Enumerate(Members.Select(x => x.DisplayName).ToList(), "You can see:", null, null, "and"));
 			}
 
 			return sb.ToString();
