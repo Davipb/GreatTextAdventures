@@ -33,14 +33,12 @@ namespace GreatTextAdventures.People
 			get { return ManaMinimum + (Level - 1) * ManaPerLevel; }
 		}
 
-		protected int pendingSkillPoints;
+		public int PendingSkillPoints { get; set; }
 
-		public PlayerPerson()
+		public PlayerPerson() : base()
 		{
 			EquippedWeapon = Items.Weapon.Random(Level);
-			LevelingUp += LevelUpEventHandler;
-
-			Initialize();
+			LeveledUp += LevelUpEventHandler;
 		}
 
 		public override void Update()
@@ -55,8 +53,8 @@ namespace GreatTextAdventures.People
 
 		protected void LevelUpEventHandler()
 		{
-			pendingSkillPoints += 2;
-			Console.WriteLine("+2 Skill Points ({0} total)", pendingSkillPoints);
+			PendingSkillPoints += 2;
+			Console.WriteLine("+2 Skill Points ({0} total)", PendingSkillPoints);
 		}
 	}
 }

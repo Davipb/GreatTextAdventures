@@ -72,13 +72,14 @@ namespace GreatTextAdventures.People
 			get { return level; }
 			set 
 			{
-				if (value > level)
-					LevelingUp();
-
+				int oldLevel = level;
 				level = Math.Max(1, value);
+
+				if (level > oldLevel)
+					LeveledUp();
 			}
 		}
-		public event Action LevelingUp;
+		public event Action LeveledUp;
 
 		protected long experience = 0;
 		public long Experience
@@ -90,8 +91,6 @@ namespace GreatTextAdventures.People
 				while (experience >= NeededExperience)
 				{
 					experience -= NeededExperience;
-
-					Console.WriteLine("{0} grew to level {1}!", DisplayName, Level);
 					Level++;
 				}
 			}
@@ -107,6 +106,17 @@ namespace GreatTextAdventures.People
 		public List<StatusEffect> CurrentStatus { get; set; }
 
 		public Weapon EquippedWeapon { get; set; }
+
+		protected Person()
+		{
+			Health = MaxHealth;
+			Mana = MaxMana;
+
+			KnownSpells = new List<GameSpell>();
+			CurrentStatus = new List<StatusEffect>();
+
+			LeveledUp += LevelingUpEventHandler;
+		}
 
 		public virtual void Update() 
 		{ 
@@ -158,15 +168,6 @@ namespace GreatTextAdventures.People
 			}
 		}
 
-		protected void Initialize()
-		{
-			Health = MaxHealth;
-			Mana = MaxMana;
-
-			KnownSpells = new List<GameSpell>();
-			CurrentStatus = new List<StatusEffect>();
-		}
-
 		public int ReceiveDamage(int baseDamage, DamageType type)
 		{
 			int actualDamage = baseDamage;
@@ -186,6 +187,11 @@ namespace GreatTextAdventures.People
 			Console.WriteLine("{0} was damaged for {1} HP", DisplayName, actualDamage);
 			Health -= actualDamage;
 			return actualDamage;
+		}
+
+		void LevelingUpEventHandler()
+		{
+			Console.WriteLine("{0} grew to level {1}!", DisplayName, Level);
 		}
 	}
 }

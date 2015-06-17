@@ -15,7 +15,7 @@ namespace GreatTextAdventures
 		public static List<GameAction> Actions { get; set; }
 		public static Map CurrentMap { get; set; }
 		public static Random RNG { get; set; }
-		public static Person Player { get; set; }
+		public static PlayerPerson Player { get; set; }
 
 		static void Main(string[] args)
 		{
@@ -62,6 +62,7 @@ namespace GreatTextAdventures
 			Actions.Add(new WaitAction());
 			Actions.Add(new CastAction());
 			Actions.Add(new UseAction());
+			Actions.Add(new LevelAction());
 
 			Player = new PlayerPerson();
 
@@ -216,7 +217,7 @@ namespace GreatTextAdventures
 				
 				sb.AppendFormat("{0},", list.First().ToString());
 
-				foreach(T elem in list.Take(list.Count() - 1))
+				foreach(T elem in list.Skip(1).Take(list.Count() - 1))
 					sb.AppendFormat(" {0},", elem.ToString());
 
 				sb.AppendFormat(" {0} {1}", lastSeparator, list.Last().ToString());

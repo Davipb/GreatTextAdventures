@@ -46,8 +46,6 @@ namespace GreatTextAdventures.People
 
 			Strength = GameSystem.RNG.Next(StrMinPerLevel * level, StrMinPerLevel * level);
 			Intelligence = 0;
-
-			Initialize();
 		}
 
 		public override void Update()

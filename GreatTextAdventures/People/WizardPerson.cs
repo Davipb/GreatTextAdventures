@@ -46,8 +46,6 @@ namespace GreatTextAdventures.People
 		{
 			this.Level = level;
 
-			Initialize();
-
 			KnownSpells.Add(new HealSpell(Level));
 			KnownSpells.Add(new FireballSpell(GameSystem.RNG.Next(Level - 2, Level + 1)));
 			KnownSpells.Add(new ManaHealSpell(Level));
