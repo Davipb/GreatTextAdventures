@@ -7,10 +7,15 @@ namespace GreatTextAdventures.People
 	{
 		const int ExperiencePerLevel = 3;
 		const int ExperienceDeltaMultiplier = 10;
+
 		const int HealthMinimum = 15;
 		const int HealthPerLevel = 5;
+
 		const int ManaMinimum = 10;
 		const int ManaPerLevel = 5;
+
+		const int StrMinPerLevel = 1;
+		const int StrMaxPerLevel = 2;
 
 		bool detected = false;
 
@@ -39,6 +44,9 @@ namespace GreatTextAdventures.People
 			Level = level;
 			EquippedWeapon = Items.Weapon.Random(this.Level);
 
+			Strength = GameSystem.RNG.Next(StrMinPerLevel * level, StrMinPerLevel * level);
+			Intelligence = 0;
+
 			Initialize();
 		}
 
@@ -65,8 +73,8 @@ namespace GreatTextAdventures.People
 				return;
 			}
 
-			Console.WriteLine("{0} attacks you for {1} damage", DisplayName, EquippedWeapon.Attack);
-			GameSystem.Player.Health -= EquippedWeapon.Attack;
+			Attack(GameSystem.Player);
+
 		}
 
 		public override void Talk()

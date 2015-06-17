@@ -27,6 +27,10 @@ namespace GreatTextAdventures.People
 				sb.AppendLine();
 				sb.AppendFormat("Mana: {0}/{1}", Mana, MaxMana);
 				sb.AppendLine();
+				sb.AppendFormat("Strength: {0}", Strength);
+				sb.AppendLine();
+				sb.AppendFormat("Intelligence: {0}", Intelligence);
+				sb.AppendLine();
 				sb.AppendFormat("Weapon: {0}", EquippedWeapon == null ? "None" : EquippedWeapon.DisplayName);
 				sb.AppendLine();
 				if (KnownSpells != null && KnownSpells.Any())
@@ -84,6 +88,10 @@ namespace GreatTextAdventures.People
 			}
 		}
 		public long NeededExperience { get { return Level * Level; } }
+
+		public int Strength { get; set; }
+		public int Intelligence { get; set; }
+		public int Defense { get; set; }
 
 		public List<GameSpell> KnownSpells { get; set; }
 		public List<StatusEffect> CurrentStatus { get; set; }
@@ -147,6 +155,22 @@ namespace GreatTextAdventures.People
 
 			KnownSpells = new List<GameSpell>();
 			CurrentStatus = new List<StatusEffect>();
+		}
+
+		public virtual void Attack(Person target)
+		{
+			int damage = EquippedWeapon == null ? 1 : EquippedWeapon.Attack;
+
+			// Strength damage modifier: +10% damage per STR
+			damage += (int)Math.Ceiling(Strength * 0.1f * damage);
+
+			damage -= target.Defense;
+
+			// Can't do negative damage
+			damage = Math.Max(0, damage);
+
+			Console.WriteLine("{0} attacks {1} for {2} damage", DisplayName, target.DisplayName, damage);
+			target.Health -= damage;
 		}
 	}
 }

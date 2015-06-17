@@ -8,6 +8,7 @@ namespace GreatTextAdventures.Spells
 	{
 		const int HealPerLevel = 5;
 		const int CostPerLevel = 10;
+		const float IntBonus = 0.1f;
 
 		public override string DisplayName 
 		{ 
@@ -23,7 +24,12 @@ namespace GreatTextAdventures.Spells
 		}
 		public override string Description
 		{
-			get { return string.Format("Heals {0} health", HealPerLevel * level); }
+			get 
+			{ 
+				return string.Format("Heals {0} (+{1}%/INT) health", 
+					HealPerLevel * level,
+					IntBonus * 100f); 
+			}
 		}
 		public override int Cost
 		{
@@ -36,8 +42,11 @@ namespace GreatTextAdventures.Spells
 		{
 			if (!base.Cast(caster, target)) return false;
 
-			target.Health += HealPerLevel * level;
-			Console.WriteLine("{0} healed {1} for {2} health", caster.DisplayName, target.DisplayName, HealPerLevel * level);
+			int targetHeal = HealPerLevel * level;
+			targetHeal += (int)Math.Ceiling(IntBonus * caster.Intelligence * targetHeal);
+
+			target.Health += targetHeal;
+			Console.WriteLine("{0} healed {1} for {2} health", caster.DisplayName, target.DisplayName, targetHeal);
 
 			return true;
 		}

@@ -19,8 +19,8 @@ namespace GreatTextAdventures.People
 		const int CriticalHealthDivider = 4;
 		const int CriticalManaDivider = 5;
 
-		const int PunchMinimum = 1;
-		const int PunchPerLevel = 2;
+		const int IntMinPerLevel = 1;
+		const int IntMaxPerLevel = 2;
 
 		bool detected = false;
 
@@ -51,6 +51,9 @@ namespace GreatTextAdventures.People
 			KnownSpells.Add(new HealSpell(Level));
 			KnownSpells.Add(new FireballSpell(GameSystem.RNG.Next(Level - 2, Level + 1)));
 			KnownSpells.Add(new ManaHealSpell(Level));
+
+			Strength = 1;
+			Intelligence = GameSystem.RNG.Next(IntMinPerLevel * level, IntMaxPerLevel * level);
 		}
 
 		public override void Update()
@@ -106,8 +109,7 @@ namespace GreatTextAdventures.People
 				return;
 			}
 
-			Console.WriteLine("{0} punched you for {1} damage", DisplayName, PunchMinimum + PunchPerLevel * (Level - 1));
-			GameSystem.Player.Health -= PunchMinimum + PunchPerLevel * (Level - 1);
+			Attack(GameSystem.Player);
 		}
 
 		public override void Talk()

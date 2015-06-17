@@ -5,8 +5,9 @@ namespace GreatTextAdventures.Spells
 {
 	public class FireballSpell : GameSpell
 	{
-		const int DamagePerLevel = 15;
+		const int DamagePerLevel = 5;
 		const int CostPerLevel = 10;
+		const float IntBonus = 0.05f;
 
 		public override string DisplayName 
 		{ 
@@ -27,8 +28,9 @@ namespace GreatTextAdventures.Spells
 			get 
 			{ 
 				return string.Format(
-					"Hurls a fireball at the enemy, dealing {0} damage", 
-					DamagePerLevel * level); 
+					"Hurls a fireball at the enemy, dealing {0} (+{1}%/INT) damage", 
+					DamagePerLevel * level,
+					IntBonus * 100f); 
 			} 
 		}
 		public override int Cost 
@@ -42,8 +44,11 @@ namespace GreatTextAdventures.Spells
 		{
 			if (!base.Cast(caster, target)) return false;
 
-			Console.WriteLine("{0} threw a fireball at {1} for {2} damage", caster.DisplayName, target.DisplayName, DamagePerLevel * level);
-			target.Health -= DamagePerLevel * level;
+			int targetDamage = DamagePerLevel * level;
+			targetDamage += (int)Math.Ceiling(IntBonus * caster.Intelligence * targetDamage);
+
+			Console.WriteLine("{0} threw a fireball at {1} for {2} damage", caster.DisplayName, target.DisplayName, targetDamage);
+			target.Health -= targetDamage;
 
 			return true;
 		}
