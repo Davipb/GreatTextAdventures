@@ -20,12 +20,12 @@ namespace GreatTextAdventures.Rooms
 									 where dir != Directions.None && Exits.HasFlag(dir)
 									 select dir).ToList();
 
-			sb.Append(GameSystem.Enumerate(dirs, "There are exits to the", "There's an exit to the", "There are no exits", "and"));
+			sb.Append(GameSystem.Enumerate<Directions>(dirs, "There are exits to the", "There's an exit to the", "There are no exits", "and"));
 			sb.Append(". ");
 
 			if (Members.Count > 0)
 			{
-				sb.Append(GameSystem.Enumerate(Members.Select(x => x.DisplayName).ToList(), "You can see:", null, null, "and"));
+				sb.Append(GameSystem.Enumerate<string>(Members.Select(x => x.DisplayName), "You can see:", null, null, "and"));
 			}
 
 			return sb.ToString();

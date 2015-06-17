@@ -53,6 +53,7 @@
     <Compile Include="Actions\DebugAction.cs" />
     <Compile Include="Actions\EquipAction.cs" />
     <Compile Include="Actions\HelpAction.cs" />
+    <Compile Include="Actions\LevelAction.cs" />
     <Compile Include="Actions\LookAction.cs" />
     <Compile Include="Actions\MoveAction.cs" />
     <Compile Include="Actions\OpenAction.cs" />

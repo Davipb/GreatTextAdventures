@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -205,32 +204,32 @@ namespace GreatTextAdventures
 			}
 		}
 
-		public static string Enumerate(IList list, string multiPrefix, string onePrefix, string nonePrefix, string lastSeparator)
+		public static string Enumerate<T>(IEnumerable<T> list, string multiPrefix, string onePrefix, string nonePrefix, string lastSeparator)
 		{
 			StringBuilder sb = new StringBuilder();
 
-			if (list.Count > 2)
+			if (list.Count() > 2)
 			{
 				// Put items in format "<multiPrefix> a, b, c, ..., d, <lastSeparator> e"
 				sb.Append(multiPrefix);
 				sb.Append(" ");
 				
-				sb.AppendFormat("{0},", list[0].ToString());
+				sb.AppendFormat("{0},", list.First().ToString());
 
-				for (int i = 1; i < list.Count - 1; i++)
-					sb.AppendFormat(" {0},", list[i].ToString());
+				foreach(T elem in list.Take(list.Count() - 1))
+					sb.AppendFormat(" {0},", elem.ToString());
 
-				sb.AppendFormat(" {0} {1}", lastSeparator, list[list.Count - 1].ToString());
+				sb.AppendFormat(" {0} {1}", lastSeparator, list.Last().ToString());
 			}
-			else if (list.Count == 2)
+			else if (list.Count() == 2)
 			{
 				// Dual items, put them in format "<multiPrefix> a <lastSeparator> b"
-				sb.AppendFormat("{0} {1} {2} {3}", multiPrefix, list[0], lastSeparator, list[1]);
+				sb.AppendFormat("{0} {1} {2} {3}", multiPrefix, list.First(), lastSeparator, list.Last());
 			}
-			else if (list.Count > 0)
+			else if (list.Count() > 0)
 			{
 				// One item, put it in format "<onePrefix/multiPrefix> a"
-				sb.AppendFormat("{0} {1}", onePrefix ?? multiPrefix, list[0]);
+				sb.AppendFormat("{0} {1}", onePrefix ?? multiPrefix, list.First());
 			}
 			else
 			{
