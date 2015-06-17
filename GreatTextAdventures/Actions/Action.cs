@@ -23,7 +23,7 @@ namespace GreatTextAdventures.Actions
 		/// </summary>
 		public abstract void Help();
 
-		protected void ListItemPossibilites(ILookable item)
+		protected static void ListItemPossibilities(ILookable item)
 		{
 			List<GameAction> possible = new List<GameAction>();
 

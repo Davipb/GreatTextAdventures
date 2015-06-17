@@ -10,7 +10,6 @@ namespace GreatTextAdventures.Spells
 		const int HealthPerLevel = 7;
 		const float DamageBonusBase = 1.5f;
 		const float DamageBonusPerLevel = 0.2f;
-		const float StrDamageBonus = 0.1f;
 
 		public override string DisplayName { get { return string.Format("Bloodlust {0}", level); } }
 		public override IEnumerable<string> CodeNames
@@ -28,8 +27,7 @@ namespace GreatTextAdventures.Spells
 				return string.Format(
 					"Damages yourself for {0} damage and the target for {1}% normal damage", 
 					HealthPerLevel * level, 
-					(DamageBonusBase + DamageBonusPerLevel * level) * 100f,
-					StrDamageBonus * 100f);
+					(DamageBonusBase + DamageBonusPerLevel * level) * 100f);
 			}
 		}
 		public override int Cost { get { return CostPerLevel * level; } }
@@ -44,7 +42,7 @@ namespace GreatTextAdventures.Spells
 				return false;
 			}
 
-			if (!base.Cast(caster, target)) return false;
+			if (!base.Cast(caster, target)) return false;			
 
 			int casterDamage = HealthPerLevel * level;
 

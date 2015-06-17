@@ -34,7 +34,7 @@ namespace GreatTextAdventures.Actions
 			if (person == null)
 			{
 				Console.WriteLine("You can't attack {0}", found.DisplayName);
-				ListItemPossibilites(found);
+				ListItemPossibilities(found);
 				return false;
 			}
 

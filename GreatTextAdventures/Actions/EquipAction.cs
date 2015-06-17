@@ -32,7 +32,7 @@ namespace GreatTextAdventures.Actions
 			if (weapon == null)
 			{
 				Console.WriteLine("You can't equip {0}", found.DisplayName);
-				ListItemPossibilites(found);
+				ListItemPossibilities(found);
 				return false;
 			}
 

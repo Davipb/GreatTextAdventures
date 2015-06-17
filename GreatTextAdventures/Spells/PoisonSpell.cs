@@ -51,7 +51,7 @@ namespace GreatTextAdventures.Spells
 				return false;
 			}
 
-			Console.WriteLine("{0} used {1} on {2}!", caster.DisplayName, DisplayName, target, DisplayName);
+			Console.WriteLine("{0} used {1} on {2}!", caster.DisplayName, DisplayName, target);
 			target.CurrentStatus.Add(new PoisonEffect(target, Duration));
 			Console.WriteLine("{0} was poisoned!", target.DisplayName);
 

@@ -39,7 +39,7 @@ namespace GreatTextAdventures.Actions
 			if (person == null)
 			{
 				Console.WriteLine("You can't talk with {0}", found.DisplayName);
-				ListItemPossibilites(found);
+				ListItemPossibilities(found);
 				return false;
 			}
 

@@ -31,7 +31,7 @@ namespace GreatTextAdventures.Actions
 			if (item == null)
 			{
 				Console.WriteLine("You can't use '{0}'", found.DisplayName);
-				ListItemPossibilites(found);
+				ListItemPossibilities(found);
 				return false;
 			}
 

@@ -28,7 +28,7 @@ namespace GreatTextAdventures.Actions
 			if (container == null)
 			{
 				Console.WriteLine("You can't open '{0}'", found.DisplayName);
-				ListItemPossibilites(found);
+				ListItemPossibilities(found);
 				return false;
 			}
 
