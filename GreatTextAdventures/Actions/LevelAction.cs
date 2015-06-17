@@ -44,29 +44,25 @@ namespace GreatTextAdventures.Actions
 
 			switch(action)
 			{
-				case "STR":
+				case "str":
 				case "strength":					
 					GameSystem.Player.Strength++;
 					Console.WriteLine("{0}'s Strength increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.Strength);					
 					break;
-				case "INT":
+				case "int":
 				case "intelligence":
 					GameSystem.Player.Intelligence++;
 					Console.WriteLine("{0}'s Intelligence increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.Intelligence);					
 					break;
-				case "PDF":
+				case "pdf":
 				case "physical defense":
 					GameSystem.Player.PhysicalDefense++;
 					Console.WriteLine("{0}'s Physical Defense increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.PhysicalDefense);					
 					break;
-				case "MDF":
+				case "mdf":
 				case "magical defense":
 					GameSystem.Player.MagicalDefense++;
 					Console.WriteLine("{0}'s Magical Defense increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.MagicalDefense);
-					break;
-				case "defense":
-					Console.WriteLine("Did you mean Physical Defense (PDF) or Magical Defense (MDF)?");
-					success = false;
 					break;
 				default:
 					Console.WriteLine("Unknown stat '{0}'. Type just 'level' for a list of stats.", action);

@@ -190,6 +190,28 @@ namespace GreatTextAdventures.Actions
 				Console.WriteLine("Added {0} to {1} for {2} turns", effect.DisplayName, target.DisplayName, duration);
 			}
 			#endregion
+			#region Skill Points
+			else if (split[0] == "skill")
+			{
+				if (split.Length < 2)
+				{
+					Console.WriteLine("Invalid number of arguments");
+					return false;
+				}
+
+				int total;
+
+				if (!int.TryParse(split[1], out total))
+				{
+					Console.WriteLine("Invalid number '{0}'", split[1]);
+					return false;
+				}
+
+				GameSystem.Player.PendingSkillPoints += total;
+				Console.WriteLine("Added {0} skill points", total);
+				return false;
+			}
+			#endregion
 
 			return false;
 		}
@@ -203,10 +225,17 @@ namespace GreatTextAdventures.Actions
 			Console.WriteLine("\tdebug error");
 			Console.WriteLine("\tdebug weapon *level*");
 			Console.WriteLine("\t\tlevel: Level of the weapon to spawn");
+			Console.WriteLine("\tdebug loot");
 			Console.WriteLine("\tdebug enemy *type* *level*");
 			Console.WriteLine("\t\ttype: thug, wizard");
 			Console.WriteLine("\t\tlevel: Level of the enemy to spawn");
-			Console.WriteLine("\tdebug loot");
+			Console.WriteLine("\tdebug heal");
+			Console.WriteLine("\tdebug effect *target* *duration* *name*");
+			Console.WriteLine("\t\ttarget: Target of the effect");
+			Console.WriteLine("\t\tduration: Duration, in turns, of the effect");
+			Console.WriteLine("\t\teffect: Name of the effect to add");
+			Console.WriteLine("\tdebug skill *number*");
+			Console.WriteLine("\t\tnumber: Number of skill points to add");
 		}
 	}
 }
