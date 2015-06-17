@@ -33,9 +33,12 @@ namespace GreatTextAdventures.People
 			get { return ManaMinimum + (Level - 1) * ManaPerLevel; }
 		}
 
+		protected int pendingSkillPoints;
+
 		public PlayerPerson()
 		{
 			EquippedWeapon = Items.Weapon.Random(Level);
+			LevelingUp += LevelUpEventHandler;
 
 			Initialize();
 		}
@@ -48,6 +51,12 @@ namespace GreatTextAdventures.People
 		public override void Talk()
 		{
 			Console.WriteLine("This is why you don't have friends.");
+		}
+
+		protected void LevelUpEventHandler()
+		{
+			pendingSkillPoints += 2;
+			Console.WriteLine("+2 Skill Points ({0} total)", pendingSkillPoints);
 		}
 	}
 }

@@ -47,8 +47,9 @@ namespace GreatTextAdventures.Spells
 			int targetDamage = DamagePerLevel * level;
 			targetDamage += (int)Math.Ceiling(IntBonus * caster.Intelligence * targetDamage);
 
-			Console.WriteLine("{0} threw a fireball at {1} for {2} damage", caster.DisplayName, target.DisplayName, targetDamage);
-			target.Health -= targetDamage;
+			Console.WriteLine("{0} threw a fireball at {1}", caster.DisplayName, target.DisplayName);
+
+			target.ReceiveDamage(targetDamage, DamageType.Magical);
 
 			return true;
 		}

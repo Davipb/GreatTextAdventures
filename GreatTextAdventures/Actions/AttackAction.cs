@@ -38,8 +38,8 @@ namespace GreatTextAdventures.Actions
 				return false;
 			}
 
-			person.Health -= GameSystem.Player.EquippedWeapon.Attack;
-			Console.WriteLine("Attacked {0} for {1} damage.", person.DisplayName, GameSystem.Player.EquippedWeapon.Attack);
+			Console.WriteLine("{0} attacked {1}", GameSystem.Player.DisplayName, person.DisplayName);
+			person.ReceiveDamage(GameSystem.Player.EquippedWeapon == null ? 1 : GameSystem.Player.EquippedWeapon.Damage(GameSystem.Player), DamageType.Physical);
 
 			return true;
 		}

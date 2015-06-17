@@ -73,7 +73,8 @@ namespace GreatTextAdventures.People
 				return;
 			}
 
-			Attack(GameSystem.Player);
+			Console.WriteLine("{0} attacked {1} with {2}", DisplayName, GameSystem.Player.DisplayName, EquippedWeapon.DisplayName);
+			int damage = GameSystem.Player.ReceiveDamage(EquippedWeapon.Damage(this), DamageType.Physical);
 
 		}
 

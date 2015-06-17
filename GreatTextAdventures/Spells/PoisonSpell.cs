@@ -2,6 +2,7 @@
 using GreatTextAdventures.StatusEffects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GreatTextAdventures.Spells
 {
@@ -43,6 +44,12 @@ namespace GreatTextAdventures.Spells
 		public override bool Cast(Person caster, Person target)
 		{
 			if (!base.Cast(caster, target)) return false;
+
+			if(target.CurrentStatus.Any(x => x is PoisonEffect))
+			{
+				Console.WriteLine("{0} is already poisoned!", target.DisplayName);
+				return false;
+			}
 
 			Console.WriteLine("{0} used {1} on {2}!", caster.DisplayName, DisplayName, target, DisplayName);
 			target.CurrentStatus.Add(new PoisonEffect(target, Duration));

@@ -9,6 +9,8 @@ namespace GreatTextAdventures.Items
 {
 	public class Weapon : ILookable
 	{
+		const float StrBonus = 0.01f;
+
 		public string DisplayName { get { return string.Format("{0} {1} (Atk {2})", nameModifier, baseName, Attack); } }
 		public string Description
 		{
@@ -20,6 +22,8 @@ namespace GreatTextAdventures.Items
 				sb.AppendFormat("Base Attack: {0}", baseAttack);
 				sb.AppendLine();
 				sb.AppendFormat("Attack Modifier: {0}{1}", Math.Sign(attackModifier) == 0? "" : Math.Sign(attackModifier) > 0? "+" : "-", Math.Abs(attackModifier));
+				sb.AppendLine();
+				sb.AppendFormat("Strength Bonus: +{0}%/STR", StrBonus * 100f);
 				return sb.ToString();
 
 			}
@@ -46,6 +50,11 @@ namespace GreatTextAdventures.Items
 			this.nameModifier = nameModifier;
 			this.baseAttack = attack;
 			this.attackModifier = attackModifier;
+		}
+
+		public int Damage(People.Person user)
+		{
+			return Attack + (int)Math.Ceiling(StrBonus * user.Strength * Attack);
 		}
 
 		public static Weapon Random(int level)

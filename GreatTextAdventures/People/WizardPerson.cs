@@ -53,7 +53,7 @@ namespace GreatTextAdventures.People
 			KnownSpells.Add(new ManaHealSpell(Level));
 
 			Strength = 1;
-			Intelligence = GameSystem.RNG.Next(IntMinPerLevel * level, IntMaxPerLevel * level);
+			Intelligence = GameSystem.RNG.Next(IntMinPerLevel * Level, IntMaxPerLevel * Level);
 		}
 
 		public override void Update()
@@ -109,7 +109,8 @@ namespace GreatTextAdventures.People
 				return;
 			}
 
-			Attack(GameSystem.Player);
+			Console.WriteLine("{0} punched {1}", DisplayName, GameSystem.Player.DisplayName);
+			GameSystem.Player.ReceiveDamage(1, DamageType.Physical);
 		}
 
 		public override void Talk()

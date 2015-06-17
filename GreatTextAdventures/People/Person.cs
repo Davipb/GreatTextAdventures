@@ -23,13 +23,17 @@ namespace GreatTextAdventures.People
 				sb.AppendLine();
 				sb.AppendFormat("Experience: {0}/{1}", Experience, NeededExperience);
 				sb.AppendLine();
-				sb.AppendFormat("Health: {0}/{1}", Health, MaxHealth);
+				sb.AppendFormat("Health (HP): {0}/{1}", Health, MaxHealth);
 				sb.AppendLine();
-				sb.AppendFormat("Mana: {0}/{1}", Mana, MaxMana);
+				sb.AppendFormat("Mana (MP): {0}/{1}", Mana, MaxMana);
 				sb.AppendLine();
-				sb.AppendFormat("Strength: {0}", Strength);
+				sb.AppendFormat("Strength (STR): {0}", Strength);
 				sb.AppendLine();
-				sb.AppendFormat("Intelligence: {0}", Intelligence);
+				sb.AppendFormat("Intelligence (INT): {0}", Intelligence);
+				sb.AppendLine();
+				sb.AppendFormat("Physical Defense (PDF): {0}", PhysicalDefense);
+				sb.AppendLine();
+				sb.AppendFormat("Magical Defense (MDF): {0}", MagicalDefense);
 				sb.AppendLine();
 				sb.AppendFormat("Weapon: {0}", EquippedWeapon == null ? "None" : EquippedWeapon.DisplayName);
 				sb.AppendLine();
@@ -67,10 +71,14 @@ namespace GreatTextAdventures.People
 		{
 			get { return level; }
 			set 
-			{ 
+			{
+				if (value > level)
+					LevelingUp();
+
 				level = Math.Max(1, value);
 			}
 		}
+		public event Action LevelingUp;
 
 		protected long experience = 0;
 		public long Experience
@@ -82,8 +90,9 @@ namespace GreatTextAdventures.People
 				while (experience >= NeededExperience)
 				{
 					experience -= NeededExperience;
-					Level++;					
+
 					Console.WriteLine("{0} grew to level {1}!", DisplayName, Level);
+					Level++;
 				}
 			}
 		}
@@ -91,7 +100,8 @@ namespace GreatTextAdventures.People
 
 		public int Strength { get; set; }
 		public int Intelligence { get; set; }
-		public int Defense { get; set; }
+		public int PhysicalDefense { get; set; }
+		public int MagicalDefense { get; set; }
 
 		public List<GameSpell> KnownSpells { get; set; }
 		public List<StatusEffect> CurrentStatus { get; set; }
@@ -157,20 +167,25 @@ namespace GreatTextAdventures.People
 			CurrentStatus = new List<StatusEffect>();
 		}
 
-		public virtual void Attack(Person target)
+		public int ReceiveDamage(int baseDamage, DamageType type)
 		{
-			int damage = EquippedWeapon == null ? 1 : EquippedWeapon.Attack;
+			int actualDamage = baseDamage;
 
-			// Strength damage modifier: +10% damage per STR
-			damage += (int)Math.Ceiling(Strength * 0.1f * damage);
+			switch (type)
+			{
+				case DamageType.Physical:
+					actualDamage = Math.Max(0, actualDamage - PhysicalDefense);
+					break;
+				case DamageType.Magical:
+					actualDamage = Math.Max(0, actualDamage - MagicalDefense);
+					break;
+			}
 
-			damage -= target.Defense;
+			actualDamage = Math.Max(0, actualDamage);
 
-			// Can't do negative damage
-			damage = Math.Max(0, damage);
-
-			Console.WriteLine("{0} attacks {1} for {2} damage", DisplayName, target.DisplayName, damage);
-			target.Health -= damage;
+			Console.WriteLine("{0} was damaged for {1} HP", DisplayName, actualDamage);
+			Health -= actualDamage;
+			return actualDamage;
 		}
 	}
 }
