@@ -39,7 +39,10 @@ namespace GreatTextAdventures.Actions
 			}
 
 			Console.WriteLine("{0} attacked {1}", GameSystem.Player.DisplayName, person.DisplayName);
-			person.ReceiveDamage(GameSystem.Player.EquippedWeapon == null ? 1 : GameSystem.Player.EquippedWeapon.Damage(GameSystem.Player), DamageType.Physical);
+			person.ReceiveDamage(
+				GameSystem.Player.EquippedWeapon == null ? 1 : GameSystem.Player.EquippedWeapon.Damage(GameSystem.Player), 
+				DamageType.Physical,
+				GameSystem.Player);
 
 			return true;
 		}

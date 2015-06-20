@@ -51,8 +51,8 @@ namespace GreatTextAdventures.Spells
 			int targetDamage = caster.EquippedWeapon.Damage(caster);
 			targetDamage = (int)Math.Ceiling(targetDamage * (DamageBonusBase + DamageBonusPerLevel * level));
 
-			caster.ReceiveDamage(casterDamage, DamageType.Special);
-			target.ReceiveDamage(targetDamage, DamageType.Physical);
+			caster.ReceiveDamage(casterDamage, DamageType.Special, caster);
+			target.ReceiveDamage(targetDamage, DamageType.Physical, target);
 
 			return true;
 		}

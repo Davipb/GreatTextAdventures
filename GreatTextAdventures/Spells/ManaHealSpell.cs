@@ -41,7 +41,7 @@ namespace GreatTextAdventures.Spells
 
 			Console.WriteLine("{0} used {1}!", caster.DisplayName, this.DisplayName);
 
-			target.ReceiveDamage(HealthCost, DamageType.Special);
+			target.ReceiveDamage(HealthCost, DamageType.Special, this);
 			target.Mana += ManaHeal;
 			
 			Console.WriteLine("{0} recovered {1} mana", target.DisplayName, ManaHeal);

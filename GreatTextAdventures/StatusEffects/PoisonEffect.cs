@@ -22,7 +22,7 @@ namespace GreatTextAdventures.StatusEffects
 
 			Console.WriteLine("{0} is poisoned", Owner.DisplayName);
 
-			Owner.ReceiveDamage(damage, DamageType.Magical);
+			Owner.ReceiveDamage(damage, DamageType.Magical, this);
 
 			base.Update();
 		}

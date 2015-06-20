@@ -10,6 +10,7 @@ namespace GreatTextAdventures.People
 {
 	public abstract class Person : ILookable
 	{
+		#region Properties
 		public abstract string DisplayName { get; }
 		public abstract IEnumerable<string> CodeNames { get; }
 
@@ -78,8 +79,7 @@ namespace GreatTextAdventures.People
 				if (level > oldLevel)
 					LeveledUp();
 			}
-		}
-		public event Action LeveledUp;
+		}		
 
 		protected long experience = 0;
 		public long Experience
@@ -106,6 +106,12 @@ namespace GreatTextAdventures.People
 		public List<StatusEffect> CurrentStatus { get; set; }
 
 		public Weapon EquippedWeapon { get; set; }
+		#endregion
+
+		#region Events
+		protected event Action LeveledUp;
+		protected event Action<ReceivingDamageEventArgs> ReceivingDamage;
+		#endregion
 
 		protected Person()
 		{
@@ -115,7 +121,8 @@ namespace GreatTextAdventures.People
 			KnownSpells = new List<GameSpell>();
 			CurrentStatus = new List<StatusEffect>();
 
-			LeveledUp += LevelingUpEventHandler;
+			LeveledUp += LeveledUpEventHandler;
+			ReceivingDamage += ReceivingDamageEventHandler;
 		}
 
 		public virtual void Update() 
@@ -168,30 +175,57 @@ namespace GreatTextAdventures.People
 			}
 		}
 
-		public int ReceiveDamage(int baseDamage, DamageType type)
+		public int ReceiveDamage(int baseDamage, DamageType type, object source)
 		{
-			int actualDamage = baseDamage;
+			ReceivingDamageEventArgs eventArgs = new ReceivingDamageEventArgs(baseDamage, type, source);			
 
-			switch (type)
-			{
-				case DamageType.Physical:
-					actualDamage = Math.Max(0, actualDamage - PhysicalDefense);
-					break;
-				case DamageType.Magical:
-					actualDamage = Math.Max(0, actualDamage - MagicalDefense);
-					break;
-			}
+			ReceivingDamage(eventArgs);
 
-			actualDamage = Math.Max(0, actualDamage);
-
-			Console.WriteLine("{0} was damaged for {1} HP", DisplayName, actualDamage);
-			Health -= actualDamage;
-			return actualDamage;
+			Console.WriteLine("{0} was damaged for {1} HP", DisplayName, eventArgs.ActualDamage);
+			Health -= eventArgs.ActualDamage;
+			return eventArgs.ActualDamage;
 		}
-
-		void LevelingUpEventHandler()
+		
+		#region Event Handlers
+		void LeveledUpEventHandler()
 		{
 			Console.WriteLine("{0} grew to level {1}!", DisplayName, Level);
+		}
+
+		void ReceivingDamageEventHandler(ReceivingDamageEventArgs eventArgs)
+		{
+			switch (eventArgs.Type)
+			{
+				case DamageType.Physical:
+					eventArgs.ActualDamage = Math.Max(0, eventArgs.ActualDamage - PhysicalDefense);
+					break;
+				case DamageType.Magical:
+					eventArgs.ActualDamage = Math.Max(0, eventArgs.ActualDamage - MagicalDefense);
+					break;
+			}
+		}
+		#endregion
+
+		public class ReceivingDamageEventArgs : EventArgs
+		{
+			public readonly int BaseDamage;
+			public readonly DamageType Type;
+			public readonly object Source;
+
+			private int actualDamage;
+			public int ActualDamage
+			{
+				get { return actualDamage; }
+				set { actualDamage = Math.Max(0, value); }
+			}
+
+			public ReceivingDamageEventArgs(int baseDamage, DamageType type, object source)
+			{
+				this.BaseDamage = baseDamage;
+				this.Type = type;
+				this.Source = source;
+				ActualDamage = BaseDamage;
+			}
 		}
 	}
 }

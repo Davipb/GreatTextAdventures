@@ -108,7 +108,7 @@ namespace GreatTextAdventures.People
 			}
 
 			Console.WriteLine("{0} punched {1}", DisplayName, GameSystem.Player.DisplayName);
-			GameSystem.Player.ReceiveDamage(1, DamageType.Physical);
+			GameSystem.Player.ReceiveDamage(1, DamageType.Physical, this);
 		}
 
 		public override void Talk()

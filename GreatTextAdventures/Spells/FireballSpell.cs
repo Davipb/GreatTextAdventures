@@ -49,7 +49,7 @@ namespace GreatTextAdventures.Spells
 
 			Console.WriteLine("{0} threw a fireball at {1}", caster.DisplayName, target.DisplayName);
 
-			target.ReceiveDamage(targetDamage, DamageType.Magical);
+			target.ReceiveDamage(targetDamage, DamageType.Magical, caster);
 
 			return true;
 		}
