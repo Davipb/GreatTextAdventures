@@ -217,7 +217,7 @@ namespace GreatTextAdventures
 				
 				sb.AppendFormat("{0},", list.First().ToString());
 
-				foreach(T elem in list.Skip(1).Take(list.Count() - 1))
+				foreach(T elem in list.Skip(1).Take(list.Count() - 2))
 					sb.AppendFormat(" {0},", elem.ToString());
 
 				sb.AppendFormat(" {0} {1}", lastSeparator, list.Last().ToString());
