@@ -155,7 +155,7 @@ namespace GreatTextAdventures.Actions
 				}
 
 				// First argument is target
-				Person target = GameSystem.GetMemberWithName(split[1]) as Person;
+				Person target = GameSystem.GetLookableWithName(split[1]) as Person;
 
 				if (target == null)
 				{

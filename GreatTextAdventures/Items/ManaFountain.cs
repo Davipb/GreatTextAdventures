@@ -24,6 +24,8 @@ namespace GreatTextAdventures.Items
 			}
 		}
 
+		public bool CanTake { get { return false; } }
+
 		public void Use(Person user)
 		{
 			GameSystem.WriteLine("{0}'s mana was completely restored", user.DisplayName);

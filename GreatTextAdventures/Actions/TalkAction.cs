@@ -30,7 +30,7 @@ namespace GreatTextAdventures.Actions
 			}
 
 			// Find all people with 'action' code name
-			ILookable found = GameSystem.GetMemberWithName(action);
+			ILookable found = GameSystem.GetLookableWithName(action);
 
 			if (found == null) return false;
 

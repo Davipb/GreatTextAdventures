@@ -45,7 +45,7 @@ namespace GreatTextAdventures.Actions
 			GameSpell spell = GameSystem.Player.GetSpellWithName(split[0].Trim());
 			if (spell == null) return false;
 
-			ILookable found = GameSystem.GetMemberWithName(split[1].Trim());
+			ILookable found = GameSystem.GetLookableWithName(split[1].Trim());
 			if (found == null) return false;
 
 			Person target = found as Person;

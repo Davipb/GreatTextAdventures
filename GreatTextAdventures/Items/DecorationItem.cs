@@ -10,6 +10,7 @@ namespace GreatTextAdventures.Items
 		public string DisplayName { get; set; }
 		public string Description { get; set; }
 		public IEnumerable<string> CodeNames { get; set; }
+		public bool CanTake { get { return false; } }
 
 		public static IEnumerable<DecorationItem> Random(int amount)
 		{

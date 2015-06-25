@@ -66,6 +66,8 @@ namespace GreatTextAdventures
 			Actions.Add(new CastAction());
 			Actions.Add(new UseAction());
 			Actions.Add(new LevelAction());
+			Actions.Add(new TakeAction());
+			Actions.Add(new DropAction());
 
 			Player = new PlayerPerson();
 
@@ -149,15 +151,27 @@ namespace GreatTextAdventures
 		/// <returns>The item chosen by the user</returns>
 		public static T Choice<T>(IList<T> items, IList<string> displayNames = null)
 		{
+			if (displayNames != null)
+				return Choice<T>(items.Zip(displayNames, (x, y) => Tuple.Create<T, string>(x, y)).ToList());
+			else
+				return Choice<T>(items.Select(x => Tuple.Create(x, x.ToString())).ToList());
+		}
+
+		/// <summary>
+		/// Asks the user to choose one item out of a list
+		/// </summary>
+		/// <typeparam name="T">The type of items the list contains</typeparam>
+		/// <param name="items">The list of items with their displayed names</param>
+		/// <returns>The item chosen by the user</returns>
+		public static T Choice<T>(IList<Tuple<T, string>> items)
+		{
 			// Must have items list
 			if (items == null) throw new ArgumentNullException("items");
-			// If no display list is provided, default to "ToString" representation
-			if (displayNames == null) displayNames = items.Select(x => x.ToString()).ToList();
 
 			// Display all items to the user
 			for (int i = 0; i < items.Count; i++)
 			{
-				GameSystem.WriteLine("{0}. {1}", i + 1, displayNames[i]);
+				GameSystem.WriteLine("{0}. {1}", i + 1, items[i].Item2);
 			}
 
 			GameSystem.WriteLine();
@@ -170,7 +184,7 @@ namespace GreatTextAdventures
 
 				if (int.TryParse(input, out output) && output > 0 && output <= items.Count)
 				{
-					return items[output - 1];
+					return items[output - 1].Item1;
 				}
 				else
 				{
@@ -183,14 +197,25 @@ namespace GreatTextAdventures
 			}
 		}
 
-		public static ILookable GetMemberWithName(string name)
+		public static ILookable GetLookableWithName(string name)
 		{
-			IList<ILookable> found = (from item in CurrentMap.CurrentRoom.Members
-									  where item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name
-									  select item)
-									 .ToList();
+			// Find all applicable items then assign a name to be shown if multiple items are found
 
-			if (Player.CodeNames.Contains(name)) found.Add(Player);
+			IEnumerable<Tuple<ILookable, string>> inRoom = from item in CurrentMap.CurrentRoom.Members
+											where item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name
+											select Tuple.Create(item, item.DisplayName + " [Room]");
+
+			IEnumerable<Tuple<ILookable, string>> inInventory = from item in Player.Inventory
+												 where item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name
+												 select Tuple.Create(item, item.DisplayName + " [Inventory]");
+
+			List<Tuple<ILookable, string>> found = inRoom.Union(inInventory).ToList();
+
+			if (Player.EquippedWeapon.CodeNames.Contains(name) || Player.EquippedWeapon.DisplayName.ToLowerInvariant() == name) 
+				found.Add(Tuple.Create<ILookable, string>(Player.EquippedWeapon, Player.EquippedWeapon.DisplayName + " [Inventory, Equipped]"));
+
+			if (Player.CodeNames.Contains(name) || Player.DisplayName.ToLowerInvariant() == name) 
+				found.Add(Tuple.Create<ILookable, string>(Player, Player.DisplayName + " [You]"));
 
 			if (found.Count == 0)
 			{
@@ -200,11 +225,12 @@ namespace GreatTextAdventures
 			else if (found.Count > 1)
 			{
 				GameSystem.WriteLine("There are multiple '{0}'. Please specify.", name);
-				return Choice<ILookable>(found, found.Select(x => x.DisplayName).ToList());
+
+				return Choice<ILookable>(found);
 			}
 			else
 			{
-				return found[0];
+				return found[0].Item1;
 			}
 		}
 

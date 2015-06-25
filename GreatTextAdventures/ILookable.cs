@@ -7,6 +7,7 @@ namespace GreatTextAdventures
 		string DisplayName { get; }
 		IEnumerable<string> CodeNames { get; }
 		string Description { get; }
+		bool CanTake { get; }
 
 		void Update();
 	}

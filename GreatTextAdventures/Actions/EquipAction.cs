@@ -10,7 +10,6 @@ namespace GreatTextAdventures.Actions
 			get
 			{
 				yield return "equip";
-				yield return "take";
 			}
 		}
 
@@ -22,7 +21,7 @@ namespace GreatTextAdventures.Actions
 				return false;
 			}
 
-			ILookable found = GameSystem.GetMemberWithName(action);
+			ILookable found = GameSystem.GetLookableWithName(action);
 
 			// If no items were found, return
 			if (found == null) return false;
@@ -36,15 +35,12 @@ namespace GreatTextAdventures.Actions
 				return false;
 			}
 
-			// Drop the currently equipped weapon
+			// Put equipped weapon back in the Inventory
 			if (GameSystem.Player.EquippedWeapon != null)
 			{
-				// Warn the player
-				GameSystem.WriteLine("You dropped {0}", GameSystem.Player.EquippedWeapon.DisplayName);
+				GameSystem.WriteLine("You put {0} back in your Inventory", GameSystem.Player.EquippedWeapon.DisplayName);
+				GameSystem.Player.Inventory.Add(GameSystem.Player.EquippedWeapon);
 
-				// Add the equipped weapon to the room
-				GameSystem.CurrentMap.CurrentRoom.Members.Add(GameSystem.Player.EquippedWeapon);
-				// Remove weapon from player's equipped slot
 				GameSystem.Player.EquippedWeapon = null;
 			}
 

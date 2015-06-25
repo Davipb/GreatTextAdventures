@@ -26,6 +26,7 @@ namespace GreatTextAdventures.Items
 				yield return "box";
 			}
 		}
+		public bool CanTake { get { return false; } }
 
 		public IList<ILookable> Content { get; set; }
 

@@ -31,7 +31,7 @@ namespace GreatTextAdventures.Actions
 			}
 			else
 			{
-				ILookable found = GameSystem.GetMemberWithName(action);
+				ILookable found = GameSystem.GetLookableWithName(action);
 
 				// Exit if input is invalid (nothing found)
 				if (found == null) return false;

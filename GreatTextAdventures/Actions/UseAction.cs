@@ -22,7 +22,7 @@ namespace GreatTextAdventures.Actions
 				return false;
 			}
 
-			ILookable found = GameSystem.GetMemberWithName(action);
+			ILookable found = GameSystem.GetLookableWithName(action);
 
 			if (found == null) return false;
 

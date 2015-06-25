@@ -36,6 +36,7 @@ namespace GreatTextAdventures.Items
 				yield return (nameModifier + " " + baseName).ToLowerInvariant();
 			} 
 		}
+		public bool CanTake { get { return true; } }
 
 		public int Attack { get { return Math.Max(1, baseAttack + attackModifier); } }
 

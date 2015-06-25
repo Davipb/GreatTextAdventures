@@ -20,6 +20,7 @@ namespace GreatTextAdventures.Items
 				foreach (string codename in spell.CodeNames) yield return codename;
 			}
 		}
+		public bool CanTake { get { return true; } }
 
 		GameSpell spell;
 

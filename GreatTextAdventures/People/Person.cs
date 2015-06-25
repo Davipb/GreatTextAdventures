@@ -13,6 +13,7 @@ namespace GreatTextAdventures.People
 		#region Properties
 		public abstract string DisplayName { get; }
 		public abstract IEnumerable<string> CodeNames { get; }
+		public bool CanTake { get { return false; } }
 
 		public string Description 
 		{ 
@@ -49,6 +50,7 @@ namespace GreatTextAdventures.People
 			}
 		}
 
+		#region Stats
 		private int health;
 		public int Health
 		{
@@ -101,11 +103,18 @@ namespace GreatTextAdventures.People
 		public int Intelligence { get; set; }
 		public int PhysicalDefense { get; set; }
 		public int MagicalDefense { get; set; }
+		#endregion
 
-		public List<GameSpell> KnownSpells { get; set; }
-		public List<StatusEffect> CurrentStatus { get; set; }
+		private List<GameSpell> knownSpells = new List<GameSpell>();
+		private List<StatusEffect> currentStatus = new List<StatusEffect>();
+		public List<GameSpell> KnownSpells { get { return knownSpells; } }
+		public List<StatusEffect> CurrentStatus { get { return currentStatus; } }
 
+		private List<ILookable> inventory = new List<ILookable>();
+		public List<ILookable> Inventory { get { return inventory; } }
 		public Weapon EquippedWeapon { get; set; }
+
+
 		#endregion
 
 		#region Events
@@ -118,9 +127,6 @@ namespace GreatTextAdventures.People
 			Health = MaxHealth;
 			Mana = MaxMana;
 
-			KnownSpells = new List<GameSpell>();
-			CurrentStatus = new List<StatusEffect>();
-
 			LeveledUp += LeveledUpEventHandler;
 			ReceivingDamage += ReceivingDamageEventHandler;
 		}
@@ -130,6 +136,10 @@ namespace GreatTextAdventures.People
 			// Copy the status effect list so the original can be modified (when effects wear off, they remove themselves)
 			List<StatusEffect> copyStatus = new List<StatusEffect>(CurrentStatus);
 			copyStatus.ForEach(x => x.Update());
+
+			// Same for inventory (in case items have special effects)
+			List<ILookable> copyInventory = new List<ILookable>(Inventory);
+			copyInventory.ForEach(x => x.Update());
 
 			if (Health <= 0)
 			{
@@ -142,6 +152,14 @@ namespace GreatTextAdventures.People
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(EquippedWeapon);
 					EquippedWeapon = null;
 				}
+
+				foreach(ILookable item in Inventory)
+				{
+					GameSystem.WriteLine("{0} dropped {1}", DisplayName, item.DisplayName);
+					GameSystem.CurrentMap.CurrentRoom.Members.Add(item);
+				}
+
+				Inventory.Clear();
 
 				GameSystem.CurrentMap.CurrentRoom.Members.Remove(this);
 			}
