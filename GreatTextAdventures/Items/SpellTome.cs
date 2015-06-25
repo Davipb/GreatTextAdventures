@@ -32,12 +32,12 @@ namespace GreatTextAdventures.Items
 		{
 			if (user.KnownSpells.Contains(spell))
 			{
-				Console.WriteLine("{0} already knows {1}", user.DisplayName, spell.DisplayName);
+				GameSystem.WriteLine("{0} already knows {1}", user.DisplayName, spell.DisplayName);
 				return;
 			}
 
 			user.KnownSpells.Add(spell);
-			Console.WriteLine("{0} learned {1}!", user.DisplayName, spell.DisplayName);
+			GameSystem.WriteLine("{0} learned {1}!", user.DisplayName, spell.DisplayName);
 		}
 
 		public static SpellTome Random()

@@ -12,6 +12,9 @@ namespace GreatTextAdventures
 {
 	public static class GameSystem
 	{
+		const char SpecialFunctionChar = '&';
+		const ConsoleColor DefaultConsoleColor = ConsoleColor.Gray;
+
 		public static List<GameAction> Actions { get; set; }
 		public static Map CurrentMap { get; set; }
 		public static Random RNG { get; set; }
@@ -32,14 +35,14 @@ namespace GreatTextAdventures
 			catch (Exception e)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
-				Console.WriteLine();
-				Console.WriteLine("Unexpected error!");
-				Console.WriteLine(e.Message);
-				Console.WriteLine();
-				Console.WriteLine("Press s to show Stack Trace or any other key to exit");
+				GameSystem.WriteLine();
+				GameSystem.WriteLine("Unexpected error!");
+				GameSystem.WriteLine(e.Message);
+				GameSystem.WriteLine();
+				GameSystem.WriteLine("Press s to show Stack Trace or any other key to exit");
 				if (char.ToLower(Console.ReadKey(true).KeyChar) == 's')
 				{
-					Console.WriteLine(e.StackTrace);
+					GameSystem.WriteLine(e.StackTrace);
 					Console.ReadKey();
 				}
 			}
@@ -74,8 +77,8 @@ namespace GreatTextAdventures
 		/// </summary>
 		public static void Loop()
 		{
-			Console.WriteLine();
-			Console.WriteLine(Player.Description);
+			GameSystem.WriteLine();
+			GameSystem.WriteLine(Player.Description);
 
 			CurrentMap.Update();
 			Player.Update();
@@ -83,14 +86,14 @@ namespace GreatTextAdventures
 			while (true)
 			{
 				// Beautification
-				Console.WriteLine();
-				Console.Write("> ");
+				GameSystem.WriteLine();
+				GameSystem.Write("> ");
 
 				// Standardize all input to trimmed lowercase
 				string input = Console.ReadLine().Trim().ToLowerInvariant();
 
 				// Beautification
-				Console.WriteLine();
+				GameSystem.WriteLine();
 
 				if (string.IsNullOrWhiteSpace(input)) continue;
 
@@ -121,16 +124,16 @@ namespace GreatTextAdventures
 				// User entered an invalid input
 				if (!didAction)
 				{
-					Console.WriteLine("Unknown action '{0}'. Type 'help' for a list of actions.", input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]);
+					GameSystem.WriteLine("Unknown action '{0}'. Type 'help' for a list of actions.", input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)[0]);
 				}
 
 				// Check for player death
 				if (Player.Health <= 0)
 				{
-					Console.WriteLine();
-					Console.WriteLine("*****YOU HAVE DIED*****");
-					Console.WriteLine();
-					Console.WriteLine("Press any key to exit");
+					GameSystem.WriteLine();
+					GameSystem.WriteLine("*****YOU HAVE DIED*****");
+					GameSystem.WriteLine();
+					GameSystem.WriteLine("Press any key to exit");
 					Console.ReadKey();
 					break;
 				}
@@ -154,11 +157,11 @@ namespace GreatTextAdventures
 			// Display all items to the user
 			for (int i = 0; i < items.Count; i++)
 			{
-				Console.WriteLine("{0}. {1}", i + 1, displayNames[i]);
+				GameSystem.WriteLine("{0}. {1}", i + 1, displayNames[i]);
 			}
 
-			Console.WriteLine();
-			Console.WriteLine("Write input:");
+			GameSystem.WriteLine();
+			GameSystem.WriteLine("Write input:");
 
 			while (true)
 			{
@@ -174,7 +177,7 @@ namespace GreatTextAdventures
 					// Clear the user input, clearing the whole line
 					int currentLineCursor = Console.CursorTop - 1;
 					Console.SetCursorPosition(0, Console.CursorTop - 1);
-					Console.Write(new string(' ', Console.WindowWidth));
+					GameSystem.Write(new string(' ', Console.WindowWidth));
 					Console.SetCursorPosition(0, currentLineCursor);
 				}
 			}
@@ -191,12 +194,12 @@ namespace GreatTextAdventures
 
 			if (found.Count == 0)
 			{
-				Console.WriteLine("There is no '{0}'", name);
+				GameSystem.WriteLine("There is no '{0}'", name);
 				return null;
 			}
 			else if (found.Count > 1)
 			{
-				Console.WriteLine("There are multiple '{0}'. Please specify.", name);
+				GameSystem.WriteLine("There are multiple '{0}'. Please specify.", name);
 				return Choice<ILookable>(found, found.Select(x => x.DisplayName).ToList());
 			}
 			else
@@ -214,10 +217,10 @@ namespace GreatTextAdventures
 				// Put items in format "<multiPrefix> a, b, c, ..., d, <lastSeparator> e"
 				sb.Append(multiPrefix);
 				sb.Append(" ");
-				
+
 				sb.AppendFormat("{0},", list.First().ToString());
 
-				foreach(T elem in list.Skip(1).Take(list.Count() - 2))
+				foreach (T elem in list.Skip(1).Take(list.Count() - 2))
 					sb.AppendFormat(" {0},", elem.ToString());
 
 				sb.AppendFormat(" {0} {1}", lastSeparator, list.Last().ToString());
@@ -240,5 +243,77 @@ namespace GreatTextAdventures
 
 			return sb.ToString();
 		}
+
+		public static void Write(string text, params object[] args)
+		{
+			string s = string.Format(text, args);
+
+			WriteColor(s, 0, DefaultConsoleColor);
+		}
+
+		public static void Write(object obj)
+		{
+			Write(obj.ToString());
+		}
+
+		private static int WriteColor(string text, int startingIndex, ConsoleColor color)
+		{			
+			for (int i = startingIndex; i < text.Length; i++)
+			{
+				Console.ForegroundColor = color;
+
+				if (text[i] != SpecialFunctionChar)
+				{
+					Console.Write(text[i]);
+					continue;
+				}
+
+				if (char.ToUpperInvariant(text[++i]) == 'C')
+				{
+					string param = new string(new[] { text[++i], text[++i] });
+
+					if (param.ToUpperInvariant() == "EE")
+					{
+						return i;
+					}
+					else
+					{
+						int index;
+
+						if (int.TryParse(param, out index))
+						{
+							ConsoleColor newColor = (ConsoleColor)Enum.GetValues(typeof(ConsoleColor)).GetValue(index);
+							i = WriteColor(text, ++i, newColor);
+						}
+						else
+							Console.Write("ERR");
+					}
+				}
+				else
+				{
+					Console.Write("ERR");
+				}
+			}
+
+			return text.Length - 1;
+		}
+
+		public static void WriteLine(string text, params object[] args)
+		{
+			Write(text, args);
+			Console.WriteLine();
+		}
+
+		public static void WriteLine(object obj)
+		{
+			WriteLine(obj.ToString());
+		}
+
+		public static void WriteLine()
+		{
+			Console.WriteLine();
+		}
+
+
 	}
 }

@@ -27,7 +27,7 @@ namespace GreatTextAdventures.Actions
 			if (string.IsNullOrWhiteSpace(action) || action == "around" || action == "room")
 			{
 				// Just look at the room, in general
-				Console.WriteLine(GameSystem.CurrentMap.CurrentRoom.Describe());
+				GameSystem.WriteLine(GameSystem.CurrentMap.CurrentRoom.Describe());
 			}
 			else
 			{
@@ -36,7 +36,7 @@ namespace GreatTextAdventures.Actions
 				// Exit if input is invalid (nothing found)
 				if (found == null) return false;
 
-				Console.WriteLine(found.Description);
+				GameSystem.WriteLine(found.Description);
 			}
 
 			return false;
@@ -44,10 +44,10 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("Look:");
-			Console.WriteLine("\tlook *target*");
-			Console.WriteLine("\tlook at *target*");
-			Console.WriteLine("\t\ttarget: Who or What to look at");
+			GameSystem.WriteLine("Look:");
+			GameSystem.WriteLine("\tlook *target*");
+			GameSystem.WriteLine("\tlook at *target*");
+			GameSystem.WriteLine("\t\ttarget: Who or What to look at");
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace GreatTextAdventures.Actions
 		{
 			if (!GameSystem.Player.KnownSpells.Any())
 			{
-				Console.WriteLine("You don't know any spells");
+				GameSystem.WriteLine("You don't know any spells");
 				return false;
 			}
 
@@ -25,10 +25,10 @@ namespace GreatTextAdventures.Actions
 			{				
 				foreach(GameSpell knownSpell in GameSystem.Player.KnownSpells)
 				{
-					Console.WriteLine(knownSpell.DisplayName);
-					Console.WriteLine("Cost: {0} mana", knownSpell.Cost);
-					Console.WriteLine(knownSpell.Description);
-					Console.WriteLine();	
+					GameSystem.WriteLine(knownSpell.DisplayName);
+					GameSystem.WriteLine("Cost: {0} mana", knownSpell.Cost);
+					GameSystem.WriteLine(knownSpell.Description);
+					GameSystem.WriteLine();	
 				}
 				return false;
 			}
@@ -38,7 +38,7 @@ namespace GreatTextAdventures.Actions
 
 			if (split.Length != 2)
 			{
-				Console.WriteLine("Invalid target");
+				GameSystem.WriteLine("Invalid target");
 				return false;
 			}
 
@@ -52,7 +52,7 @@ namespace GreatTextAdventures.Actions
 
 			if (target == null)
 			{
-				Console.WriteLine("Can't target {0}", found.DisplayName);
+				GameSystem.WriteLine("Can't target {0}", found.DisplayName);
 				return false;
 			}
 
@@ -61,10 +61,10 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("Cast:");
-			Console.WriteLine("\tcast *spell* at *target*");
-			Console.WriteLine("\t\tspell: Spell to cast");
-			Console.WriteLine("\t\ttarget: Spell target");
+			GameSystem.WriteLine("Cast:");
+			GameSystem.WriteLine("\tcast *spell* at *target*");
+			GameSystem.WriteLine("\t\tspell: Spell to cast");
+			GameSystem.WriteLine("\t\ttarget: Spell target");
 		}
 	}
 }

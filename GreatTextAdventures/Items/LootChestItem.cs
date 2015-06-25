@@ -38,21 +38,21 @@ namespace GreatTextAdventures.Items
 		{
 			if (Content == null || !Content.Any())
 			{
-				Console.WriteLine("It's empty.");				
+				GameSystem.WriteLine("It's empty.");				
 				return;
 			}
 
-			Console.Write("Inside the chest you find: ");
+			GameSystem.Write("Inside the chest you find: ");
 
 			foreach (var item in Content)
 			{
-				Console.Write(item.DisplayName + ", ");
+				GameSystem.Write(item.DisplayName + ", ");
 				GameSystem.CurrentMap.CurrentRoom.Members.Add(item);				
 			}
 
 			Content.Clear();
 
-			Console.WriteLine();
+			GameSystem.WriteLine();
 		}
 
 		public static LootChestItem Random()

@@ -64,7 +64,7 @@ namespace GreatTextAdventures.People
 				// Math.Max is used to ensure the 'delta bonus' is always positive
 				int exp = ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
 
-				Console.WriteLine("{0} dropped {1} experience", DisplayName, exp);
+				GameSystem.WriteLine("{0} dropped {1} experience", DisplayName, exp);
 				GameSystem.Player.Experience += exp;
 
 				return;
@@ -73,7 +73,7 @@ namespace GreatTextAdventures.People
 			if (!detected)
 			{
 				detected = true;
-				Console.WriteLine("{0} has detected {1}!", DisplayName, GameSystem.Player.DisplayName);
+				GameSystem.WriteLine("{0} has detected {1}!", DisplayName, GameSystem.Player.DisplayName);
 				return;
 			}
 
@@ -107,13 +107,13 @@ namespace GreatTextAdventures.People
 				return;
 			}
 
-			Console.WriteLine("{0} punched {1}", DisplayName, GameSystem.Player.DisplayName);
+			GameSystem.WriteLine("{0} punched {1}", DisplayName, GameSystem.Player.DisplayName);
 			GameSystem.Player.ReceiveDamage(1, DamageType.Physical, this);
 		}
 
 		public override void Talk()
 		{
-			Console.WriteLine("\"My power is far superior to yours!\"");
+			GameSystem.WriteLine("\"My power is far superior to yours!\"");
 		}
 
 	}

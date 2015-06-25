@@ -15,7 +15,7 @@ namespace GreatTextAdventures.Actions
 		{
 			if (string.IsNullOrWhiteSpace(action))
 			{
-				Console.WriteLine("Open what?");
+				GameSystem.WriteLine("Open what?");
 				return false;
 			}
 
@@ -27,7 +27,7 @@ namespace GreatTextAdventures.Actions
 
 			if (container == null)
 			{
-				Console.WriteLine("You can't open '{0}'", found.DisplayName);
+				GameSystem.WriteLine("You can't open '{0}'", found.DisplayName);
 				ListItemPossibilities(found);
 				return false;
 			}
@@ -39,9 +39,9 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("Open:");
-			Console.WriteLine("\topen *target*");
-			Console.WriteLine("\t\ttarget: What to open");
+			GameSystem.WriteLine("Open:");
+			GameSystem.WriteLine("\topen *target*");
+			GameSystem.WriteLine("\t\ttarget: What to open");
 		}
 	}
 }

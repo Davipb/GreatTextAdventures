@@ -46,7 +46,7 @@ namespace GreatTextAdventures.Spells
 			targetHeal += (int)Math.Ceiling(IntBonus * caster.Intelligence * targetHeal);
 
 			target.Health += targetHeal;
-			Console.WriteLine("{0} healed {1} for {2} health", caster.DisplayName, target.DisplayName, targetHeal);
+			GameSystem.WriteLine("{0} healed {1} for {2} health", caster.DisplayName, target.DisplayName, targetHeal);
 
 			return true;
 		}

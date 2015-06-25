@@ -25,7 +25,7 @@ namespace GreatTextAdventures.Actions
 
 			if (string.IsNullOrWhiteSpace(action))
 			{
-				Console.WriteLine("Talk with who?");
+				GameSystem.WriteLine("Talk with who?");
 				return false;
 			}
 
@@ -38,7 +38,7 @@ namespace GreatTextAdventures.Actions
 
 			if (person == null)
 			{
-				Console.WriteLine("You can't talk with {0}", found.DisplayName);
+				GameSystem.WriteLine("You can't talk with {0}", found.DisplayName);
 				ListItemPossibilities(found);
 				return false;
 			}
@@ -50,10 +50,10 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("Talk:");
-			Console.WriteLine("\ttalk *target*");
-			Console.WriteLine("\ttalk with *target*");
-			Console.WriteLine("\t\ttarget: Who to talk with");
+			GameSystem.WriteLine("Talk:");
+			GameSystem.WriteLine("\ttalk *target*");
+			GameSystem.WriteLine("\ttalk with *target*");
+			GameSystem.WriteLine("\t\ttarget: Who to talk with");
 		}
 	}
 }

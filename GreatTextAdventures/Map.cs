@@ -21,14 +21,14 @@ namespace GreatTextAdventures
 			GenerateRandomRoom(CurrentPosition);
 
 			// Describe new location
-			Console.WriteLine(CurrentRoom.Describe());
+			GameSystem.WriteLine(CurrentRoom.Describe());
 		}
 
 		public void Move(Directions target)
 		{
 			if (!CurrentRoom.Exits.HasFlag(target) || !CurrentRoom.CanExit)
 			{
-				Console.WriteLine("You can't move {0}", Enum.GetName(typeof(Directions), target));
+				GameSystem.WriteLine("You can't move {0}", Enum.GetName(typeof(Directions), target));
 				return;
 			}
 
@@ -44,10 +44,10 @@ namespace GreatTextAdventures
 			CurrentPosition = pos;
 
 			// Notification of movement
-			Console.WriteLine("You moved {0}", Enum.GetName(typeof(Directions), target));
+			GameSystem.WriteLine("You moved {0}", Enum.GetName(typeof(Directions), target));
 
 			// Describe new location
-			Console.WriteLine(CurrentRoom.Describe());
+			GameSystem.WriteLine(CurrentRoom.Describe());
 		}
 
 		public void Update()

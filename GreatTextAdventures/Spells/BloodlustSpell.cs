@@ -38,7 +38,7 @@ namespace GreatTextAdventures.Spells
 		{
 			if (caster.Health < HealthPerLevel * level)
 			{
-				Console.WriteLine("Not enough health!");
+				GameSystem.WriteLine("Not enough health!");
 				return false;
 			}
 
@@ -46,7 +46,7 @@ namespace GreatTextAdventures.Spells
 
 			int casterDamage = HealthPerLevel * level;
 
-			Console.WriteLine("{0} used {1} at {2}!", caster.DisplayName, this.DisplayName, target.DisplayName);
+			GameSystem.WriteLine("{0} used {1} at {2}!", caster.DisplayName, this.DisplayName, target.DisplayName);
 
 			int targetDamage = caster.EquippedWeapon.Damage(caster);
 			targetDamage = (int)Math.Ceiling(targetDamage * (DamageBonusBase + DamageBonusPerLevel * level));

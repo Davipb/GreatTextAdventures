@@ -23,7 +23,7 @@ namespace GreatTextAdventures.Actions
 			// Must have arguments
 			if (string.IsNullOrWhiteSpace(action))
 			{
-				Console.WriteLine("Which direction?");
+				GameSystem.WriteLine("Which direction?");
 				return false;
 			}
 
@@ -47,7 +47,7 @@ namespace GreatTextAdventures.Actions
 					GameSystem.CurrentMap.Move(Directions.West);
 					break;
 				default:
-					Console.WriteLine("Unknown direction '{0}'", action);
+					GameSystem.WriteLine("Unknown direction '{0}'", action);
 					return false;
 			}
 
@@ -56,9 +56,9 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("Move:");
-			Console.WriteLine("\tmove *direction*");
-			Console.WriteLine("\t\tdirection: Direction to move to. Can be: North/Up, South/Down, East/Right, or West/Left");
+			GameSystem.WriteLine("Move:");
+			GameSystem.WriteLine("\tmove *direction*");
+			GameSystem.WriteLine("\t\tdirection: Direction to move to. Can be: North/Up, South/Down, East/Right, or West/Left");
 		}
 	}
 }

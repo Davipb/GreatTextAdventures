@@ -20,13 +20,13 @@ namespace GreatTextAdventures.Actions
 		{
 			if (GameSystem.Player.PendingSkillPoints <= 0)
 			{
-				Console.WriteLine("You don't have any skill points.");
+				GameSystem.WriteLine("You don't have any skill points.");
 				return false;
 			}
 
 			if (string.IsNullOrWhiteSpace(action))
 			{
-				Console.WriteLine
+				GameSystem.WriteLine
 				(
 					GameSystem.Enumerate<string>
 					(
@@ -47,25 +47,25 @@ namespace GreatTextAdventures.Actions
 				case "str":
 				case "strength":					
 					GameSystem.Player.Strength++;
-					Console.WriteLine("{0}'s Strength increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.Strength);					
+					GameSystem.WriteLine("{0}'s Strength increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.Strength);					
 					break;
 				case "int":
 				case "intelligence":
 					GameSystem.Player.Intelligence++;
-					Console.WriteLine("{0}'s Intelligence increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.Intelligence);					
+					GameSystem.WriteLine("{0}'s Intelligence increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.Intelligence);					
 					break;
 				case "pdf":
 				case "physical defense":
 					GameSystem.Player.PhysicalDefense++;
-					Console.WriteLine("{0}'s Physical Defense increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.PhysicalDefense);					
+					GameSystem.WriteLine("{0}'s Physical Defense increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.PhysicalDefense);					
 					break;
 				case "mdf":
 				case "magical defense":
 					GameSystem.Player.MagicalDefense++;
-					Console.WriteLine("{0}'s Magical Defense increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.MagicalDefense);
+					GameSystem.WriteLine("{0}'s Magical Defense increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.MagicalDefense);
 					break;
 				default:
-					Console.WriteLine("Unknown stat '{0}'. Type just 'level' for a list of stats.", action);
+					GameSystem.WriteLine("Unknown stat '{0}'. Type just 'level' for a list of stats.", action);
 					success = false;
 					break;
 			}
@@ -73,7 +73,7 @@ namespace GreatTextAdventures.Actions
 			if (success)
 			{
 				GameSystem.Player.PendingSkillPoints--;
-				Console.WriteLine("Remaining Skill Points: {0}", GameSystem.Player.PendingSkillPoints);
+				GameSystem.WriteLine("Remaining Skill Points: {0}", GameSystem.Player.PendingSkillPoints);
 			}
 
 			return false;
@@ -81,11 +81,11 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("Level:");
-			Console.WriteLine("\tlevel");
-			Console.WriteLine("\t\tLists all stats");
-			Console.WriteLine("\tlevel *stat*");
-			Console.WriteLine("\t\tstat: Stat to level up.");
+			GameSystem.WriteLine("Level:");
+			GameSystem.WriteLine("\tlevel");
+			GameSystem.WriteLine("\t\tLists all stats");
+			GameSystem.WriteLine("\tlevel *stat*");
+			GameSystem.WriteLine("\t\tstat: Stat to level up.");
 		}
 	}
 }

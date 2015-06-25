@@ -47,13 +47,13 @@ namespace GreatTextAdventures.Spells
 
 			if(target.CurrentStatus.Any(x => x is PoisonEffect))
 			{
-				Console.WriteLine("{0} is already poisoned!", target.DisplayName);
+				GameSystem.WriteLine("{0} is already poisoned!", target.DisplayName);
 				return false;
 			}
 
-			Console.WriteLine("{0} used {1} on {2}!", caster.DisplayName, DisplayName, target);
+			GameSystem.WriteLine("{0} used {1} on {2}!", caster.DisplayName, DisplayName, target);
 			target.CurrentStatus.Add(new PoisonEffect(target, Duration));
-			Console.WriteLine("{0} was poisoned!", target.DisplayName);
+			GameSystem.WriteLine("{0} was poisoned!", target.DisplayName);
 
 			return true;
 		}

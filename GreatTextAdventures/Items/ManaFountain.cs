@@ -26,7 +26,7 @@ namespace GreatTextAdventures.Items
 
 		public void Use(Person user)
 		{
-			Console.WriteLine("{0}'s mana was completely restored", user.DisplayName);
+			GameSystem.WriteLine("{0}'s mana was completely restored", user.DisplayName);
 			user.Mana = user.MaxMana;
 		}
 

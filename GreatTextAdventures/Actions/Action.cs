@@ -48,7 +48,7 @@ namespace GreatTextAdventures.Actions
 				possible.Add(GameSystem.Actions.Find(x => x is UseAction));
 			}
 
-			Console.WriteLine(GameSystem.Enumerate<string>(possible.Select(x => x.Aliases.First()), "Try", null, "", "or"));
+			GameSystem.WriteLine(GameSystem.Enumerate<string>(possible.Select(x => x.Aliases.First()), "Try", null, "", "or"));
 		}
 	}
 }

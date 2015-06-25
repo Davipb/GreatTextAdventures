@@ -17,7 +17,7 @@ namespace GreatTextAdventures.Actions
 			// Arguments are obligatory
 			if (string.IsNullOrWhiteSpace(action))
 			{
-				Console.WriteLine("Invalid command");
+				GameSystem.WriteLine("Invalid command");
 				return false;
 			}
 
@@ -33,7 +33,7 @@ namespace GreatTextAdventures.Actions
 			{
 				if (split.Length != 3)
 				{
-					Console.WriteLine("Invalid number of arguments");
+					GameSystem.WriteLine("Invalid number of arguments");
 					return false;
 				}
 
@@ -44,23 +44,23 @@ namespace GreatTextAdventures.Actions
 					try
 					{
 						GameSystem.CurrentMap.Draw(size).Save(split[2]);
-						Console.WriteLine("Map saved successfully");
+						GameSystem.WriteLine("Map saved successfully");
 					}
 					catch (Exception e)
 					{
-						Console.WriteLine("Error saving map: {0}", e.Message);
+						GameSystem.WriteLine("Error saving map: {0}", e.Message);
 					}
 				}
 				else
 				{
-					Console.WriteLine("Invalid size '{0}'", split[1]);
+					GameSystem.WriteLine("Invalid size '{0}'", split[1]);
 				}
 			}
 			#endregion
 			#region Error
 			else if (split[0] == "error")
 			{
-				Console.WriteLine("Throwing exception");
+				GameSystem.WriteLine("Throwing exception");
 				throw new Exception("Controlled Exception");
 			}
 			#endregion
@@ -69,7 +69,7 @@ namespace GreatTextAdventures.Actions
 			{
 				if (split.Length != 2)
 				{
-					Console.WriteLine("Invalid number of arguments");
+					GameSystem.WriteLine("Invalid number of arguments");
 					return false;
 				}
 
@@ -80,12 +80,12 @@ namespace GreatTextAdventures.Actions
 					Items.Weapon spawn = Items.Weapon.Random(level);
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(spawn);
 
-					Console.WriteLine("Spawned {0}", spawn.DisplayName);
+					GameSystem.WriteLine("Spawned {0}", spawn.DisplayName);
 					return false;
 				}
 				else
 				{					
-					Console.WriteLine("Invalid level '{0}'", split[1]);
+					GameSystem.WriteLine("Invalid level '{0}'", split[1]);
 					return false;
 				}
 			}
@@ -94,7 +94,7 @@ namespace GreatTextAdventures.Actions
 			else if (split[0] == "loot")
 			{
 				GameSystem.CurrentMap.CurrentRoom.Members.Add(Items.LootChestItem.Random());
-				Console.WriteLine("Spawned chest");
+				GameSystem.WriteLine("Spawned chest");
 				return false;
 			}
 			#endregion
@@ -103,7 +103,7 @@ namespace GreatTextAdventures.Actions
 			{
 				if (split.Length != 3)
 				{
-					Console.WriteLine("Invalid number of arguments");
+					GameSystem.WriteLine("Invalid number of arguments");
 					return false;
 				}
 
@@ -115,14 +115,14 @@ namespace GreatTextAdventures.Actions
 					{
 						case "thug":
 							GameSystem.CurrentMap.CurrentRoom.Members.Add(new ThugPerson(level));
-							Console.WriteLine("Spawned Thug level {0}", level);
+							GameSystem.WriteLine("Spawned Thug level {0}", level);
 							break;
 						case "wizard":
 							GameSystem.CurrentMap.CurrentRoom.Members.Add(new WizardPerson(level));
-							Console.WriteLine("Spawned Wizard level {0}", level);
+							GameSystem.WriteLine("Spawned Wizard level {0}", level);
 							break;
 						default:
-							Console.WriteLine("Unknown enemy type '{0}'", split[1]);
+							GameSystem.WriteLine("Unknown enemy type '{0}'", split[1]);
 							break;
 					}
 
@@ -130,7 +130,7 @@ namespace GreatTextAdventures.Actions
 				}
 				else
 				{
-					Console.WriteLine("Invalid level '{0}'", split[1]);
+					GameSystem.WriteLine("Invalid level '{0}'", split[1]);
 					return false;
 				}
 			}
@@ -141,7 +141,7 @@ namespace GreatTextAdventures.Actions
 				GameSystem.Player.Health = GameSystem.Player.MaxHealth;
 				GameSystem.Player.Mana = GameSystem.Player.MaxMana;
 
-				Console.WriteLine("Restored Player's health and mana");
+				GameSystem.WriteLine("Restored Player's health and mana");
 				return false;
 			}
 			#endregion
@@ -150,7 +150,7 @@ namespace GreatTextAdventures.Actions
 			{
 				if (split.Length != 4)
 				{
-					Console.WriteLine("Invalid number of arguments");
+					GameSystem.WriteLine("Invalid number of arguments");
 					return false;
 				}
 
@@ -159,7 +159,7 @@ namespace GreatTextAdventures.Actions
 
 				if (target == null)
 				{
-					Console.WriteLine("Invalid target '{0}'", split[1]);
+					GameSystem.WriteLine("Invalid target '{0}'", split[1]);
 					return false;
 				}
 
@@ -168,7 +168,7 @@ namespace GreatTextAdventures.Actions
 				
 				if (!int.TryParse(split[2], out duration))
 				{
-					Console.WriteLine("Invalid duration '{0}'", split[2]);
+					GameSystem.WriteLine("Invalid duration '{0}'", split[2]);
 					return false;
 				}
 
@@ -181,13 +181,13 @@ namespace GreatTextAdventures.Actions
 						effect = new PoisonEffect(target, duration);
 						break;
 					default:
-						Console.WriteLine("Invalid effect name '{0}'", split[3]);
+						GameSystem.WriteLine("Invalid effect name '{0}'", split[3]);
 						return false;
 				}
 
 				target.CurrentStatus.Add(effect);
 
-				Console.WriteLine("Added {0} to {1} for {2} turns", effect.DisplayName, target.DisplayName, duration);
+				GameSystem.WriteLine("Added {0} to {1} for {2} turns", effect.DisplayName, target.DisplayName, duration);
 			}
 			#endregion
 			#region Skill Points
@@ -195,7 +195,7 @@ namespace GreatTextAdventures.Actions
 			{
 				if (split.Length < 2)
 				{
-					Console.WriteLine("Invalid number of arguments");
+					GameSystem.WriteLine("Invalid number of arguments");
 					return false;
 				}
 
@@ -203,12 +203,12 @@ namespace GreatTextAdventures.Actions
 
 				if (!int.TryParse(split[1], out total))
 				{
-					Console.WriteLine("Invalid number '{0}'", split[1]);
+					GameSystem.WriteLine("Invalid number '{0}'", split[1]);
 					return false;
 				}
 
 				GameSystem.Player.PendingSkillPoints += total;
-				Console.WriteLine("Added {0} skill points", total);
+				GameSystem.WriteLine("Added {0} skill points", total);
 				return false;
 			}
 			#endregion
@@ -218,24 +218,24 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("Debug:");
-			Console.WriteLine("\tdebug map *size* *file*");
-			Console.WriteLine("\t\tsize: Radius, centered in 0;0, of the map to show");
-			Console.WriteLine("\t\tfile: Path of the file where the map will be saved");
-			Console.WriteLine("\tdebug error");
-			Console.WriteLine("\tdebug weapon *level*");
-			Console.WriteLine("\t\tlevel: Level of the weapon to spawn");
-			Console.WriteLine("\tdebug loot");
-			Console.WriteLine("\tdebug enemy *type* *level*");
-			Console.WriteLine("\t\ttype: thug, wizard");
-			Console.WriteLine("\t\tlevel: Level of the enemy to spawn");
-			Console.WriteLine("\tdebug heal");
-			Console.WriteLine("\tdebug effect *target* *duration* *name*");
-			Console.WriteLine("\t\ttarget: Target of the effect");
-			Console.WriteLine("\t\tduration: Duration, in turns, of the effect");
-			Console.WriteLine("\t\teffect: Name of the effect to add");
-			Console.WriteLine("\tdebug skill *number*");
-			Console.WriteLine("\t\tnumber: Number of skill points to add");
+			GameSystem.WriteLine("Debug:");
+			GameSystem.WriteLine("\tdebug map *size* *file*");
+			GameSystem.WriteLine("\t\tsize: Radius, centered in 0;0, of the map to show");
+			GameSystem.WriteLine("\t\tfile: Path of the file where the map will be saved");
+			GameSystem.WriteLine("\tdebug error");
+			GameSystem.WriteLine("\tdebug weapon *level*");
+			GameSystem.WriteLine("\t\tlevel: Level of the weapon to spawn");
+			GameSystem.WriteLine("\tdebug loot");
+			GameSystem.WriteLine("\tdebug enemy *type* *level*");
+			GameSystem.WriteLine("\t\ttype: thug, wizard");
+			GameSystem.WriteLine("\t\tlevel: Level of the enemy to spawn");
+			GameSystem.WriteLine("\tdebug heal");
+			GameSystem.WriteLine("\tdebug effect *target* *duration* *name*");
+			GameSystem.WriteLine("\t\ttarget: Target of the effect");
+			GameSystem.WriteLine("\t\tduration: Duration, in turns, of the effect");
+			GameSystem.WriteLine("\t\teffect: Name of the effect to add");
+			GameSystem.WriteLine("\tdebug skill *number*");
+			GameSystem.WriteLine("\t\tnumber: Number of skill points to add");
 		}
 	}
 }

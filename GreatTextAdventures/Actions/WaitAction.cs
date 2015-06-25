@@ -15,14 +15,14 @@ namespace GreatTextAdventures.Actions
 
 		public override bool Do(string action)
 		{
-			Console.WriteLine("{0} waits", GameSystem.Player.DisplayName);
+			GameSystem.WriteLine("{0} waits", GameSystem.Player.DisplayName);
 			return true;
 		}
 
 		public override void Help()
 		{
-			Console.WriteLine("Wait:");
-			Console.WriteLine("\twait");
+			GameSystem.WriteLine("Wait:");
+			GameSystem.WriteLine("\twait");
 		}
 	}
 }

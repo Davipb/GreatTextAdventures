@@ -25,7 +25,7 @@ namespace GreatTextAdventures.StatusEffects
 			if (currentDuration >= Duration)
 			{
 				Owner.CurrentStatus.Remove(this);
-				Console.WriteLine("{0}'s {1} wore off", Owner.DisplayName, DisplayName);
+				GameSystem.WriteLine("{0}'s {1} wore off", Owner.DisplayName, DisplayName);
 			}
 		}
 	}

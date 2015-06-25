@@ -18,7 +18,7 @@ namespace GreatTextAdventures.Actions
 		{
 			if (string.IsNullOrWhiteSpace(action))
 			{
-				Console.WriteLine("Equip what?");
+				GameSystem.WriteLine("Equip what?");
 				return false;
 			}
 
@@ -31,7 +31,7 @@ namespace GreatTextAdventures.Actions
 
 			if (weapon == null)
 			{
-				Console.WriteLine("You can't equip {0}", found.DisplayName);
+				GameSystem.WriteLine("You can't equip {0}", found.DisplayName);
 				ListItemPossibilities(found);
 				return false;
 			}
@@ -40,7 +40,7 @@ namespace GreatTextAdventures.Actions
 			if (GameSystem.Player.EquippedWeapon != null)
 			{
 				// Warn the player
-				Console.WriteLine("You dropped {0}", GameSystem.Player.EquippedWeapon.DisplayName);
+				GameSystem.WriteLine("You dropped {0}", GameSystem.Player.EquippedWeapon.DisplayName);
 
 				// Add the equipped weapon to the room
 				GameSystem.CurrentMap.CurrentRoom.Members.Add(GameSystem.Player.EquippedWeapon);
@@ -54,16 +54,16 @@ namespace GreatTextAdventures.Actions
 			GameSystem.CurrentMap.CurrentRoom.Members.Remove(found);
 
 			// Warn the player
-			Console.WriteLine("You equipped {0}", GameSystem.Player.EquippedWeapon.DisplayName);
+			GameSystem.WriteLine("You equipped {0}", GameSystem.Player.EquippedWeapon.DisplayName);
 
 			return true;
 		}
 
 		public override void Help()
 		{
-			Console.WriteLine("Equip:");
-			Console.WriteLine("\tequip *item*");
-			Console.WriteLine("\t\titem: Item to equip");
+			GameSystem.WriteLine("Equip:");
+			GameSystem.WriteLine("\tequip *item*");
+			GameSystem.WriteLine("\t\titem: Item to equip");
 		}
 	}
 }

@@ -133,11 +133,11 @@ namespace GreatTextAdventures.People
 
 			if (Health <= 0)
 			{
-				Console.WriteLine("{0} died", DisplayName);
+				GameSystem.WriteLine("{0} died", DisplayName);
 
 				if (EquippedWeapon != null)
 				{
-					Console.WriteLine("{0} dropped {1}", DisplayName, EquippedWeapon.DisplayName);
+					GameSystem.WriteLine("{0} dropped {1}", DisplayName, EquippedWeapon.DisplayName);
 
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(EquippedWeapon);
 					EquippedWeapon = null;
@@ -149,7 +149,7 @@ namespace GreatTextAdventures.People
 
 		public virtual void Talk()
 		{
-			Console.WriteLine("{0} doesn't answer", DisplayName);
+			GameSystem.WriteLine("{0} doesn't answer", DisplayName);
 		}
 
 		public GameSpell GetSpellWithName(string name)
@@ -161,12 +161,12 @@ namespace GreatTextAdventures.People
 
 			if (found.Count == 0)
 			{
-				Console.WriteLine("There is no '{0}'", name);
+				GameSystem.WriteLine("There is no '{0}'", name);
 				return null;
 			}
 			else if (found.Count > 1)
 			{
-				Console.WriteLine("There are multiple '{0}'. Please specify.", name);
+				GameSystem.WriteLine("There are multiple '{0}'. Please specify.", name);
 				return GameSystem.Choice<GameSpell>(found, found.Select(x => x.DisplayName).ToList());
 			}
 			else
@@ -181,7 +181,7 @@ namespace GreatTextAdventures.People
 
 			ReceivingDamage(eventArgs);
 
-			Console.WriteLine("{0} was damaged for {1} HP", DisplayName, eventArgs.ActualDamage);
+			GameSystem.WriteLine("{0} was damaged for {1} HP", DisplayName, eventArgs.ActualDamage);
 			Health -= eventArgs.ActualDamage;
 			return eventArgs.ActualDamage;
 		}
@@ -189,7 +189,7 @@ namespace GreatTextAdventures.People
 		#region Event Handlers
 		void LeveledUpEventHandler()
 		{
-			Console.WriteLine("{0} grew to level {1}!", DisplayName, Level);
+			GameSystem.WriteLine("{0} grew to level {1}!", DisplayName, Level);
 		}
 
 		void ReceivingDamageEventHandler(ReceivingDamageEventArgs eventArgs)

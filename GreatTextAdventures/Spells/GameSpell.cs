@@ -22,7 +22,7 @@ namespace GreatTextAdventures.Spells
 		{
 			if (caster.Mana < Cost)
 			{
-				Console.WriteLine("Not enough mana!");
+				GameSystem.WriteLine("Not enough mana!");
 				return false;
 			}
 

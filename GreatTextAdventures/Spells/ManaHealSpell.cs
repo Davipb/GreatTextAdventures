@@ -29,22 +29,22 @@ namespace GreatTextAdventures.Spells
 		{
 			if (caster != target)
 			{
-				Console.WriteLine("Can only cast at yourself");
+				GameSystem.WriteLine("Can only cast at yourself");
 				return false;
 			}
 
 			if (target.Health < HealthPerLevel * level)
 			{
-				Console.WriteLine("Not enough health!");
+				GameSystem.WriteLine("Not enough health!");
 				return false;
 			}
 
-			Console.WriteLine("{0} used {1}!", caster.DisplayName, this.DisplayName);
+			GameSystem.WriteLine("{0} used {1}!", caster.DisplayName, this.DisplayName);
 
 			target.ReceiveDamage(HealthCost, DamageType.Special, this);
 			target.Mana += ManaHeal;
 			
-			Console.WriteLine("{0} recovered {1} mana", target.DisplayName, ManaHeal);
+			GameSystem.WriteLine("{0} recovered {1} mana", target.DisplayName, ManaHeal);
 
 			return true;
 		}

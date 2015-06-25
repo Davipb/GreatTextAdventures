@@ -18,7 +18,7 @@ namespace GreatTextAdventures.Actions
 		{
 			if (string.IsNullOrWhiteSpace(action))
 			{
-				Console.WriteLine("Use what?");
+				GameSystem.WriteLine("Use what?");
 				return false;
 			}
 
@@ -30,7 +30,7 @@ namespace GreatTextAdventures.Actions
 
 			if (item == null)
 			{
-				Console.WriteLine("You can't use '{0}'", found.DisplayName);
+				GameSystem.WriteLine("You can't use '{0}'", found.DisplayName);
 				ListItemPossibilities(found);
 				return false;
 			}
@@ -42,9 +42,9 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("Use:");
-			Console.WriteLine("\tuse*target*");
-			Console.WriteLine("\t\ttarget: What to use");
+			GameSystem.WriteLine("Use:");
+			GameSystem.WriteLine("\tuse*target*");
+			GameSystem.WriteLine("\t\ttarget: What to use");
 		}
 	}
 }

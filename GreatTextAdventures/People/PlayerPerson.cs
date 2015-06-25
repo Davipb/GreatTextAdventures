@@ -48,13 +48,13 @@ namespace GreatTextAdventures.People
 
 		public override void Talk()
 		{
-			Console.WriteLine("This is why you don't have friends.");
+			GameSystem.WriteLine("This is why you don't have friends.");
 		}
 
 		protected void LevelUpEventHandler()
 		{
 			PendingSkillPoints += 2;
-			Console.WriteLine("+2 Skill Points ({0} total)", PendingSkillPoints);
+			GameSystem.WriteLine("+2 Skill Points ({0} total)", PendingSkillPoints);
 		}
 	}
 }

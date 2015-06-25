@@ -20,7 +20,7 @@ namespace GreatTextAdventures.StatusEffects
 			// Must damage at least 1 Health
 			int damage = Math.Max(1, (int)Math.Floor(Owner.MaxHealth * HealthToDrain));
 
-			Console.WriteLine("{0} is poisoned", Owner.DisplayName);
+			GameSystem.WriteLine("{0} is poisoned", Owner.DisplayName);
 
 			Owner.ReceiveDamage(damage, DamageType.Magical, this);
 

@@ -20,7 +20,7 @@ namespace GreatTextAdventures.Actions
 		{
 			if (string.IsNullOrWhiteSpace(action))
 			{				
-				Console.WriteLine("Attack what?");
+				GameSystem.WriteLine("Attack what?");
 				return false;
 			}
 
@@ -33,12 +33,12 @@ namespace GreatTextAdventures.Actions
 
 			if (person == null)
 			{
-				Console.WriteLine("You can't attack {0}", found.DisplayName);
+				GameSystem.WriteLine("You can't attack {0}", found.DisplayName);
 				ListItemPossibilities(found);
 				return false;
 			}
 
-			Console.WriteLine("{0} attacked {1}", GameSystem.Player.DisplayName, person.DisplayName);
+			GameSystem.WriteLine("{0} attacked {1}", GameSystem.Player.DisplayName, person.DisplayName);
 			person.ReceiveDamage(
 				GameSystem.Player.EquippedWeapon == null ? 1 : GameSystem.Player.EquippedWeapon.Damage(GameSystem.Player), 
 				DamageType.Physical,
@@ -49,9 +49,9 @@ namespace GreatTextAdventures.Actions
 
 		public override void Help()
 		{
-			Console.WriteLine("Attack:");
-			Console.WriteLine("\tattack *target*");
-			Console.WriteLine("\t\ttarget: Who to attack");
+			GameSystem.WriteLine("Attack:");
+			GameSystem.WriteLine("\tattack *target*");
+			GameSystem.WriteLine("\t\ttarget: Who to attack");
 		}
 	}
 }
