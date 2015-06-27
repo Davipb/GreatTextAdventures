@@ -18,7 +18,7 @@ namespace GreatTextAdventures.Actions
 
 		public override bool Do(string action)
 		{
-			if (action.StartsWith("at"))
+			if (action.StartsWith("at "))
 			{
 				// Remove 'at', so we can accept a more natural speech style (look at stuff, instead of look stuff)
 				action = action.Substring(2).Trim();
@@ -28,6 +28,22 @@ namespace GreatTextAdventures.Actions
 			{
 				// Just look at the room, in general
 				GameSystem.WriteLine(GameSystem.CurrentMap.CurrentRoom.Describe());
+			}
+			else if (action == "inventory")
+			{
+				if (GameSystem.Player.Inventory.Count == 0 && GameSystem.Player.EquippedWeapon == null)
+				{
+					GameSystem.WriteLine("{0}'s inventory is empty", GameSystem.Player.DisplayName);
+				}
+				else
+				{
+					GameSystem.WriteLine("{0}'s inventory:", GameSystem.Player.DisplayName);
+
+					foreach(ILookable item in GameSystem.Player.Inventory)
+						GameSystem.WriteLine(item.DisplayName);
+
+					GameSystem.WriteLine("{0} [Equipped]", GameSystem.Player.EquippedWeapon.DisplayName);
+				}
 			}
 			else
 			{
