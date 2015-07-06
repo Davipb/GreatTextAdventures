@@ -8,16 +8,16 @@ namespace GreatTextAdventures
 {
 	public class Map
 	{
-		Dictionary<string, Room> rooms;
+		Dictionary<Tuple<int, int>, Room> rooms;
 
-		public int[] CurrentPosition { get; set; }
-		public Room CurrentRoom { get { return rooms[PosToString(CurrentPosition)]; } }
+		public Tuple<int, int> CurrentPosition { get; set; }
+		public Room CurrentRoom { get { return rooms[CurrentPosition]; } }
 
 		public Map()
 		{
-			CurrentPosition = new[] { 0, 0 };
+			CurrentPosition = Tuple.Create(0, 0);
 
-			rooms = new Dictionary<string, Room>();
+			rooms = new Dictionary<Tuple<int, int>, Room>();
 			GenerateRandomRoom(CurrentPosition);
 
 			// Describe new location
@@ -32,10 +32,10 @@ namespace GreatTextAdventures
 				return;
 			}
 
-			int[] pos = MovePosition(CurrentPosition, target);
+			Tuple<int, int> pos = MovePosition(CurrentPosition, target);
 
 			// If this position hasn't been explored yet, generate a random room
-			if (!rooms.ContainsKey(PosToString(pos)))
+			if (!rooms.ContainsKey(pos))
 			{
 				GenerateRandomRoom(pos);
 			}
@@ -63,13 +63,12 @@ namespace GreatTextAdventures
 			{
 				for (int mapX = -size + 1; mapX < size; mapX++)
 				{
-					int[] pos = new[] {mapX, mapY};
-					string key = PosToString(pos);
+					var pos = Tuple.Create(mapX, mapY);
 
 					int imageX = mapX + size;
 					int imageY = mapY + size;
 
-					if (rooms.ContainsKey(key))
+					if (rooms.ContainsKey(pos))
 					{
 						// Corners
 						result.SetPixel(imageX * 3, imageY * 3, Color.Gray);
@@ -78,13 +77,13 @@ namespace GreatTextAdventures
 						result.SetPixel((imageX * 3) + 2, (imageY * 3) + 2, Color.Gray);
 
 						// Exits
-						result.SetPixel((imageX * 3) + 1, (imageY * 3), rooms[key].Exits.HasFlag(Directions.North)? Color.Blue : Color.Gray);
-						result.SetPixel((imageX * 3) + 1, (imageY * 3) + 2, rooms[key].Exits.HasFlag(Directions.South)? Color.Blue : Color.Gray);
-						result.SetPixel((imageX * 3), (imageY * 3) + 1, rooms[key].Exits.HasFlag(Directions.West)? Color.Blue : Color.Gray);
-						result.SetPixel((imageX * 3) + 2, (imageY * 3) + 1, rooms[key].Exits.HasFlag(Directions.East)? Color.Blue : Color.Gray);
+						result.SetPixel((imageX * 3) + 1, (imageY * 3), rooms[pos].Exits.HasFlag(Directions.North)? Color.Blue : Color.Gray);
+						result.SetPixel((imageX * 3) + 1, (imageY * 3) + 2, rooms[pos].Exits.HasFlag(Directions.South)? Color.Blue : Color.Gray);
+						result.SetPixel((imageX * 3), (imageY * 3) + 1, rooms[pos].Exits.HasFlag(Directions.West)? Color.Blue : Color.Gray);
+						result.SetPixel((imageX * 3) + 2, (imageY * 3) + 1, rooms[pos].Exits.HasFlag(Directions.East)? Color.Blue : Color.Gray);
 
 						// Center
-						result.SetPixel((imageX * 3) + 1, (imageY * 3) + 1, mapX == CurrentPosition[0] && mapY == CurrentPosition[1]? Color.Green : Color.Blue);
+						result.SetPixel((imageX * 3) + 1, (imageY * 3) + 1, mapX == CurrentPosition.Item1 && mapY == CurrentPosition.Item2? Color.Green : Color.Blue);
 					}
 					else
 					{
@@ -103,7 +102,7 @@ namespace GreatTextAdventures
 			return result;
 		}
 
-		void GenerateRandomRoom(int[] pos)
+		void GenerateRandomRoom(Tuple<int, int> pos)
 		{
 			Directions obligatory = Directions.None;
 			Directions blocked = Directions.None;
@@ -111,12 +110,11 @@ namespace GreatTextAdventures
 			// Check every possible direction to see if a room already exists there
 			foreach(Directions d in Enum.GetValues(typeof(Directions)))
 			{
-				int[] newpos = MovePosition(pos, d);
-				string key = PosToString(newpos);
+				Tuple<int, int> newpos = MovePosition(pos, d);
 
-				if (rooms.ContainsKey(key))
+				if (rooms.ContainsKey(pos))
 				{
-					if (rooms[key].Exits.HasFlag(OppositeDirection(d)))
+					if (rooms[pos].Exits.HasFlag(OppositeDirection(d)))
 					{
 						// Adjacent room exists has exit to this room, so we need an exit to that side
 						obligatory |= d;
@@ -129,25 +127,21 @@ namespace GreatTextAdventures
 				}
 			}
 
-			rooms.Add(PosToString(pos), Rooms.GenericRoom.Random(obligatory, blocked));
+			rooms.Add(pos, Rooms.GenericRoom.Random(obligatory, blocked));
 			
 		}
 
-		int[] MovePosition(int[] pos, Directions dir)
+		Tuple<int, int> MovePosition(Tuple<int, int> pos, Directions dir)
 		{
-			int[] result = new[] { pos[0], pos[1] };
+			int x = pos.Item1;
+			int y = pos.Item2;
 
-			if (dir.HasFlag(Directions.North)) result[1]--;
-			if (dir.HasFlag(Directions.South)) result[1]++;
-			if (dir.HasFlag(Directions.West)) result[0]--;
-			if (dir.HasFlag(Directions.East)) result[0]++;
+			if (dir.HasFlag(Directions.North)) y--;
+			if (dir.HasFlag(Directions.South)) y++;
+			if (dir.HasFlag(Directions.West)) x--;
+			if (dir.HasFlag(Directions.East)) x++;
 
-			return result;
-		}
-
-		string PosToString(int[] pos)
-		{
-			return string.Format("X{0:0000}Y{1:0000}", pos[0], pos[1]);
+			return Tuple.Create(x, y);
 		}
 
 		Directions OppositeDirection(Directions d)
