@@ -27,7 +27,7 @@ namespace GreatTextAdventures
 			GenerateRandomRoom(CurrentPosition);
 
 			// Describe new location
-			GameSystem.WriteLine(CurrentRoom.Describe());
+			GameSystem.WriteLine(CurrentRoom.Description);
 		}
 
 		/// <summary>
@@ -53,7 +53,7 @@ namespace GreatTextAdventures
 			CurrentPosition = pos;
 
 			GameSystem.WriteLine("You moved {0}", Enum.GetName(typeof(Directions), target));
-			GameSystem.WriteLine(CurrentRoom.Describe());
+			GameSystem.WriteLine(CurrentRoom.Description);
 		}
 
 		/// <summary>

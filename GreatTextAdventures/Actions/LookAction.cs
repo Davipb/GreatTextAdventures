@@ -27,7 +27,7 @@ namespace GreatTextAdventures.Actions
 			if (string.IsNullOrWhiteSpace(action) || action == "around" || action == "room")
 			{
 				// Just look at the room, in general
-				GameSystem.WriteLine(GameSystem.CurrentMap.CurrentRoom.Describe());
+				GameSystem.WriteLine(GameSystem.CurrentMap.CurrentRoom.Description);
 			}
 			else if (action == "inventory")
 			{

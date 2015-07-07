@@ -5,30 +5,32 @@ using System.Linq;
 
 namespace GreatTextAdventures.Rooms
 {
+	/// <summary>
+	/// Base class for Rooms, contained in a Map
+	/// </summary>
 	public abstract class Room
 	{
 		public List<ILookable> Members { get; set; }
 		public Directions Exits { get; set; }
 		public abstract bool CanExit { get; set; }
 
-		public virtual string Describe()
+		public virtual string Description
 		{
-			StringBuilder sb = new StringBuilder("You are in a room. ");
-
-			// Check how many exits there are				
-			List<Directions> dirs = (from Directions dir in Enum.GetValues(typeof(Directions))
-									 where dir != Directions.None && Exits.HasFlag(dir)
-									 select dir).ToList();
-
-			sb.Append(GameSystem.Enumerate<Directions>(dirs, "There are exits to the", "There's an exit to the", "There are no exits", "and"));
-			sb.Append(". ");
-
-			if (Members.Count > 0)
+			get
 			{
-				sb.Append(GameSystem.Enumerate<string>(Members.Select(x => x.DisplayName), "You can see:", null, null, "and"));
-			}
+				StringBuilder sb = new StringBuilder("You are in a room. ");
 
-			return sb.ToString();
+				// Check how many exits there are				
+				List<Directions> dirs = (from Directions dir in Enum.GetValues(typeof(Directions))
+										 where dir != Directions.None && Exits.HasFlag(dir)
+										 select dir).ToList();
+
+				sb.Append(GameSystem.Enumerate<Directions>(dirs, "There are exits to the", "There's an exit to the", "There are no exits", "and"));
+				sb.Append(". ");
+				sb.Append(GameSystem.Enumerate<string>(Members.Select(x => x.DisplayName), "You can see:", null, "There's nothing in it", "and"));
+
+				return sb.ToString();
+			}
 		}
 
 		public virtual void Update() 

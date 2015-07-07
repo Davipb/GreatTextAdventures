@@ -3,6 +3,9 @@ using System;
 
 namespace GreatTextAdventures.StatusEffects
 {
+	/// <summary>
+	/// Base class for temporary effects applied on a Person
+	/// </summary>
 	public abstract class StatusEffect
 	{
 		public abstract string DisplayName { get; }

@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace GreatTextAdventures.Spells
 {
+	/// <summary>
+	/// Spell that applies the Poison status effect to the target
+	/// </summary>
 	public class PoisonSpell : GameSpell
 	{
 		const int DurationMinimum = 3;

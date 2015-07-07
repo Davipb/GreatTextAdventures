@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace GreatTextAdventures.Spells
 {
+	/// <summary>
+	/// Spell that damages both the caster and the target
+	/// </summary>
 	public class BloodlustSpell : GameSpell
 	{
 		const int CostPerLevel = 5;

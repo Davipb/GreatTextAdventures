@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace GreatTextAdventures.Spells
 {
+	/// <summary>
+	/// Spell that damages the target
+	/// </summary>
 	public class FireballSpell : GameSpell
 	{
 		const int DamagePerLevel = 5;

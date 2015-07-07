@@ -3,6 +3,9 @@ using System;
 
 namespace GreatTextAdventures.StatusEffects
 {
+	/// <summary>
+	/// Effect that causes a percentage of the Person's health in damage every turn
+	/// </summary>
 	public class PoisonEffect : StatusEffect
 	{
 		const double HealthToDrain = 0.05;

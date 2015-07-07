@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace GreatTextAdventures.Spells
 {
+	/// <summary>
+	/// Spell that increases the target's health
+	/// </summary>
 	public class HealSpell : GameSpell
 	{
 		const int HealPerLevel = 5;

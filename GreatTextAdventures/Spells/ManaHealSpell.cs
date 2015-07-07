@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace GreatTextAdventures.Spells
 {
+	/// <summary>
+	/// Spell that exchanges health for mana on the caster
+	/// </summary>
 	public class ManaHealSpell : GameSpell
 	{
 		const int HealthPerLevel = 10;
