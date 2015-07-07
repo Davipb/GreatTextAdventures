@@ -10,8 +10,12 @@ using GreatTextAdventures.Rooms;
 
 namespace GreatTextAdventures
 {
+	/// <summary>
+	/// Main class that contains the essential game objects and helper methods
+	/// </summary>
 	public static class GameSystem
 	{
+		// These two are used in Write/WriteLine
 		const char SpecialFunctionChar = '&';
 		const ConsoleColor DefaultConsoleColor = ConsoleColor.Gray;
 
@@ -35,20 +39,23 @@ namespace GreatTextAdventures
 			catch (Exception e)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
-				GameSystem.WriteLine();
-				GameSystem.WriteLine("Unexpected error!");
-				GameSystem.WriteLine(e.Message);
-				GameSystem.WriteLine();
-				GameSystem.WriteLine("Press s to show Stack Trace or any other key to exit");
+				Console.WriteLine();
+				Console.WriteLine("Unexpected error!");
+				Console.WriteLine(e.Message);
+				Console.WriteLine();
+				Console.WriteLine("Press s to show Stack Trace or any other key to exit");
 				if (char.ToLower(Console.ReadKey(true).KeyChar) == 's')
 				{
-					GameSystem.WriteLine(e.StackTrace);
+					Console.WriteLine(e.StackTrace);
 					Console.ReadKey();
 				}
 			}
 #endif
 		}
 
+		/// <summary>
+		/// Initializes the default values for the game
+		/// </summary>
 		public static void Initialize()
 		{
 			RNG = new Random();
@@ -87,11 +94,11 @@ namespace GreatTextAdventures
 
 			while (true)
 			{
-				// Beautification
+				// Indicates the user can write their command with a ">" at the start of the line
 				GameSystem.WriteLine();
 				GameSystem.Write("> ");
 
-				// Standardize all input to trimmed lowercase
+				// Read and standardize all input to trimmed lowercase
 				string input = Console.ReadLine().Trim().ToLowerInvariant();
 
 				// Beautification
@@ -99,7 +106,6 @@ namespace GreatTextAdventures
 
 				if (string.IsNullOrWhiteSpace(input)) continue;
 
-				// Flag to know whether or not the user entered a correct input
 				bool didAction = false;
 
 				// Search for valid actions
@@ -197,24 +203,30 @@ namespace GreatTextAdventures
 			}
 		}
 
+		/// <summary>
+		/// Finds an ILookable with the required name in the current Room or in the Player's inventory, asking the user if more than 1 item is found
+		/// </summary>
+		/// <param name="name">The name of the ILookable to search for</param>
+		/// <returns>The found ILookable or null if nothing was found</returns>
 		public static ILookable GetLookableWithName(string name)
 		{
 			// Find all applicable items then assign a name to be shown if multiple items are found
+			// 'name' can either be a CodeName or the full DisplayName
 
-			IEnumerable<Tuple<ILookable, string>> inRoom = from item in CurrentMap.CurrentRoom.Members
-											where item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name
-											select Tuple.Create(item, item.DisplayName + " [Room]");
+			var inRoom = from item in CurrentMap.CurrentRoom.Members
+						 where item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name
+						 select Tuple.Create(item, item.DisplayName + " [Room]");
 
-			IEnumerable<Tuple<ILookable, string>> inInventory = from item in Player.Inventory
-												 where item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name
-												 select Tuple.Create(item, item.DisplayName + " [Inventory]");
+			var inInventory = from item in Player.Inventory
+							  where item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name
+							  select Tuple.Create(item, item.DisplayName + " [Inventory]");
 
-			List<Tuple<ILookable, string>> found = inRoom.Union(inInventory).ToList();
+			var found = inRoom.Union(inInventory).ToList();
 
-			if (Player.EquippedWeapon.CodeNames.Contains(name) || Player.EquippedWeapon.DisplayName.ToLowerInvariant() == name) 
+			if (Player.EquippedWeapon.CodeNames.Contains(name) || Player.EquippedWeapon.DisplayName.ToLowerInvariant() == name)
 				found.Add(Tuple.Create<ILookable, string>(Player.EquippedWeapon, Player.EquippedWeapon.DisplayName + " [Inventory, Equipped]"));
 
-			if (Player.CodeNames.Contains(name) || Player.DisplayName.ToLowerInvariant() == name) 
+			if (Player.CodeNames.Contains(name) || Player.DisplayName.ToLowerInvariant() == name)
 				found.Add(Tuple.Create<ILookable, string>(Player, Player.DisplayName + " [You]"));
 
 			if (found.Count == 0)
@@ -225,7 +237,6 @@ namespace GreatTextAdventures
 			else if (found.Count > 1)
 			{
 				GameSystem.WriteLine("There are multiple '{0}'. Please specify.", name);
-
 				return Choice<ILookable>(found);
 			}
 			else
@@ -234,6 +245,16 @@ namespace GreatTextAdventures
 			}
 		}
 
+		/// <summary>
+		/// Formats a list a items into a 'list string'
+		/// </summary>
+		/// <typeparam name="T">The type of the items in the list</typeparam>
+		/// <param name="list">The list of items to enumerate</param>
+		/// <param name="multiPrefix">String that goes before the items when there are 2 or more of them</param>
+		/// <param name="onePrefix">String that goes before the item when there is only one of them</param>
+		/// <param name="nonePrefix">String to show when there are no items in the list</param>
+		/// <param name="lastSeparator">String that goes before the last item in the enumeration ('and', 'or', etc)</param>
+		/// <returns>The formatted enumeration</returns>
 		public static string Enumerate<T>(IEnumerable<T> list, string multiPrefix, string onePrefix, string nonePrefix, string lastSeparator)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -253,7 +274,7 @@ namespace GreatTextAdventures
 			}
 			else if (list.Count() == 2)
 			{
-				// Dual items, put them in format "<multiPrefix> a <lastSeparator> b"
+				// Two items, put them in format "<multiPrefix> a <lastSeparator> b"
 				sb.AppendFormat("{0} {1} {2} {3}", multiPrefix, list.First(), lastSeparator, list.Last());
 			}
 			else if (list.Count() > 0)
@@ -270,6 +291,11 @@ namespace GreatTextAdventures
 			return sb.ToString();
 		}
 
+		/// <summary>
+		/// Writes a certain text to the console, formatting it with certain arguments. Supports special-character functions.
+		/// </summary>
+		/// <param name="text">Text to write</param>
+		/// <param name="args">Arguments to use when formatting the text (see String.Format)</param>
 		public static void Write(string text, params object[] args)
 		{
 			string s = string.Format(text, args);
@@ -277,13 +303,17 @@ namespace GreatTextAdventures
 			WriteColor(s, 0, DefaultConsoleColor);
 		}
 
+		/// <summary>
+		/// Writes an object to the console.
+		/// </summary>
+		/// <param name="obj">Object to write</param>
 		public static void Write(object obj)
 		{
 			Write(obj.ToString());
 		}
 
 		private static int WriteColor(string text, int startingIndex, ConsoleColor color)
-		{			
+		{
 			for (int i = startingIndex; i < text.Length; i++)
 			{
 				Console.ForegroundColor = color;
@@ -294,6 +324,7 @@ namespace GreatTextAdventures
 					continue;
 				}
 
+				// 'Color' function -> &CXX, where XX is a double-digit color code or 'EE' to indicate this 'color level' has ended
 				if (char.ToUpperInvariant(text[++i]) == 'C')
 				{
 					string param = new string(new[] { text[++i], text[++i] });
@@ -304,6 +335,8 @@ namespace GreatTextAdventures
 					}
 					else
 					{
+						// Go down a 'color level', writing all input in the specified color until &CEE is found, then go up a 'color level',
+						// returning to the color specified in this method
 						int index;
 
 						if (int.TryParse(param, out index))
@@ -324,17 +357,29 @@ namespace GreatTextAdventures
 			return text.Length - 1;
 		}
 
+		/// <summary>
+		/// Writes a certain text to the console, formatting it with certain arguments, then prints a line. Supports special-character functions.
+		/// </summary>
+		/// <param name="text">Text to write</param>
+		/// <param name="args">Arguments to use when formatting the text (see String.Format)</param>
 		public static void WriteLine(string text, params object[] args)
 		{
 			Write(text, args);
 			Console.WriteLine();
 		}
 
+		/// <summary>
+		/// Writes an object to the console, then prints a line.
+		/// </summary>
+		/// <param name="obj">Object to write</param>
 		public static void WriteLine(object obj)
 		{
 			WriteLine(obj.ToString());
 		}
 
+		/// <summary>
+		/// Prints a line.
+		/// </summary>
 		public static void WriteLine()
 		{
 			Console.WriteLine();

@@ -6,6 +6,9 @@ using GreatTextAdventures.Rooms;
 
 namespace GreatTextAdventures
 {
+	/// <summary>
+	/// Represents a series of Rooms organized in x and y coordinates.
+	/// </summary>
 	public class Map
 	{
 		Dictionary<Tuple<int, int>, Room> rooms;
@@ -13,6 +16,9 @@ namespace GreatTextAdventures
 		public Tuple<int, int> CurrentPosition { get; set; }
 		public Room CurrentRoom { get { return rooms[CurrentPosition]; } }
 
+		/// <summary>
+		/// Creates a new instance of Map, with the default values.
+		/// </summary>
 		public Map()
 		{
 			CurrentPosition = Tuple.Create(0, 0);
@@ -24,6 +30,10 @@ namespace GreatTextAdventures
 			GameSystem.WriteLine(CurrentRoom.Describe());
 		}
 
+		/// <summary>
+		/// Moves the current position to the specified direction, creating a new room if necessary.
+		/// </summary>
+		/// <param name="target">Direction to move in</param>
 		public void Move(Directions target)
 		{
 			if (!CurrentRoom.Exits.HasFlag(target) || !CurrentRoom.CanExit)
@@ -40,23 +50,28 @@ namespace GreatTextAdventures
 				GenerateRandomRoom(pos);
 			}
 
-			// Move to the required position
 			CurrentPosition = pos;
 
-			// Notification of movement
 			GameSystem.WriteLine("You moved {0}", Enum.GetName(typeof(Directions), target));
-
-			// Describe new location
 			GameSystem.WriteLine(CurrentRoom.Describe());
 		}
 
+		/// <summary>
+		/// Updates all the necessary components in this Map.
+		/// </summary>
 		public void Update()
 		{
 			CurrentRoom.Update();
 		}
 
+		/// <summary>
+		/// Creates an image representing this Map.
+		/// </summary>
+		/// <param name="size">Radius, in rooms, of the map to show. Centered at (0,0), the starting room.</param>
+		/// <returns>The generated image</returns>
 		public Bitmap Draw(int size)
 		{
+			// x2 because the size is replicated to each side, x3 because each room is a 3-pixel square
 			Bitmap result = new Bitmap(size * 2 * 3, size * 2 * 3);
 
 			for (int mapY = -size + 1; mapY < size; mapY++)
@@ -102,8 +117,15 @@ namespace GreatTextAdventures
 			return result;
 		}
 
+		/// <summary>
+		/// Creates a random room at the specified position
+		/// </summary>
+		/// <param name="pos">The position to create a room at</param>
 		void GenerateRandomRoom(Tuple<int, int> pos)
 		{
+			if (rooms.ContainsKey(pos))
+				throw new ArgumentException(string.Format("Room at ({0};{1}) already exists", pos.Item1, pos.Item2));
+
 			Directions obligatory = Directions.None;
 			Directions blocked = Directions.None;
 
@@ -116,7 +138,7 @@ namespace GreatTextAdventures
 				{
 					if (rooms[pos].Exits.HasFlag(OppositeDirection(d)))
 					{
-						// Adjacent room exists has exit to this room, so we need an exit to that side
+						// Adjacent room exists and has exit to this room, so we need an exit to that side
 						obligatory |= d;
 					}
 					else
@@ -131,6 +153,12 @@ namespace GreatTextAdventures
 			
 		}
 
+		/// <summary>
+		/// Transforms the specified position into a new position using the specified direction
+		/// </summary>
+		/// <param name="pos">Position to be modified</param>
+		/// <param name="dir">Direction to modify the position in</param>
+		/// <returns>The modified position</returns>
 		Tuple<int, int> MovePosition(Tuple<int, int> pos, Directions dir)
 		{
 			int x = pos.Item1;
@@ -144,6 +172,11 @@ namespace GreatTextAdventures
 			return Tuple.Create(x, y);
 		}
 
+		/// <summary>
+		/// Returns the direction opposite to the specified one
+		/// </summary>
+		/// <param name="d">Direction to obtain the opposite of</param>
+		/// <returns>Direction opposite of d</returns>
 		Directions OppositeDirection(Directions d)
 		{
 			switch(d)
