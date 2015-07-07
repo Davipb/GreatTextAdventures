@@ -134,9 +134,9 @@ namespace GreatTextAdventures
 			{
 				Tuple<int, int> newpos = MovePosition(pos, d);
 
-				if (rooms.ContainsKey(pos))
+				if (rooms.ContainsKey(newpos))
 				{
-					if (rooms[pos].Exits.HasFlag(OppositeDirection(d)))
+					if (rooms[newpos].Exits.HasFlag(OppositeDirection(d)))
 					{
 						// Adjacent room exists and has exit to this room, so we need an exit to that side
 						obligatory |= d;
