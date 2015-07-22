@@ -6,14 +6,8 @@ namespace GreatTextAdventures.Items
 {
 	public class ManaFountain : ILookable, IUsable
 	{
-		public string DisplayName { get { return "Mana Fountain"; } }
-		public string Description 
-		{ 
-			get
-			{
-				return "A magical fountain that can restore your health";
-			}
-		}
+		public string DisplayName => "Mana Fountain";
+		public string Description => "A magical fountain that can restore your health";
 		public IEnumerable<string> CodeNames
 		{
 			get
@@ -24,11 +18,11 @@ namespace GreatTextAdventures.Items
 			}
 		}
 
-		public bool CanTake { get { return false; } }
+		public bool CanTake => false;
 
 		public void Use(Person user)
 		{
-			GameSystem.WriteLine("{0}'s mana was completely restored", user.DisplayName);
+			GameSystem.WriteLine($"{user.DisplayName}'s mana was completely restored");
 			user.Mana = user.MaxMana;
 		}
 

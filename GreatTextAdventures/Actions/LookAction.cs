@@ -33,16 +33,16 @@ namespace GreatTextAdventures.Actions
 			{
 				if (GameSystem.Player.Inventory.Count == 0 && GameSystem.Player.EquippedWeapon == null)
 				{
-					GameSystem.WriteLine("{0}'s inventory is empty", GameSystem.Player.DisplayName);
+					GameSystem.WriteLine($"{GameSystem.Player.DisplayName}'s inventory is empty");
 				}
 				else
 				{
-					GameSystem.WriteLine("{0}'s inventory:", GameSystem.Player.DisplayName);
+					GameSystem.WriteLine($"{GameSystem.Player.DisplayName}'s inventory:");
 
 					foreach(ILookable item in GameSystem.Player.Inventory)
 						GameSystem.WriteLine(item.DisplayName);
 
-					GameSystem.WriteLine("{0} [Equipped]", GameSystem.Player.EquippedWeapon.DisplayName);
+					GameSystem.WriteLine($"{GameSystem.Player.EquippedWeapon.DisplayName} [Equipped]");
 				}
 			}
 			else

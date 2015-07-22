@@ -38,12 +38,12 @@ namespace GreatTextAdventures.Actions
 			}
 			else
 			{
-				GameSystem.WriteLine("You can only drop items that are in your inventory", found.DisplayName);
+				GameSystem.WriteLine("You can only drop items that are in your inventory");
 				return false;
 			}
 			
 			GameSystem.CurrentMap.CurrentRoom.Members.Add(found);
-			GameSystem.WriteLine("You dropped {0}", found.DisplayName);
+			GameSystem.WriteLine($"You dropped {found.DisplayName}");
 
 			return true;
 		}

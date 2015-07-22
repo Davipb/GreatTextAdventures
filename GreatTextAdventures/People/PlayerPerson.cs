@@ -10,10 +10,7 @@ namespace GreatTextAdventures.People
 		const int ManaMinimum = 50;
 		const int ManaPerLevel = 5;
 
-		public override string DisplayName
-		{
-			get { return "Player"; }
-		}
+		public override string DisplayName => "Player";
 		public override IEnumerable<string> CodeNames
 		{
 			get
@@ -22,16 +19,8 @@ namespace GreatTextAdventures.People
 				yield return "me";
 			}
 		}
-
-		public override int MaxHealth
-		{
-			get { return HealthMinimum + (Level - 1) * HealthPerLevel; }
-		}
-
-		public override int MaxMana
-		{
-			get { return ManaMinimum + (Level - 1) * ManaPerLevel; }
-		}
+		public override int MaxHealth => HealthMinimum + (Level - 1) * HealthPerLevel;
+		public override int MaxMana => ManaMinimum + (Level - 1) * ManaPerLevel;
 
 		public int PendingSkillPoints { get; set; }
 
@@ -54,7 +43,7 @@ namespace GreatTextAdventures.People
 		protected void LevelUpEventHandler()
 		{
 			PendingSkillPoints += 2;
-			GameSystem.WriteLine("+2 Skill Points ({0} total)", PendingSkillPoints);
+			GameSystem.WriteLine($"+2 Skill Points ({PendingSkillPoints} total)");
 		}
 	}
 }

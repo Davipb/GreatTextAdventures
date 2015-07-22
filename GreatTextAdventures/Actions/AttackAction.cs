@@ -33,14 +33,14 @@ namespace GreatTextAdventures.Actions
 
 			if (person == null)
 			{
-				GameSystem.WriteLine("You can't attack {0}", found.DisplayName);
+				GameSystem.WriteLine($"You can't attack {found.DisplayName}");
 				ListItemPossibilities(found);
 				return false;
 			}
 
-			GameSystem.WriteLine("{0} attacked {1}", GameSystem.Player.DisplayName, person.DisplayName);
+			GameSystem.WriteLine($"{GameSystem.Player.DisplayName} attacked {person.DisplayName}");
 			person.ReceiveDamage(
-				GameSystem.Player.EquippedWeapon == null ? 1 : GameSystem.Player.EquippedWeapon.Damage(GameSystem.Player), 
+				GameSystem.Player.EquippedWeapon?.Damage(GameSystem.Player) ?? 1, 
 				DamageType.Physical,
 				GameSystem.Player);
 

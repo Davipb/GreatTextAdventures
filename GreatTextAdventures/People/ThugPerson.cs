@@ -19,30 +19,21 @@ namespace GreatTextAdventures.People
 
 		bool detected = false;
 
-		public override string DisplayName
-		{
-			get { return string.Format("Thug (Lv {0})", Level); }
-		}
+		public override string DisplayName => $"Thug (Lv {Level})";
 
 		public override IEnumerable<string> CodeNames
 		{
 			get { yield return "thug"; }
 		}
 
-		public override int MaxHealth
-		{
-			get { return HealthMinimum + (Level - 1) * HealthPerLevel; }
-		}
+		public override int MaxHealth => HealthMinimum + (Level - 1) * HealthPerLevel;
 
-		public override int MaxMana
-		{
-			get { return ManaMinimum + (Level - 1) * ManaPerLevel; }
-		}
+		public override int MaxMana => ManaMinimum + (Level - 1) * ManaPerLevel;
 
 		public ThugPerson(int level) : base()
 		{			
 			Level = level;
-			EquippedWeapon = Items.Weapon.Random(this.Level);
+			EquippedWeapon = Items.Weapon.Random(Level);
 
 			Strength = GameSystem.RNG.Next(StrMinPerLevel * level, StrMinPerLevel * level);
 			Intelligence = 0;
@@ -54,11 +45,11 @@ namespace GreatTextAdventures.People
 
 			if (Health <= 0)
 			{
-				int delta = this.Level - GameSystem.Player.Level;
+				int delta = Level - GameSystem.Player.Level;
 				// Math.Max is used to ensure the 'delta bonus' is always positive
 				int exp = ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
 
-				GameSystem.WriteLine("{0} dropped {1} experience", DisplayName, exp);
+				GameSystem.WriteLine($"{DisplayName} dropped {exp} experience");
 				GameSystem.Player.Experience += exp;				
 
 				return;
@@ -67,11 +58,11 @@ namespace GreatTextAdventures.People
 			if (!detected)
 			{
 				detected = true;
-				GameSystem.WriteLine("{0} has detected {1}!", DisplayName, GameSystem.Player.DisplayName);
+				GameSystem.WriteLine($"{DisplayName} has detected {GameSystem.Player.DisplayName}!");
 				return;
 			}
 
-			GameSystem.WriteLine("{0} attacked {1} with {2}", DisplayName, GameSystem.Player.DisplayName, EquippedWeapon.DisplayName);
+			GameSystem.WriteLine($"{DisplayName} attacked {GameSystem.Player.DisplayName} with {EquippedWeapon.DisplayName}");
 			GameSystem.Player.ReceiveDamage(EquippedWeapon.Damage(this), DamageType.Physical, this);
 
 		}

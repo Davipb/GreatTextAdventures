@@ -14,7 +14,7 @@ namespace GreatTextAdventures
 		Dictionary<Tuple<int, int>, Room> rooms;
 
 		public Tuple<int, int> CurrentPosition { get; set; }
-		public Room CurrentRoom { get { return rooms[CurrentPosition]; } }
+		public Room CurrentRoom => rooms[CurrentPosition];
 
 		/// <summary>
 		/// Creates a new instance of Map, with the default values.
@@ -124,7 +124,7 @@ namespace GreatTextAdventures
 		void GenerateRandomRoom(Tuple<int, int> pos)
 		{
 			if (rooms.ContainsKey(pos))
-				throw new ArgumentException(string.Format("Room at ({0};{1}) already exists", pos.Item1, pos.Item2));
+				throw new ArgumentException($"Room at ({pos.Item1};{pos.Item2}) already exists");
 
 			Directions obligatory = Directions.None;
 			Directions blocked = Directions.None;
@@ -149,7 +149,7 @@ namespace GreatTextAdventures
 				}
 			}
 
-			rooms.Add(pos, Rooms.GenericRoom.Random(obligatory, blocked));
+			rooms.Add(pos, GenericRoom.Random(obligatory, blocked));
 			
 		}
 

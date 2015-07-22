@@ -14,26 +14,19 @@ namespace GreatTextAdventures.Spells
 		const float DamageBonusBase = 1.5f;
 		const float DamageBonusPerLevel = 0.2f;
 
-		public override string DisplayName { get { return string.Format("Bloodlust {0}", level); } }
+		public override string DisplayName => $"Bloodlust {level}";
 		public override IEnumerable<string> CodeNames
 		{
 			get
 			{
 				yield return "bloodlust";
-				yield return string.Format("bloodlust {0}", level);
+				yield return $"bloodlust {level}";
 			}
 		}
-		public override string Description
-		{
-			get
-			{
-				return string.Format(
-					"Damages yourself for {0} damage and the target for {1}% normal damage", 
-					HealthPerLevel * level, 
-					(DamageBonusBase + DamageBonusPerLevel * level) * 100f);
-			}
-		}
-		public override int Cost { get { return CostPerLevel * level; } }
+		public override string Description =>
+					$"Damages yourself for {HealthPerLevel * level} damage and the target for {(DamageBonusBase + DamageBonusPerLevel * level) * 100f}% normal damage";
+
+		public override int Cost => CostPerLevel * level;
 
 		public BloodlustSpell(int level) : base(level) { }
 
@@ -45,11 +38,11 @@ namespace GreatTextAdventures.Spells
 				return false;
 			}
 
-			if (!base.Cast(caster, target)) return false;			
+			if (!base.Cast(caster, target)) return false;
 
 			int casterDamage = HealthPerLevel * level;
 
-			GameSystem.WriteLine("{0} used {1} at {2}!", caster.DisplayName, this.DisplayName, target.DisplayName);
+			GameSystem.WriteLine($"{caster.DisplayName} used {DisplayName} at {target.DisplayName}!");
 
 			int targetDamage = caster.EquippedWeapon.Damage(caster);
 			targetDamage = (int)Math.Ceiling(targetDamage * (DamageBonusBase + DamageBonusPerLevel * level));

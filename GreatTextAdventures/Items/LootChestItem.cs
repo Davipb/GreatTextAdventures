@@ -6,18 +6,17 @@ namespace GreatTextAdventures.Items
 {
 	public class LootChestItem : ILookable, IContainer
 	{
-		public string DisplayName 
-		{ 
-			get 
+		public string DisplayName
+		{
+			get
 			{
 				if (Content == null || !Content.Any())
 					return "Chest (empty)";
 				else
-					return string.Format(
-						"Chest ({0} item{1})", Content.Count, Content.Count != 1? "s" : "");
-			} 
+					return $"Chest ({Content.Count} item{(Content.Count > 1 ? "s" : "")})";
+			}
 		}
-		public string Description { get { return "A large wooden chest begging to be opened. What are you waiting for?"; } }
+		public string Description => "A large wooden chest begging to be opened. What are you waiting for?";
 		public IEnumerable<string> CodeNames
 		{
 			get
@@ -26,20 +25,15 @@ namespace GreatTextAdventures.Items
 				yield return "box";
 			}
 		}
-		public bool CanTake { get { return false; } }
+		public bool CanTake => false;
 
-		public IList<ILookable> Content { get; set; }
-
-		public LootChestItem()
-		{
-			Content = new List<ILookable>();
-		}
+		public IList<ILookable> Content { get; } = new List<ILookable>();
 
 		public void Open()
 		{
 			if (Content == null || !Content.Any())
 			{
-				GameSystem.WriteLine("It's empty.");				
+				GameSystem.WriteLine("It's empty.");
 				return;
 			}
 
@@ -48,7 +42,7 @@ namespace GreatTextAdventures.Items
 			foreach (var item in Content)
 			{
 				GameSystem.Write(item.DisplayName + ", ");
-				GameSystem.CurrentMap.CurrentRoom.Members.Add(item);				
+				GameSystem.CurrentMap.CurrentRoom.Members.Add(item);
 			}
 
 			Content.Clear();
@@ -60,7 +54,7 @@ namespace GreatTextAdventures.Items
 		{
 			LootChestItem result = new LootChestItem();
 
-			switch(GameSystem.RNG.Next(0, 2))
+			switch (GameSystem.RNG.Next(0, 2))
 			{
 				case 0:
 					result.Content.Add(Weapon.Random(GameSystem.Player.Level));
@@ -68,7 +62,7 @@ namespace GreatTextAdventures.Items
 				case 1:
 					result.Content.Add(SpellTome.Random());
 					break;
-			}			
+			}
 
 			return result;
 		}

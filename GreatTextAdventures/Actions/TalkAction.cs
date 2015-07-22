@@ -38,7 +38,7 @@ namespace GreatTextAdventures.Actions
 
 			if (person == null)
 			{
-				GameSystem.WriteLine("You can't talk with {0}", found.DisplayName);
+				GameSystem.WriteLine($"You can't talk with {found.DisplayName}");
 				ListItemPossibilities(found);
 				return false;
 			}

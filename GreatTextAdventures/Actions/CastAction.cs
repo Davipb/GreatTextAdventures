@@ -26,7 +26,7 @@ namespace GreatTextAdventures.Actions
 				foreach(GameSpell knownSpell in GameSystem.Player.KnownSpells)
 				{
 					GameSystem.WriteLine(knownSpell.DisplayName);
-					GameSystem.WriteLine("Cost: {0} mana", knownSpell.Cost);
+					GameSystem.WriteLine($"Cost: {knownSpell.Cost} mana");
 					GameSystem.WriteLine(knownSpell.Description);
 					GameSystem.WriteLine();	
 				}
@@ -52,7 +52,7 @@ namespace GreatTextAdventures.Actions
 
 			if (target == null)
 			{
-				GameSystem.WriteLine("Can't target {0}", found.DisplayName);
+				GameSystem.WriteLine($"Can't target {found.DisplayName}");
 				return false;
 			}
 

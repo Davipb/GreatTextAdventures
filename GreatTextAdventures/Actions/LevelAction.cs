@@ -28,7 +28,7 @@ namespace GreatTextAdventures.Actions
 			{
 				GameSystem.WriteLine
 				(
-					GameSystem.Enumerate<string>
+					GameSystem.Enumerate
 					(
 						new[] { "Strength (STR)", "Intelligence (INT)", "Physical Defense (PDF)", "Magical Defense (MDF)" },
 						"Possible stats:",
@@ -47,25 +47,25 @@ namespace GreatTextAdventures.Actions
 				case "str":
 				case "strength":					
 					GameSystem.Player.Strength++;
-					GameSystem.WriteLine("{0}'s Strength increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.Strength);					
+					GameSystem.WriteLine($"{GameSystem.Player.DisplayName}'s Strength increased by 1 (Total: {GameSystem.Player.Strength})");					
 					break;
 				case "int":
 				case "intelligence":
 					GameSystem.Player.Intelligence++;
-					GameSystem.WriteLine("{0}'s Intelligence increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.Intelligence);					
+					GameSystem.WriteLine($"{GameSystem.Player.DisplayName}'s Intelligence increased by 1 (Total: {GameSystem.Player.Intelligence})");					
 					break;
 				case "pdf":
 				case "physical defense":
 					GameSystem.Player.PhysicalDefense++;
-					GameSystem.WriteLine("{0}'s Physical Defense increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.PhysicalDefense);					
+					GameSystem.WriteLine($"{GameSystem.Player.DisplayName}'s Physical Defense increased by 1 (Total: {GameSystem.Player.PhysicalDefense})");					
 					break;
 				case "mdf":
 				case "magical defense":
 					GameSystem.Player.MagicalDefense++;
-					GameSystem.WriteLine("{0}'s Magical Defense increased by 1 (Total: {1})", GameSystem.Player.DisplayName, GameSystem.Player.MagicalDefense);
+					GameSystem.WriteLine($"{GameSystem.Player.DisplayName}'s Magical Defense increased by 1 (Total: {GameSystem.Player.MagicalDefense})");
 					break;
 				default:
-					GameSystem.WriteLine("Unknown stat '{0}'. Type just 'level' for a list of stats.", action);
+					GameSystem.WriteLine($"Unknown stat '{action}'. Type just 'level' for a list of stats.");
 					success = false;
 					break;
 			}
@@ -73,7 +73,7 @@ namespace GreatTextAdventures.Actions
 			if (success)
 			{
 				GameSystem.Player.PendingSkillPoints--;
-				GameSystem.WriteLine("Remaining Skill Points: {0}", GameSystem.Player.PendingSkillPoints);
+				GameSystem.WriteLine($"Remaining Skill Points: {GameSystem.Player.PendingSkillPoints}");
 			}
 
 			return false;

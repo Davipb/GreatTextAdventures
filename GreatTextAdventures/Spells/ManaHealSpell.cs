@@ -12,19 +12,19 @@ namespace GreatTextAdventures.Spells
 		const int HealthPerLevel = 10;
 		const int ManaPerLevel = 20;
 
-		public override string DisplayName { get { return string.Format("Refresh {0}", level); } }
+		public override string DisplayName => $"Refresh {level}";
 		public override IEnumerable<string> CodeNames 
 		{ 
 			get 
 			{ 
 				yield return "refresh";
-				yield return string.Format("refresh {0}", level);
+				yield return $"refresh {level}";
 			} 
 		}
-		public override string Description { get { return string.Format("Damage {0} health and restore {1} mana", HealthCost, ManaHeal); } }
-		public override int Cost { get { return 0; } }
-		public int HealthCost { get { return HealthPerLevel * level; } }
-		public int ManaHeal { get { return ManaPerLevel * level; } }
+		public override string Description => $"Damage {HealthCost} health and restore {ManaHeal} mana";
+		public override int Cost => 0;
+		public int HealthCost => HealthPerLevel * level;
+		public int ManaHeal => ManaPerLevel * level;
 
 		public ManaHealSpell(int level) : base(level) { }
 
@@ -42,12 +42,12 @@ namespace GreatTextAdventures.Spells
 				return false;
 			}
 
-			GameSystem.WriteLine("{0} used {1}!", caster.DisplayName, this.DisplayName);
+			GameSystem.WriteLine($"{caster.DisplayName} used {DisplayName}!");
 
 			target.ReceiveDamage(HealthCost, DamageType.Special, this);
 			target.Mana += ManaHeal;
-			
-			GameSystem.WriteLine("{0} recovered {1} mana", target.DisplayName, ManaHeal);
+
+			GameSystem.WriteLine($"{target.DisplayName} recovered {ManaHeal} mana");
 
 			return true;
 		}

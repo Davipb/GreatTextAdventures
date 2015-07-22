@@ -16,31 +16,19 @@ namespace GreatTextAdventures.Spells
 		const int CostMinimum = 20;
 		const int CostPerLevel = 10;
 
-		public override string DisplayName
-		{
-			get { return string.Format("Poison Cloud {0}", level); }
-		}
+		public override string DisplayName => $"Poison Cloud {level}";
 		public override IEnumerable<string> CodeNames
 		{
 			get
 			{
 				yield return "poison cloud";
 				yield return "poison";
-				yield return string.Format("poison cloud {0}", level);
+				yield return $"poison cloud {level}";
 			}
 		}
-		public override string Description
-		{
-			get { return "Poisons the target, dealing a percentage of their health in damage each turn"; }
-		}
-		public override int Cost
-		{
-			get { return CostMinimum + CostPerLevel * (level - 1); }
-		}
-		public int Duration
-		{
-			get { return DurationMinimum + DurationPerLevel * (level - 1); }
-		}
+		public override string Description => "Poisons the target, dealing a percentage of their health in damage each turn";
+		public override int Cost => CostMinimum + CostPerLevel * (level - 1);
+		public int Duration => DurationMinimum + DurationPerLevel * (level - 1);
 
 		public PoisonSpell(int level) : base(level) { }
 
@@ -50,13 +38,13 @@ namespace GreatTextAdventures.Spells
 
 			if(target.CurrentStatus.Any(x => x is PoisonEffect))
 			{
-				GameSystem.WriteLine("{0} is already poisoned!", target.DisplayName);
+				GameSystem.WriteLine($"{target.DisplayName} is already poisoned!");
 				return false;
 			}
 
-			GameSystem.WriteLine("{0} used {1} on {2}!", caster.DisplayName, DisplayName, target);
+			GameSystem.WriteLine($"{caster.DisplayName} used {DisplayName} on {target}!");
 			target.CurrentStatus.Add(new PoisonEffect(target, Duration));
-			GameSystem.WriteLine("{0} was poisoned!", target.DisplayName);
+			GameSystem.WriteLine($"{target.DisplayName} was poisoned!");
 
 			return true;
 		}

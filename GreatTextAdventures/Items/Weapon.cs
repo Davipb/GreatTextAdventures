@@ -11,19 +11,16 @@ namespace GreatTextAdventures.Items
 	{
 		const float StrBonus = 0.01f;
 
-		public string DisplayName { get { return string.Format("{0} {1} (Atk {2})", nameModifier, baseName, Attack); } }
+		public string DisplayName => $"{nameModifier} {baseName} (Atk {Attack})";
 		public string Description
 		{
 			get
 			{
 				StringBuilder sb = new StringBuilder();
-				sb.AppendFormat("{0} {1}", nameModifier, baseName);
-				sb.AppendLine();
-				sb.AppendFormat("Base Attack: {0}", baseAttack);
-				sb.AppendLine();
-				sb.AppendFormat("Attack Modifier: {0}{1}", Math.Sign(attackModifier) == 0? "" : Math.Sign(attackModifier) > 0? "+" : "-", Math.Abs(attackModifier));
-				sb.AppendLine();
-				sb.AppendFormat("Strength Bonus: +{0}%/STR", StrBonus * 100f);
+				sb.AppendLine($"{nameModifier} {baseName}");
+				sb.AppendLine($"Base Attack: {baseAttack}");
+				sb.AppendLine($"Attack Modifier: {(attackModifier == 0? "" : attackModifier > 0? "+" : "-")}{Math.Abs(attackModifier)}");
+				sb.AppendLine($"Strength Bonus: +{StrBonus * 100f}%/STR");
 				return sb.ToString();
 
 			}
@@ -36,9 +33,9 @@ namespace GreatTextAdventures.Items
 				yield return (nameModifier + " " + baseName).ToLowerInvariant();
 			} 
 		}
-		public bool CanTake { get { return true; } }
+		public bool CanTake => true;
 
-		public int Attack { get { return Math.Max(1, baseAttack + attackModifier); } }
+		public int Attack => Math.Max(1, baseAttack + attackModifier);
 
 		protected string baseName;
 		protected string nameModifier;
@@ -53,10 +50,7 @@ namespace GreatTextAdventures.Items
 			this.attackModifier = attackModifier;
 		}
 
-		public int Damage(People.Person user)
-		{
-			return Attack + (int)Math.Ceiling(StrBonus * user.Strength * Attack);
-		}
+		public int Damage(People.Person user) => Attack + (int)Math.Ceiling(StrBonus* user.Strength * Attack);
 
 		public static Weapon Random(int level)
 		{

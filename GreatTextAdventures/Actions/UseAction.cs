@@ -30,7 +30,7 @@ namespace GreatTextAdventures.Actions
 
 			if (item == null)
 			{
-				GameSystem.WriteLine("You can't use '{0}'", found.DisplayName);
+				GameSystem.WriteLine($"You can't use '{found.DisplayName}'");
 				ListItemPossibilities(found);
 				return false;
 			}

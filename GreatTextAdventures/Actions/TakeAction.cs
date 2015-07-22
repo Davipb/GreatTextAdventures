@@ -30,14 +30,14 @@ namespace GreatTextAdventures.Actions
 
 			if (!found.CanTake)
 			{
-				GameSystem.WriteLine("You can't take {0}", found.DisplayName);
+				GameSystem.WriteLine($"You can't take {found.DisplayName}");
 				ListItemPossibilities(found);
 				return false;
 			}
 
 			if(GameSystem.Player.Inventory.Contains(found) || GameSystem.Player.EquippedWeapon == found)
 			{
-				GameSystem.WriteLine("{0} is already in your inventory", found.DisplayName);
+				GameSystem.WriteLine($"{found.DisplayName} is already in your inventory");
 				return false;
 			}
 
@@ -49,7 +49,7 @@ namespace GreatTextAdventures.Actions
 
 			GameSystem.Player.Inventory.Add(found);
 			GameSystem.CurrentMap.CurrentRoom.Members.Remove(found);
-			GameSystem.WriteLine("You took {0}", found.DisplayName);
+			GameSystem.WriteLine($"You took {found.DisplayName}");
 
 			return true;
 		}

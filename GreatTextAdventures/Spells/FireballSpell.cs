@@ -12,34 +12,21 @@ namespace GreatTextAdventures.Spells
 		const int CostPerLevel = 10;
 		const float IntBonus = 0.05f;
 
-		public override string DisplayName 
-		{ 
-			get { return string.Format("Fireball {0}", level); } 
-		}
+		public override string DisplayName => $"Fireball {level}";
 		public override IEnumerable<string> CodeNames
 		{
-			get 
+			get
 			{
 				yield return "fire";
 				yield return "fireball";
 				yield return "fire ball";
-				yield return string.Format("fireball {0}", level);
+				yield return $"fireball {level}";
 			}
 		}
-		public override string Description 
-		{ 
-			get 
-			{ 
-				return string.Format(
-					"Hurls a fireball at the enemy, dealing {0} (+{1}%/INT) damage", 
-					DamagePerLevel * level,
-					IntBonus * 100f); 
-			} 
-		}
-		public override int Cost 
-		{ 
-			get { return CostPerLevel * level; } 
-		}
+		public override string Description =>
+					"Hurls a fireball at the enemy, dealing {DamagePerLevel * level} (+{IntBonus * 100f}%/INT) damage";
+
+		public override int Cost => CostPerLevel * level;
 
 		public FireballSpell(int level) : base(level) { }
 

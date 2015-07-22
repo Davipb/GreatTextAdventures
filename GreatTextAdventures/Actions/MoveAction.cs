@@ -47,7 +47,7 @@ namespace GreatTextAdventures.Actions
 					GameSystem.CurrentMap.Move(Directions.West);
 					break;
 				default:
-					GameSystem.WriteLine("Unknown direction '{0}'", action);
+					GameSystem.WriteLine($"Unknown direction '{action}'");
 					return false;
 			}
 

@@ -24,27 +24,18 @@ namespace GreatTextAdventures.People
 
 		bool detected = false;
 
-		public override string DisplayName
-		{
-			get { return string.Format("Wizard (Lv {0})", Level); }
-		}
+		public override string DisplayName => $"Wizard (Lv {Level})";
 		public override IEnumerable<string> CodeNames
 		{
 			get { yield return "wizard"; }
 		}
 
-		public override int MaxHealth
-		{
-			get { return HealthMinimum + HealthPerLevel * (Level - 1); }
-		}
-		public override int MaxMana
-		{
-			get { return ManaMinimum + ManaPerLevel * (Level - 1); }
-		}
+		public override int MaxHealth => HealthMinimum + HealthPerLevel * (Level - 1);
+		public override int MaxMana => ManaMinimum + ManaPerLevel * (Level - 1);
 
 		public WizardPerson(int level) : base()
 		{
-			this.Level = level;
+			Level = level;
 
 			KnownSpells.Add(new HealSpell(Level));
 			KnownSpells.Add(new FireballSpell(GameSystem.RNG.Next(Level - 2, Level + 1)));
@@ -64,7 +55,7 @@ namespace GreatTextAdventures.People
 				// Math.Max is used to ensure the 'delta bonus' is always positive
 				int exp = ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
 
-				GameSystem.WriteLine("{0} dropped {1} experience", DisplayName, exp);
+				GameSystem.WriteLine($"{DisplayName} dropped {exp} experience");
 				GameSystem.Player.Experience += exp;
 
 				return;
@@ -73,11 +64,11 @@ namespace GreatTextAdventures.People
 			if (!detected)
 			{
 				detected = true;
-				GameSystem.WriteLine("{0} has detected {1}!", DisplayName, GameSystem.Player.DisplayName);
+				GameSystem.WriteLine($"{DisplayName} has detected {GameSystem.Player.DisplayName}!");
 				return;
 			}
 
-			if (this.Health <= this.MaxHealth / CriticalHealthDivider)
+			if (Health <= MaxHealth / CriticalHealthDivider)
 			{
 				HealSpell heal = (HealSpell)KnownSpells.First(x => x is HealSpell);
 
@@ -88,7 +79,7 @@ namespace GreatTextAdventures.People
 				}
 			}
 
-			if (this.Mana <= this.MaxMana / CriticalManaDivider)
+			if (Mana <= MaxMana / CriticalManaDivider)
 			{
 				ManaHealSpell refresh = (ManaHealSpell)KnownSpells.First(x => x is ManaHealSpell);
 
@@ -107,7 +98,7 @@ namespace GreatTextAdventures.People
 				return;
 			}
 
-			GameSystem.WriteLine("{0} punched {1}", DisplayName, GameSystem.Player.DisplayName);
+			GameSystem.WriteLine($"{DisplayName} punched {GameSystem.Player.DisplayName}");
 			GameSystem.Player.ReceiveDamage(1, DamageType.Physical, this);
 		}
 

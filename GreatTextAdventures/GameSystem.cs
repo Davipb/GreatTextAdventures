@@ -177,7 +177,7 @@ namespace GreatTextAdventures
 			// Display all items to the user
 			for (int i = 0; i < items.Count; i++)
 			{
-				GameSystem.WriteLine("{0}. {1}", i + 1, items[i].Item2);
+				GameSystem.WriteLine($"{i + 1}. {items[i].Item2}");
 			}
 
 			GameSystem.WriteLine();
@@ -231,12 +231,12 @@ namespace GreatTextAdventures
 
 			if (found.Count == 0)
 			{
-				GameSystem.WriteLine("There is no '{0}'", name);
+				GameSystem.WriteLine($"There is no '{name}'");
 				return null;
 			}
 			else if (found.Count > 1)
 			{
-				GameSystem.WriteLine("There are multiple '{0}'. Please specify.", name);
+				GameSystem.WriteLine($"There are multiple '{name}'. Please specify.");
 				return Choice<ILookable>(found);
 			}
 			else
@@ -265,22 +265,22 @@ namespace GreatTextAdventures
 				sb.Append(multiPrefix);
 				sb.Append(" ");
 
-				sb.AppendFormat("{0},", list.First().ToString());
+				sb.AppendFormat($"{list.First().ToString()},");
 
 				foreach (T elem in list.Skip(1).Take(list.Count() - 2))
-					sb.AppendFormat(" {0},", elem.ToString());
+					sb.AppendFormat($" {elem.ToString()},");
 
-				sb.AppendFormat(" {0} {1}", lastSeparator, list.Last().ToString());
+				sb.AppendFormat($" {lastSeparator} {list.Last().ToString()}");
 			}
 			else if (list.Count() == 2)
 			{
 				// Two items, put them in format "<multiPrefix> a <lastSeparator> b"
-				sb.AppendFormat("{0} {1} {2} {3}", multiPrefix, list.First(), lastSeparator, list.Last());
+				sb.AppendFormat($"{multiPrefix} {list.First()} {lastSeparator} {list.Last()}");
 			}
 			else if (list.Count() > 0)
 			{
 				// One item, put it in format "<onePrefix/multiPrefix> a"
-				sb.AppendFormat("{0} {1}", onePrefix ?? multiPrefix, list.First());
+				sb.AppendFormat($"{onePrefix ?? multiPrefix} {list.First()}");
 			}
 			else
 			{
@@ -296,21 +296,16 @@ namespace GreatTextAdventures
 		/// </summary>
 		/// <param name="text">Text to write</param>
 		/// <param name="args">Arguments to use when formatting the text (see String.Format)</param>
-		public static void Write(string text, params object[] args)
-		{
-			string s = string.Format(text, args);
+		public static void Write(string text, params object[] args) => 
+			WriteColor(string.Format(text, args), 0, DefaultConsoleColor);
 
-			WriteColor(s, 0, DefaultConsoleColor);
-		}
 
 		/// <summary>
 		/// Writes an object to the console.
 		/// </summary>
 		/// <param name="obj">Object to write</param>
-		public static void Write(object obj)
-		{
+		public static void Write(object obj) =>
 			Write(obj.ToString());
-		}
 
 		private static int WriteColor(string text, int startingIndex, ConsoleColor color)
 		{
@@ -372,19 +367,14 @@ namespace GreatTextAdventures
 		/// Writes an object to the console, then prints a line.
 		/// </summary>
 		/// <param name="obj">Object to write</param>
-		public static void WriteLine(object obj)
-		{
+		public static void WriteLine(object obj) =>
 			WriteLine(obj.ToString());
-		}
 
 		/// <summary>
 		/// Prints a line.
 		/// </summary>
-		public static void WriteLine()
-		{
+		public static void WriteLine() =>
 			Console.WriteLine();
-		}
-
 
 	}
 }

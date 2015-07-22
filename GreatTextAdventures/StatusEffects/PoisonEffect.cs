@@ -10,11 +10,8 @@ namespace GreatTextAdventures.StatusEffects
 	{
 		const double HealthToDrain = 0.05;
 
-		public override string DisplayName { get { return "Poison"; } }
-		public override string Description
-		{
-			get { return string.Format("Damages {0}% of max health per turn", HealthToDrain * 100.0); }
-		}
+		public override string DisplayName => "Poison";
+		public override string Description => $"Damages {HealthToDrain * 100.0}% of max health per turn";
 
 		public PoisonEffect(Person owner, int duration) : base(owner, duration) { }
 
@@ -23,7 +20,7 @@ namespace GreatTextAdventures.StatusEffects
 			// Must damage at least 1 Health
 			int damage = Math.Max(1, (int)Math.Floor(Owner.MaxHealth * HealthToDrain));
 
-			GameSystem.WriteLine("{0} is poisoned", Owner.DisplayName);
+			GameSystem.WriteLine($"{Owner.DisplayName} is poisoned");
 
 			Owner.ReceiveDamage(damage, DamageType.Magical, this);
 

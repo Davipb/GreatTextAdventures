@@ -13,36 +13,29 @@ namespace GreatTextAdventures.People
 		#region Properties
 		public abstract string DisplayName { get; }
 		public abstract IEnumerable<string> CodeNames { get; }
-		public bool CanTake { get { return false; } }
+		public bool CanTake => false;
 
 		public string Description 
 		{ 
 			get
 			{
 				StringBuilder sb = new StringBuilder();
+
 				sb.AppendLine(DisplayName);
-				sb.AppendFormat("Level: {0}", Level);
-				sb.AppendLine();
-				sb.AppendFormat("Experience: {0}/{1}", Experience, NeededExperience);
-				sb.AppendLine();
-				sb.AppendFormat("Health (HP): {0}/{1}", Health, MaxHealth);
-				sb.AppendLine();
-				sb.AppendFormat("Mana (MP): {0}/{1}", Mana, MaxMana);
-				sb.AppendLine();
-				sb.AppendFormat("Strength (STR): {0}", Strength);
-				sb.AppendLine();
-				sb.AppendFormat("Intelligence (INT): {0}", Intelligence);
-				sb.AppendLine();
-				sb.AppendFormat("Physical Defense (PDF): {0}", PhysicalDefense);
-				sb.AppendLine();
-				sb.AppendFormat("Magical Defense (MDF): {0}", MagicalDefense);
-				sb.AppendLine();
-				sb.AppendFormat("Weapon: {0}", EquippedWeapon == null ? "None" : EquippedWeapon.DisplayName);
-				sb.AppendLine();
+				sb.AppendLine($"Level: {level}");
+				sb.AppendLine($"Experience: {Experience}/{NeededExperience}");
+				sb.AppendLine($"Health (HP): {Health}/{MaxHealth}");
+				sb.AppendLine($"Mana (MP): {Mana}/{MaxMana}");
+				sb.AppendLine($"Strength (STR): {Strength}");
+				sb.AppendLine($"Intelligence (INT): {Intelligence}");
+				sb.AppendLine($"Physical Defense (PDF): {PhysicalDefense}");
+				sb.AppendLine($"Magical Defense (MDF): {MagicalDefense}");
+				sb.AppendLine($"Weapon: {EquippedWeapon?.DisplayName ?? "None"}");
+
 				if (KnownSpells != null && KnownSpells.Any())
 				{
 					sb.Append("Known Spells: ");
-					KnownSpells.ForEach(x => sb.AppendFormat("{0} ({1} mana), ", x.DisplayName, x.Cost));
+					KnownSpells.ForEach(x => sb.Append($"{x.DisplayName} ({x.Cost} mana), "));
 					sb.Remove(sb.Length - 2, 2);
 				}
 
@@ -79,7 +72,7 @@ namespace GreatTextAdventures.People
 				level = Math.Max(1, value);
 
 				if (level > oldLevel)
-					LeveledUp();
+					LeveledUp?.Invoke();
 			}
 		}		
 
@@ -97,7 +90,7 @@ namespace GreatTextAdventures.People
 				}
 			}
 		}
-		public long NeededExperience { get { return Level * Level; } }
+		public long NeededExperience => Level * Level;
 
 		public int Strength { get; set; }
 		public int Intelligence { get; set; }
@@ -105,13 +98,10 @@ namespace GreatTextAdventures.People
 		public int MagicalDefense { get; set; }
 		#endregion
 
-		private List<GameSpell> knownSpells = new List<GameSpell>();
-		private List<StatusEffect> currentStatus = new List<StatusEffect>();
-		public List<GameSpell> KnownSpells { get { return knownSpells; } }
-		public List<StatusEffect> CurrentStatus { get { return currentStatus; } }
+		public List<GameSpell> KnownSpells { get; } = new List<GameSpell>();
+		public List<StatusEffect> CurrentStatus { get; } = new List<StatusEffect>();
 
-		private List<ILookable> inventory = new List<ILookable>();
-		public List<ILookable> Inventory { get { return inventory; } }
+		public List<ILookable> Inventory { get; } = new List<ILookable>();
 		public Weapon EquippedWeapon { get; set; }
 
 
@@ -143,11 +133,11 @@ namespace GreatTextAdventures.People
 
 			if (Health <= 0)
 			{
-				GameSystem.WriteLine("{0} died", DisplayName);
+				GameSystem.WriteLine($"{DisplayName} died");
 
 				if (EquippedWeapon != null)
 				{
-					GameSystem.WriteLine("{0} dropped {1}", DisplayName, EquippedWeapon.DisplayName);
+					GameSystem.WriteLine($"{DisplayName} dropped {EquippedWeapon.DisplayName}");
 
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(EquippedWeapon);
 					EquippedWeapon = null;
@@ -155,7 +145,7 @@ namespace GreatTextAdventures.People
 
 				foreach(ILookable item in Inventory)
 				{
-					GameSystem.WriteLine("{0} dropped {1}", DisplayName, item.DisplayName);
+					GameSystem.WriteLine($"{DisplayName} dropped {item.DisplayName}");
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(item);
 				}
 
@@ -167,7 +157,7 @@ namespace GreatTextAdventures.People
 
 		public virtual void Talk()
 		{
-			GameSystem.WriteLine("{0} doesn't answer", DisplayName);
+			GameSystem.WriteLine($"{DisplayName} doesn't answer");
 		}
 
 		public GameSpell GetSpellWithName(string name)
@@ -179,13 +169,13 @@ namespace GreatTextAdventures.People
 
 			if (found.Count == 0)
 			{
-				GameSystem.WriteLine("There is no '{0}'", name);
+				GameSystem.WriteLine($"There is no '{name}'");
 				return null;
 			}
 			else if (found.Count > 1)
 			{
-				GameSystem.WriteLine("There are multiple '{0}'. Please specify.", name);
-				return GameSystem.Choice<GameSpell>(found, found.Select(x => x.DisplayName).ToList());
+				GameSystem.WriteLine($"There are multiple '{name}'. Please specify.");
+				return GameSystem.Choice(found, found.Select(x => x.DisplayName).ToList());
 			}
 			else
 			{
@@ -195,11 +185,11 @@ namespace GreatTextAdventures.People
 
 		public int ReceiveDamage(int baseDamage, DamageType type, object source)
 		{
-			ReceivingDamageEventArgs eventArgs = new ReceivingDamageEventArgs(baseDamage, type, source);			
+			var eventArgs = new ReceivingDamageEventArgs(baseDamage, type, source);			
 
-			ReceivingDamage(eventArgs);
+			ReceivingDamage?.Invoke(eventArgs);
 
-			GameSystem.WriteLine("{0} was damaged for {1} HP", DisplayName, eventArgs.ActualDamage);
+			GameSystem.WriteLine($"{DisplayName} was damaged for {eventArgs.ActualDamage} HP");
 			Health -= eventArgs.ActualDamage;
 			return eventArgs.ActualDamage;
 		}
@@ -207,7 +197,7 @@ namespace GreatTextAdventures.People
 		#region Event Handlers
 		void LeveledUpEventHandler()
 		{
-			GameSystem.WriteLine("{0} grew to level {1}!", DisplayName, Level);
+			GameSystem.WriteLine($"{DisplayName} grew to level {Level}!");
 		}
 
 		void ReceivingDamageEventHandler(ReceivingDamageEventArgs eventArgs)
@@ -239,9 +229,9 @@ namespace GreatTextAdventures.People
 
 			public ReceivingDamageEventArgs(int baseDamage, DamageType type, object source)
 			{
-				this.BaseDamage = baseDamage;
-				this.Type = type;
-				this.Source = source;
+				BaseDamage = baseDamage;
+				Type = type;
+				Source = source;
 				ActualDamage = BaseDamage;
 			}
 		}

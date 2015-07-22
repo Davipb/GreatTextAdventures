@@ -43,7 +43,7 @@ namespace GreatTextAdventures.Actions
 				}
 			}
 
-			GameSystem.WriteLine("Unknown action '{0}'. Type only 'help' for a list of actions.", action);
+			GameSystem.WriteLine($"Unknown action '{action}'. Type only 'help' for a list of actions.");
 
 			return false;
 		}

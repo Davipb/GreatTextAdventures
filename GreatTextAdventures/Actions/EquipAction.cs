@@ -30,7 +30,7 @@ namespace GreatTextAdventures.Actions
 
 			if (weapon == null)
 			{
-				GameSystem.WriteLine("You can't equip {0}", found.DisplayName);
+				GameSystem.WriteLine($"You can't equip {found.DisplayName}");
 				ListItemPossibilities(found);
 				return false;
 			}
@@ -38,7 +38,7 @@ namespace GreatTextAdventures.Actions
 			// Put equipped weapon back in the Inventory
 			if (GameSystem.Player.EquippedWeapon != null)
 			{
-				GameSystem.WriteLine("You put {0} back in your Inventory", GameSystem.Player.EquippedWeapon.DisplayName);
+				GameSystem.WriteLine($"You put {GameSystem.Player.EquippedWeapon.DisplayName} back in your Inventory");
 				GameSystem.Player.Inventory.Add(GameSystem.Player.EquippedWeapon);
 
 				GameSystem.Player.EquippedWeapon = null;
@@ -50,7 +50,7 @@ namespace GreatTextAdventures.Actions
 			GameSystem.CurrentMap.CurrentRoom.Members.Remove(found);
 
 			// Warn the player
-			GameSystem.WriteLine("You equipped {0}", GameSystem.Player.EquippedWeapon.DisplayName);
+			GameSystem.WriteLine($"You equipped {GameSystem.Player.EquippedWeapon.DisplayName}");
 
 			return true;
 		}
