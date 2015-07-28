@@ -35,19 +35,24 @@ namespace GreatTextAdventures.Items.Crafting
 			}
 
 			var chosenRecipe = GameSystem.Choice(recipes.Select(x => Tuple.Create(x, x.DisplayName)).ToList());
-			// Get the number of items of each type in the Player's inventory
-			var groupedInventory = GameSystem.Player.Inventory.GroupBy(x => x.GetType()).ToDictionary(k => k.Key, e => e.Count());
+
+			// Get the number of materials of each type in the Player's inventory
+			var groupedMaterials =
+				GameSystem.Player.Inventory
+				.Where(x => x is CraftingMaterial)
+				.Select(x => (CraftingMaterial)x)
+				.GroupBy(x => x.MaterialName)
+				.ToDictionary(k => k.Key, e => e.Count());
 
 			// Check if the Player's inventory has the right amount of ingredients
 			foreach (var ingredient in chosenRecipe.Ingredients)
 			{
-				Type ingredientType = ingredient.Key.GetType();
-
-				if (!groupedInventory.ContainsKey(ingredientType) || groupedInventory[ingredientType] < ingredient.Value)
+				if (!groupedMaterials.ContainsKey(ingredient.Key) || groupedMaterials[ingredient.Key] < ingredient.Value)
 				{
-					int have = groupedInventory.ContainsKey(ingredientType) ? groupedInventory[ingredientType] : 0;
+					string name = (string)CraftingMaterial.AllMaterials[ingredient.Key]["DisplayName"];
+                    int have = groupedMaterials.ContainsKey(ingredient.Key) ? groupedMaterials[ingredient.Key] : 0;
 					GameSystem.WriteLine(
-						$"Not enough {ingredient.Key.DisplayName}! Needed: {ingredient.Value}, Have: {have}");
+						$"Not enough {name}! Needed: {ingredient.Value}, Have: {have}");
 					return;
 				}
 			}
@@ -58,7 +63,7 @@ namespace GreatTextAdventures.Items.Crafting
 				for (int i = 0; i < ingredient.Value; i++)
 					GameSystem.Player.Inventory.RemoveAt(
 						GameSystem.Player.Inventory.FindIndex(
-							x => x.GetType() == ingredient.Key.GetType()));
+							x => x is CraftingMaterial && ((CraftingMaterial)x).MaterialName == ingredient.Key));
 			}
 
 			GameSystem.WriteLine($"{GameSystem.Player.DisplayName} crafted {chosenRecipe.DisplayName}!");

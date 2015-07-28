@@ -28,7 +28,7 @@ namespace GreatTextAdventures.Items.Crafting
 				sb.AppendLine("Ingredients:");
 
 				foreach (var ingredient in Ingredients)
-					sb.AppendLine($"{ingredient.Value}x {ingredient.Key.DisplayName}");
+					sb.AppendLine($"{ingredient.Value}x {CraftingMaterial.AllMaterials[ingredient.Key]["DisplayName"]}");
 
 				sb.AppendLine();
 				sb.AppendLine("Result:");
@@ -40,10 +40,10 @@ namespace GreatTextAdventures.Items.Crafting
 		public bool CanTake => true;
 		public void Update() { }
 
-		public IDictionary<ILookable, int> Ingredients { get; }
+		public IDictionary<string, int> Ingredients { get; }
 		public ILookable Result { get; }
 
-		public CraftingRecipe(IDictionary<ILookable, int> ingredients, ILookable result)
+		public CraftingRecipe(IDictionary<string, int> ingredients, ILookable result)
 		{
 			Ingredients = ingredients;
 			Result = result;

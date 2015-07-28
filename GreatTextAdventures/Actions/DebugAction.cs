@@ -218,12 +218,12 @@ namespace GreatTextAdventures.Actions
 			#region Crafting
 			else if (split[0] == "crafting")
 			{
-				var dict = new Dictionary<ILookable, int>();
-				dict.Add(new IronBar(), 5);
+				var dict = new Dictionary<string, int>();
+				dict.Add("IronIngot", 5);
 				GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingRecipe(dict, RandomWeapon.Random(10)));
 
 				for (int i = 0; i < 5; i++)
-					GameSystem.CurrentMap.CurrentRoom.Members.Add(new IronBar());
+					GameSystem.CurrentMap.CurrentRoom.Members.Add(CraftingMaterial.Create("IronIngot"));
 
 				GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingStation());
 

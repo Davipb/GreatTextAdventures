@@ -84,9 +84,9 @@
     <Compile Include="DamageType.cs" />
     <Compile Include="Directions.cs" />
     <Compile Include="ILookable.cs" />
+    <Compile Include="Items\Crafting\CraftingMaterial.cs" />
     <Compile Include="Items\Crafting\CraftingRecipe.cs" />
     <Compile Include="Items\Crafting\CraftingStation.cs" />
-    <Compile Include="Items\Crafting\IronBar.cs" />
     <Compile Include="Items\DecorationItem.cs" />
     <Compile Include="Items\IContainer.cs" />
     <Compile Include="Items\IUsable.cs" />
@@ -115,6 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Items\Crafting\CraftingMaterials.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Items\Decorations.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
