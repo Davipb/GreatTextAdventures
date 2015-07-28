@@ -84,6 +84,9 @@
     <Compile Include="DamageType.cs" />
     <Compile Include="Directions.cs" />
     <Compile Include="ILookable.cs" />
+    <Compile Include="Items\Crafting\CraftingRecipe.cs" />
+    <Compile Include="Items\Crafting\CraftingStation.cs" />
+    <Compile Include="Items\Crafting\IronBar.cs" />
     <Compile Include="Items\DecorationItem.cs" />
     <Compile Include="Items\IContainer.cs" />
     <Compile Include="Items\IUsable.cs" />
@@ -134,7 +137,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Items_2Decorations_1json__JSONSchema="" Items_2DecorationSchema_1json__JSONSchema="http://json-schema.org/draft-04/schema" />
+      <UserProperties Items_2DecorationSchema_1json__JSONSchema="http://json-schema.org/draft-04/schema" Items_2Decorations_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

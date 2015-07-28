@@ -1,7 +1,9 @@
 ﻿using GreatTextAdventures.People;
 using GreatTextAdventures.StatusEffects;
+using GreatTextAdventures.Items.Crafting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GreatTextAdventures.Actions
 {
@@ -210,6 +212,21 @@ namespace GreatTextAdventures.Actions
 				GameSystem.Player.PendingSkillPoints += total;
 				GameSystem.WriteLine("Added {0} skill points", total);
 				return false;
+			}
+			#endregion
+			#region Crafting
+			else if (split[0] == "crafting")
+			{
+				var dict = new Dictionary<ILookable, int>();
+				dict.Add(new IronBar(), 5);
+				GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingRecipe(dict, Items.Weapon.Random(10)));
+
+				for (int i = 0; i < 5; i++)
+					GameSystem.CurrentMap.CurrentRoom.Members.Add(new IronBar());
+
+				GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingStation());
+
+				GameSystem.WriteLine("Added crafting supplies");
 			}
 			#endregion
 
