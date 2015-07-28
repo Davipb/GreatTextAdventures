@@ -6,20 +6,23 @@ namespace GreatTextAdventures.Items.Weapons
 {
 	public class RandomWeapon : Weapon
 	{	
+		public static JObject AllWeapons { get; private set; }
 
-		public RandomWeapon(string name, string nameModifier, int attack, int attackModifier)
+		protected RandomWeapon(string name, string nameMod, int attack, int attackMod)
 		{
-			this.baseName = name;
-			this.nameModifier = nameModifier;
-			this.baseAttack = attack;
-			this.attackModifier = attackModifier;
+			baseName = name;
+			nameModifier = nameMod;
+			baseAttack = attack;
+			attackModifier = attackMod;
 		}
 
 		public static RandomWeapon Generate(int level)
 		{
-			JObject weapons = JObject.Parse(File.ReadAllText(@"Items\Weapons\Weapons.json"));
-			JArray names = (JArray)weapons["Names"];
-			JArray modifiers = (JArray)weapons["Modifiers"];
+			if (AllWeapons == null)
+				AllWeapons = JObject.Parse(File.ReadAllText(@"Items\Weapons\Weapons.json"));
+
+			JArray names = (JArray)AllWeapons["Names"];
+			JArray modifiers = (JArray)AllWeapons["Modifiers"];
 
 			JArray chosenModifier = (JArray)modifiers.OrderBy(x => GameSystem.RNG.Next()).First();
 			string chosenName = (string)names.OrderBy(x => GameSystem.RNG.Next()).First();
