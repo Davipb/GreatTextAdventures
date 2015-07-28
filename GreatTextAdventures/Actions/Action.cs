@@ -3,6 +3,7 @@ using System;
 using GreatTextAdventures.Items;
 using GreatTextAdventures.People;
 using System.Linq;
+using GreatTextAdventures.Items.Weapons;
 
 namespace GreatTextAdventures.Actions
 {

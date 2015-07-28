@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreatTextAdventures.Items.Weapons;
+using System;
 using System.Collections.Generic;
 
 namespace GreatTextAdventures.Actions
@@ -26,7 +27,7 @@ namespace GreatTextAdventures.Actions
 			// If no items were found, return
 			if (found == null) return false;
 
-			Items.Weapon weapon = found as Items.Weapon;
+			Weapon weapon = found as Weapon;
 
 			if (weapon == null)
 			{

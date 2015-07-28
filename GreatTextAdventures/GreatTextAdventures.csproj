@@ -93,6 +93,7 @@
     <Compile Include="Items\LootChestItem.cs" />
     <Compile Include="Items\ManaFountain.cs" />
     <Compile Include="Items\SpellTome.cs" />
+    <Compile Include="Items\Weapons\Weapon.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="People\WizardPerson.cs" />
     <Compile Include="People\ThugPerson.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="Rooms\Room.cs" />
     <Compile Include="Rooms\GenericRoom.cs" />
     <Compile Include="GameSystem.cs" />
-    <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Items\Weapons\RandomWeapon.cs" />
     <Compile Include="Spells\BloodlustSpell.cs" />
     <Compile Include="Spells\FireballSpell.cs" />
     <Compile Include="Spells\GameSpell.cs" />
@@ -117,7 +118,7 @@
     <None Include="Items\Decorations.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Items\Weapons.json">
+    <None Include="Items\Weapons\Weapons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -137,7 +138,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Items_2DecorationSchema_1json__JSONSchema="http://json-schema.org/draft-04/schema" Items_2Decorations_1json__JSONSchema="" />
+      <UserProperties Items_2Decorations_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

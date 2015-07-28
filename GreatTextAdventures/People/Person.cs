@@ -1,4 +1,5 @@
 ﻿using GreatTextAdventures.Items;
+using GreatTextAdventures.Items.Weapons;
 using GreatTextAdventures.Spells;
 using GreatTextAdventures.StatusEffects;
 using System;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreatTextAdventures.Items.Weapons;
+using System;
 using System.Collections.Generic;
 
 namespace GreatTextAdventures.People
@@ -33,7 +34,7 @@ namespace GreatTextAdventures.People
 		public ThugPerson(int level) : base()
 		{			
 			Level = level;
-			EquippedWeapon = Items.Weapon.Random(Level);
+			EquippedWeapon = RandomWeapon.Random(Level);
 
 			Strength = GameSystem.RNG.Next(StrMinPerLevel * level, StrMinPerLevel * level);
 			Intelligence = 0;

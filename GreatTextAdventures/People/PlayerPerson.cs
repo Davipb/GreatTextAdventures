@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreatTextAdventures.Items.Weapons;
+using System;
 using System.Collections.Generic;
 
 namespace GreatTextAdventures.People
@@ -26,7 +27,7 @@ namespace GreatTextAdventures.People
 
 		public PlayerPerson() : base()
 		{
-			EquippedWeapon = Items.Weapon.Random(Level);
+			EquippedWeapon = RandomWeapon.Random(Level);
 			LeveledUp += LevelUpEventHandler;
 		}
 
