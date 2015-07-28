@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace GreatTextAdventures.Items.Weapons
 {
@@ -18,7 +15,7 @@ namespace GreatTextAdventures.Items.Weapons
 			this.attackModifier = attackModifier;
 		}
 
-		public static RandomWeapon Random(int level)
+		public static RandomWeapon Generate(int level)
 		{
 			JObject weapons = JObject.Parse(File.ReadAllText(@"Items\Weapons\Weapons.json"));
 			JArray names = (JArray)weapons["Names"];

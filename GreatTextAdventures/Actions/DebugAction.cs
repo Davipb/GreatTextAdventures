@@ -80,7 +80,7 @@ namespace GreatTextAdventures.Actions
 
 				if (int.TryParse(split[1], out level))
 				{
-					Weapon spawn = RandomWeapon.Random(level);
+					Weapon spawn = RandomWeapon.Generate(level);
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(spawn);
 
 					GameSystem.WriteLine("Spawned {0}", spawn.DisplayName);
@@ -220,7 +220,7 @@ namespace GreatTextAdventures.Actions
 			{
 				var dict = new Dictionary<string, int>();
 				dict.Add("IronIngot", 5);
-				GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingRecipe(dict, RandomWeapon.Random(10)));
+				GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingRecipe(dict, RandomWeapon.Generate(10)));
 
 				for (int i = 0; i < 5; i++)
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(CraftingMaterial.Create("IronIngot"));

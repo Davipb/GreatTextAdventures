@@ -58,7 +58,7 @@ namespace GreatTextAdventures.Items
 			switch (GameSystem.RNG.Next(0, 2))
 			{
 				case 0:
-					result.Content.Add(RandomWeapon.Random(GameSystem.Player.Level));
+					result.Content.Add(RandomWeapon.Generate(GameSystem.Player.Level));
 					break;
 				case 1:
 					result.Content.Add(SpellTome.Random());

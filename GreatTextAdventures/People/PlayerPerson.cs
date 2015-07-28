@@ -27,7 +27,7 @@ namespace GreatTextAdventures.People
 
 		public PlayerPerson() : base()
 		{
-			EquippedWeapon = RandomWeapon.Random(Level);
+			EquippedWeapon = RandomWeapon.Generate(Level);
 			LeveledUp += LevelUpEventHandler;
 		}
 

@@ -34,7 +34,7 @@ namespace GreatTextAdventures.People
 		public ThugPerson(int level) : base()
 		{			
 			Level = level;
-			EquippedWeapon = RandomWeapon.Random(Level);
+			EquippedWeapon = RandomWeapon.Generate(Level);
 
 			Strength = GameSystem.RNG.Next(StrMinPerLevel * level, StrMinPerLevel * level);
 			Intelligence = 0;
