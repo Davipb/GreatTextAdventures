@@ -10,6 +10,7 @@ namespace GreatTextAdventures.Items
 		private const int LockedChestChance = 5;
 		private const int LockedChestExtraLevels = 2;
 		private const int LockedChestKeyChance = 15;
+		private const int CraftingChestChance = 100;
 		private const int CraftingRecipeChance = 10;
 		private const int CraftingMaterialChance = 50;
 
@@ -62,6 +63,8 @@ namespace GreatTextAdventures.Items
 		{
 			if (GameSystem.RNG.Next(0, 101) < LockedChestChance)
 				return new LockedChest(level);
+			else if (GameSystem.RNG.Next(0, 101) < CraftingChestChance)
+				return new CraftingChest(level);
 			else
 				return new Chest(level);
 		}
