@@ -11,7 +11,7 @@ namespace GreatTextAdventures.Items
 		private const int CraftingRecipeChance = 10;
 		private const int CraftingMaterialChance = 50;
 
-		public string DisplayName
+		public virtual string DisplayName
 		{
 			get
 			{
@@ -21,8 +21,8 @@ namespace GreatTextAdventures.Items
 					return $"Chest ({Content.Count} item{(Content.Count > 1 ? "s" : "")})";
 			}
 		}
-		public string Description => "A large wooden chest begging to be opened. What are you waiting for?";
-		public IEnumerable<string> CodeNames
+		public virtual string Description => "A large wooden chest begging to be opened. What are you waiting for?";
+		public virtual IEnumerable<string> CodeNames
 		{
 			get
 			{
@@ -34,7 +34,7 @@ namespace GreatTextAdventures.Items
 
 		public IList<ILookable> Content { get; } = new List<ILookable>();
 
-		public void Open()
+		public virtual void Open()
 		{
 			GameSystem.WriteLine(
 				GameSystem.Enumerate(
@@ -51,22 +51,28 @@ namespace GreatTextAdventures.Items
 			GameSystem.WriteLine();
 		}
 
-		public static LootChestItem Random()
+		public static LootChestItem Random(int level)
 		{
 			LootChestItem result = new LootChestItem();
+			result.PopulateContent(level);
 
+			return result;
+		}
+
+		protected virtual void PopulateContent(int level)
+		{
 			switch (GameSystem.RNG.Next(0, 2))
 			{
 				case 0:
-					result.Content.Add(RandomWeapon.Generate(GameSystem.Player.Level));
+					Content.Add(RandomWeapon.Generate(level));
 					break;
 				case 1:
-					result.Content.Add(SpellTome.Random());
+					Content.Add(SpellTome.Random(level));
 					break;
 			}
 
 			if (GameSystem.RNG.Next(1, 101) < CraftingRecipeChance)
-				result.Content.Add(CraftingRecipe.Generate());
+				Content.Add(CraftingRecipe.Generate(level));
 
 			if (GameSystem.RNG.Next(1, 101) <= CraftingMaterialChance)
 			{
@@ -76,20 +82,18 @@ namespace GreatTextAdventures.Items
 					case 0:
 						numb = GameSystem.RNG.Next(1, 4);
 						for (int i = 0; i < numb; i++)
-							result.Content.Add(CraftingMaterial.Create("IronIngot"));
+							Content.Add(CraftingMaterial.Create("IronIngot"));
 						break;
 					case 1:
-						result.Content.Add(CraftingMaterial.Create("Parchment"));
+						Content.Add(CraftingMaterial.Create("Parchment"));
 						break;
 					case 2:
 						numb = GameSystem.RNG.Next(1, 3);
 						for (int i = 0; i < numb; i++)
-							result.Content.Add(CraftingMaterial.Create("MagicRune"));
+							Content.Add(CraftingMaterial.Create("MagicRune"));
 						break;
 				}
 			}
-
-			return result;
 		}
 
 		public void Update() { /* ¯\_(ツ)_/¯ */ }

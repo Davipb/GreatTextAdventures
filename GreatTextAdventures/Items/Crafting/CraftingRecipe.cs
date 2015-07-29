@@ -50,34 +50,34 @@ namespace GreatTextAdventures.Items.Crafting
 			Result = result;
 		}
 
-		public static CraftingRecipe Generate()
+		public static CraftingRecipe Generate(int level)
 		{
 			switch(GameSystem.RNG.Next(0, 2))
 			{
 				case 0:
-					return GenerateWithSpell();
+					return GenerateWithSpell(level);
 				case 1:
-					return GenerateWithRandomWeapon();
+					return GenerateWithRandomWeapon(level);
 			}
 
 			throw new Exception("Black Magic");
 		}
 
-		public static CraftingRecipe GenerateWithSpell()
+		public static CraftingRecipe GenerateWithSpell(int level)
 		{
 			var ingredients = new Dictionary<string, int>();
 			ingredients.Add("Parchment", 1);
-			ingredients.Add("MagicRune", GameSystem.RNG.Next(1, GameSystem.Player.Level + 1));
+			ingredients.Add("MagicRune", GameSystem.RNG.Next(1, level + 1));
 
-			return new CraftingRecipe(ingredients, SpellTome.Random());
+			return new CraftingRecipe(ingredients, SpellTome.Random(level));
 		}
 
-		public static CraftingRecipe GenerateWithRandomWeapon()
+		public static CraftingRecipe GenerateWithRandomWeapon(int level)
 		{
 			var ingredients = new Dictionary<string, int>();
-			ingredients.Add("IronIngot", GameSystem.RNG.Next(1, GameSystem.Player.Level + 1));
+			ingredients.Add("IronIngot", GameSystem.RNG.Next(1, level));
 
-			return new CraftingRecipe(ingredients, RandomWeapon.Generate(GameSystem.Player.Level + 1));
+			return new CraftingRecipe(ingredients, RandomWeapon.Generate(level));
 		}
 	}
 }

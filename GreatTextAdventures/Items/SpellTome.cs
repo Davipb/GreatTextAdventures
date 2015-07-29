@@ -41,10 +41,10 @@ namespace GreatTextAdventures.Items
 			GameSystem.WriteLine($"{user.DisplayName} learned {spell.DisplayName}!");
 		}
 
-		public static SpellTome Random()
+		public static SpellTome Random(int level)
 		{
-			// Choose a random spell with a random level (up to the player's level)
-			GameSpell chosen = GameSpell.AllSpells(GameSystem.RNG.Next(1, GameSystem.Player.Level + 1))
+			// Choose a random spell with a random level (up to the selected level)
+			GameSpell chosen = GameSpell.AllSpells(GameSystem.RNG.Next(1, level))
 				                         .OrderBy(x => GameSystem.RNG.Next()).First();
 
 			return new SpellTome(chosen);
