@@ -61,9 +61,9 @@ namespace GreatTextAdventures.Items
 
 		public static Chest Random(int level)
 		{
-			if (GameSystem.RNG.Next(0, 101) < LockedChestChance)
-				return new LockedChest(level);
-			else if (GameSystem.RNG.Next(0, 101) < CraftingChestChance)
+			if (GameSystem.RNG.Next(0, 100) < LockedChestChance)
+				return new LockedChest(level + LockedChestExtraLevels);
+			else if (GameSystem.RNG.Next(0, 100) < CraftingChestChance)
 				return new CraftingChest(level);
 			else
 				return new Chest(level);
@@ -81,13 +81,13 @@ namespace GreatTextAdventures.Items
 					break;
 			}
 
-			if (GameSystem.RNG.Next(1, 101) < CraftingRecipeChance)
+			if (GameSystem.RNG.Next(0, 100) < CraftingRecipeChance)
 				Content.Add(CraftingRecipe.Generate(level));
 
-			if (GameSystem.RNG.Next(1, 101) < LockedChestKeyChance)
+			if (GameSystem.RNG.Next(0, 100) < LockedChestKeyChance)
 				Content.Add(new ChestKey());
 
-			if (GameSystem.RNG.Next(1, 101) <= CraftingMaterialChance)
+			if (GameSystem.RNG.Next(0, 100) <= CraftingMaterialChance)
 			{
 				int numb;
 				switch (GameSystem.RNG.Next(0, 3))

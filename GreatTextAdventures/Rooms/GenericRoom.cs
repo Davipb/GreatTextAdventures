@@ -62,15 +62,15 @@ namespace GreatTextAdventures.Rooms
 			newExits.ForEach(x => room.Exits |= x);
 
 			// Add random decorations to the room
-			if (GameSystem.RNG.Next(0, 101) < DecorationChance)			
+			if (GameSystem.RNG.Next(0, 100) < DecorationChance)			
 				room.Members.AddRange(DecorationItem.Random(GameSystem.RNG.Next(MaxDecorations)));
 
 			// Add random loot to the room
-			if (GameSystem.RNG.Next(0, 101) < LootChance)
+			if (GameSystem.RNG.Next(0, 100) < LootChance)
 				room.Members.Add(Chest.Random(GameSystem.Player.Level));
 
 			// Add random enemies to the room
-			if (GameSystem.RNG.Next(0, 101) < EnemyChance)
+			if (GameSystem.RNG.Next(0, 100) < EnemyChance)
 			{
 				int level = GameSystem.RNG.Next(GameSystem.Player.Level - 2, GameSystem.Player.Level + 2);
 				
@@ -85,10 +85,10 @@ namespace GreatTextAdventures.Rooms
 				}
 			}
 
-			if (GameSystem.RNG.Next(0, 101) < ManaFountainChance)
+			if (GameSystem.RNG.Next(0, 100) < ManaFountainChance)
 				room.Members.Add(new ManaFountain());
 
-			if (GameSystem.RNG.Next(0, 101) < CraftingStationChance)
+			if (GameSystem.RNG.Next(0, 100) < CraftingStationChance)
 				room.Members.Add(new CraftingStation());			
 
 			return room;
