@@ -30,6 +30,8 @@ namespace GreatTextAdventures.Items
 			}
 		}
 
+		public LockedChest(int level) : base(level) { }
+
 		public override void Open()
 		{
 			if (Locked)

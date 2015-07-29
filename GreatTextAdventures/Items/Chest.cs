@@ -36,6 +36,11 @@ namespace GreatTextAdventures.Items
 
 		public IList<ILookable> Content { get; } = new List<ILookable>();
 
+		public Chest(int level)
+		{
+			PopulateContent(level);
+		}
+
 		public virtual void Open()
 		{
 			GameSystem.WriteLine(
@@ -55,21 +60,10 @@ namespace GreatTextAdventures.Items
 
 		public static Chest Random(int level)
 		{
-			Chest result;
-
 			if (GameSystem.RNG.Next(0, 101) < LockedChestChance)
-			{
-				result = new LockedChest();
-				result.PopulateContent(level + LockedChestExtraLevels);
-			}
+				return new LockedChest(level);
 			else
-			{
-				result = new Chest();
-				result.PopulateContent(level);
-			}
-
-
-			return result;
+				return new Chest(level);
 		}
 
 		protected virtual void PopulateContent(int level)
