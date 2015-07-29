@@ -8,7 +8,7 @@ namespace GreatTextAdventures.Items
 {
 	public class LockedChest : LootChestItem
 	{
-		public bool Locked { get; private set; }
+		public bool Locked { get; private set; } = true;
 
 		public override string DisplayName
 		{

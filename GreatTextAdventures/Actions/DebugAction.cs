@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GreatTextAdventures.Items.Weapons;
+using GreatTextAdventures.Items;
 
 namespace GreatTextAdventures.Actions
 {
@@ -106,8 +107,10 @@ namespace GreatTextAdventures.Actions
 
 				if (int.TryParse(split[1], out level))
 				{
-					GameSystem.CurrentMap.CurrentRoom.Members.Add(Items.LootChestItem.Random(level));
-					GameSystem.WriteLine("Spawned chest");
+					LootChestItem chest = LootChestItem.Random(level);
+                    GameSystem.CurrentMap.CurrentRoom.Members.Add(chest);
+
+					GameSystem.WriteLine($"Spawned {chest.DisplayName}");
 
 					return false;
 				}

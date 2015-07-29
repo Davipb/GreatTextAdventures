@@ -7,7 +7,9 @@ namespace GreatTextAdventures.Items
 {
 	public class LootChestItem : ILookable, IContainer
 	{
-
+		private const int LockedChestChance = 5;
+		private const int LockedChestExtraLevels = 2;
+		private const int LockedChestKeyChance = 15;
 		private const int CraftingRecipeChance = 10;
 		private const int CraftingMaterialChance = 50;
 
@@ -38,10 +40,10 @@ namespace GreatTextAdventures.Items
 		{
 			GameSystem.WriteLine(
 				GameSystem.Enumerate(
-					Content.Select(x => x.DisplayName), 
-					"Inside the chest you find:", 
-					null, 
-					"It's empty.", 
+					Content.Select(x => x.DisplayName),
+					"Inside the chest you find:",
+					null,
+					"It's empty.",
 					"and")
 				);
 
@@ -53,8 +55,19 @@ namespace GreatTextAdventures.Items
 
 		public static LootChestItem Random(int level)
 		{
-			LootChestItem result = new LootChestItem();
-			result.PopulateContent(level);
+			LootChestItem result;
+
+			if (GameSystem.RNG.Next(0, 101) < LockedChestChance)
+			{
+				result = new LockedChest();
+				result.PopulateContent(level + LockedChestExtraLevels);
+			}
+			else
+			{
+				result = new LootChestItem();
+				result.PopulateContent(level);
+			}
+
 
 			return result;
 		}
@@ -73,6 +86,9 @@ namespace GreatTextAdventures.Items
 
 			if (GameSystem.RNG.Next(1, 101) < CraftingRecipeChance)
 				Content.Add(CraftingRecipe.Generate(level));
+
+			if (GameSystem.RNG.Next(1, 101) < LockedChestKeyChance)
+				Content.Add(new ChestKey());
 
 			if (GameSystem.RNG.Next(1, 101) <= CraftingMaterialChance)
 			{
