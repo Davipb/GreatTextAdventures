@@ -1,5 +1,5 @@
-﻿using GreatTextAdventures.Items.Weapons;
-using System;
+﻿using GreatTextAdventures.Items.Crafting;
+using GreatTextAdventures.Items.Weapons;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +7,10 @@ namespace GreatTextAdventures.Items
 {
 	public class LootChestItem : ILookable, IContainer
 	{
+
+		private const int CraftingRecipeChance = 10;
+		private const int CraftingMaterialChance = 50;
+
 		public string DisplayName
 		{
 			get
@@ -32,20 +36,16 @@ namespace GreatTextAdventures.Items
 
 		public void Open()
 		{
-			if (Content == null || !Content.Any())
-			{
-				GameSystem.WriteLine("It's empty.");
-				return;
-			}
+			GameSystem.WriteLine(
+				GameSystem.Enumerate(
+					Content.Select(x => x.DisplayName), 
+					"Inside the chest you find:", 
+					null, 
+					"It's empty.", 
+					"and")
+				);
 
-			GameSystem.Write("Inside the chest you find: ");
-
-			foreach (var item in Content)
-			{
-				GameSystem.Write(item.DisplayName + ", ");
-				GameSystem.CurrentMap.CurrentRoom.Members.Add(item);
-			}
-
+			GameSystem.CurrentMap.CurrentRoom.Members.AddRange(Content);
 			Content.Clear();
 
 			GameSystem.WriteLine();
@@ -63,6 +63,30 @@ namespace GreatTextAdventures.Items
 				case 1:
 					result.Content.Add(SpellTome.Random());
 					break;
+			}
+
+			if (GameSystem.RNG.Next(1, 101) < CraftingRecipeChance)
+				result.Content.Add(CraftingRecipe.Generate());
+
+			if (GameSystem.RNG.Next(1, 101) <= CraftingMaterialChance)
+			{
+				int numb;
+				switch (GameSystem.RNG.Next(0, 3))
+				{
+					case 0:
+						numb = GameSystem.RNG.Next(1, 4);
+						for (int i = 0; i < numb; i++)
+							result.Content.Add(CraftingMaterial.Create("IronIngot"));
+						break;
+					case 1:
+						result.Content.Add(CraftingMaterial.Create("Parchment"));
+						break;
+					case 2:
+						numb = GameSystem.RNG.Next(1, 3);
+						for (int i = 0; i < numb; i++)
+							result.Content.Add(CraftingMaterial.Create("MagicRune"));
+						break;
+				}
 			}
 
 			return result;

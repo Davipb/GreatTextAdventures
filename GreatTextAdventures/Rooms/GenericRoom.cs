@@ -1,4 +1,5 @@
 ﻿using GreatTextAdventures.Items;
+using GreatTextAdventures.Items.Crafting;
 using GreatTextAdventures.People;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace GreatTextAdventures.Rooms
 		const int LootChance = 50;
 		const int EnemyChance = 25;
 		const int ManaFountainChance = 25;
+		const int CraftingStationChance = 5;
 
 		public override bool CanExit { get; set; }
 
@@ -85,7 +87,9 @@ namespace GreatTextAdventures.Rooms
 
 			if (GameSystem.RNG.Next(0, 101) < ManaFountainChance)
 				room.Members.Add(new ManaFountain());
-			
+
+			if (GameSystem.RNG.Next(0, 101) < CraftingStationChance)
+				room.Members.Add(new CraftingStation());			
 
 			return room;
 		}

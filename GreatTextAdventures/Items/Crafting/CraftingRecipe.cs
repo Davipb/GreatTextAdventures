@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreatTextAdventures.Items.Weapons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,6 +48,36 @@ namespace GreatTextAdventures.Items.Crafting
 		{
 			Ingredients = ingredients;
 			Result = result;
+		}
+
+		public static CraftingRecipe Generate()
+		{
+			switch(GameSystem.RNG.Next(0, 2))
+			{
+				case 0:
+					return GenerateWithSpell();
+				case 1:
+					return GenerateWithRandomWeapon();
+			}
+
+			throw new Exception("Black Magic");
+		}
+
+		public static CraftingRecipe GenerateWithSpell()
+		{
+			var ingredients = new Dictionary<string, int>();
+			ingredients.Add("Parchment", 1);
+			ingredients.Add("MagicRune", GameSystem.RNG.Next(1, GameSystem.Player.Level + 1));
+
+			return new CraftingRecipe(ingredients, SpellTome.Random());
+		}
+
+		public static CraftingRecipe GenerateWithRandomWeapon()
+		{
+			var ingredients = new Dictionary<string, int>();
+			ingredients.Add("IronIngot", GameSystem.RNG.Next(1, GameSystem.Player.Level + 1));
+
+			return new CraftingRecipe(ingredients, RandomWeapon.Generate(GameSystem.Player.Level + 1));
 		}
 	}
 }
