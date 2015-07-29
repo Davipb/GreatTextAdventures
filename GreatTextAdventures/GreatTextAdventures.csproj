@@ -84,6 +84,7 @@
     <Compile Include="DamageType.cs" />
     <Compile Include="Directions.cs" />
     <Compile Include="ILookable.cs" />
+    <Compile Include="Items\ChestKey.cs" />
     <Compile Include="Items\Crafting\CraftingMaterial.cs" />
     <Compile Include="Items\Crafting\CraftingRecipe.cs" />
     <Compile Include="Items\Crafting\CraftingStation.cs" />
