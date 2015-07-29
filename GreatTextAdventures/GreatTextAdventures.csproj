@@ -92,7 +92,7 @@
     <Compile Include="Items\IContainer.cs" />
     <Compile Include="Items\IUsable.cs" />
     <Compile Include="Items\LockedChest.cs" />
-    <Compile Include="Items\LootChestItem.cs" />
+    <Compile Include="Items\Chest.cs" />
     <Compile Include="Items\ManaFountain.cs" />
     <Compile Include="Items\SpellTome.cs" />
     <Compile Include="Items\Weapons\Weapon.cs" />
