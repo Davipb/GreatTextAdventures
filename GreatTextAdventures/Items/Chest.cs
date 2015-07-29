@@ -10,7 +10,7 @@ namespace GreatTextAdventures.Items
 		private const int LockedChestChance = 5;
 		private const int LockedChestExtraLevels = 2;
 		private const int LockedChestKeyChance = 15;
-		private const int CraftingChestChance = 100;
+		private const int CraftingChestChance = 5;
 		private const int CraftingRecipeChance = 10;
 		private const int CraftingMaterialChance = 50;
 
