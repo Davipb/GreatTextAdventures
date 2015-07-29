@@ -96,8 +96,21 @@ namespace GreatTextAdventures.Actions
 			#region Loot
 			else if (split[0] == "loot")
 			{
-				GameSystem.CurrentMap.CurrentRoom.Members.Add(Items.LootChestItem.Random());
-				GameSystem.WriteLine("Spawned chest");
+				if (split.Length != 2)
+				{
+					GameSystem.WriteLine("Invalid number of arguments");
+					return false;
+				}
+
+				int level;
+
+				if (int.TryParse(split[1], out level))
+				{
+					GameSystem.CurrentMap.CurrentRoom.Members.Add(Items.LootChestItem.Random(level));
+					GameSystem.WriteLine("Spawned chest");
+
+					return false;
+				}
 				return false;
 			}
 			#endregion
