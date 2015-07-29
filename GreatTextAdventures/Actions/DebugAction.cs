@@ -107,7 +107,7 @@ namespace GreatTextAdventures.Actions
 
 				if (int.TryParse(split[1], out level))
 				{
-					LootChestItem chest = LootChestItem.Random(level);
+					Chest chest = Chest.Random(level);
                     GameSystem.CurrentMap.CurrentRoom.Members.Add(chest);
 
 					GameSystem.WriteLine($"Spawned {chest.DisplayName}");

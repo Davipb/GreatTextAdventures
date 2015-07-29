@@ -67,7 +67,7 @@ namespace GreatTextAdventures.Rooms
 
 			// Add random loot to the room
 			if (GameSystem.RNG.Next(0, 101) < LootChance)
-				room.Members.Add(LootChestItem.Random(GameSystem.Player.Level));
+				room.Members.Add(Chest.Random(GameSystem.Player.Level));
 
 			// Add random enemies to the room
 			if (GameSystem.RNG.Next(0, 101) < EnemyChance)

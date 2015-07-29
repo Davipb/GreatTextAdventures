@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreatTextAdventures.Items
 {
-	public class LockedChest : LootChestItem
+	public class LockedChest : Chest
 	{
 		public bool Locked { get; private set; } = true;
 

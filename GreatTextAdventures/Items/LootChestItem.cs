@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace GreatTextAdventures.Items
 {
-	public class LootChestItem : ILookable, IContainer
+	public class Chest : ILookable, IContainer
 	{
 		private const int LockedChestChance = 5;
 		private const int LockedChestExtraLevels = 2;
@@ -53,9 +53,9 @@ namespace GreatTextAdventures.Items
 			GameSystem.WriteLine();
 		}
 
-		public static LootChestItem Random(int level)
+		public static Chest Random(int level)
 		{
-			LootChestItem result;
+			Chest result;
 
 			if (GameSystem.RNG.Next(0, 101) < LockedChestChance)
 			{
@@ -64,7 +64,7 @@ namespace GreatTextAdventures.Items
 			}
 			else
 			{
-				result = new LootChestItem();
+				result = new Chest();
 				result.PopulateContent(level);
 			}
 
