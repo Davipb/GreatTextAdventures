@@ -9,7 +9,7 @@ namespace GreatTextAdventures
 	/// <summary>
 	/// Represents a series of Rooms organized in x and y coordinates.
 	/// </summary>
-	public class Map
+	public class Map : IUpdatable
 	{
 		Dictionary<Tuple<int, int>, Room> rooms;
 

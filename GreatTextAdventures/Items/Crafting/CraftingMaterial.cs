@@ -13,7 +13,6 @@ namespace GreatTextAdventures.Items.Crafting
 		public IEnumerable<string> CodeNames { get; }
 		public string Description { get; }
 		public bool CanTake => true;
-		public void Update() { }
 
 		public string MaterialName { get; }
 

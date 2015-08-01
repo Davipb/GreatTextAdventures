@@ -6,7 +6,7 @@ namespace GreatTextAdventures.StatusEffects
 	/// <summary>
 	/// Base class for temporary effects applied on a Person
 	/// </summary>
-	public abstract class StatusEffect
+	public abstract class StatusEffect : IUpdatable
 	{
 		public abstract string DisplayName { get; }
 		public abstract string Description { get; }

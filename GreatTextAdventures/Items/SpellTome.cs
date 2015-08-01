@@ -48,10 +48,6 @@ namespace GreatTextAdventures.Items
 				                         .OrderBy(x => GameSystem.RNG.Next()).First();
 
 			return new SpellTome(chosen);
-		}
-
-		public void Update() { }
-
-		
+		}		
 	}
 }

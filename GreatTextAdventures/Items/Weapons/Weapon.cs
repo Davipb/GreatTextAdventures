@@ -41,7 +41,5 @@ namespace GreatTextAdventures.Items.Weapons
 		protected string nameModifier;
 		protected int baseAttack;
 		protected int attackModifier;
-
-		public virtual void Update() { }
 	}
 }

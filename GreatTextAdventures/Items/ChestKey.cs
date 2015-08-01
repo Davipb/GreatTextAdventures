@@ -15,7 +15,5 @@ namespace GreatTextAdventures.Items
 		}
 		public string Description => "Can be used to open a Locked Chest.";
 		public bool CanTake => true;
-
-		public void Update() { }
 	}
 }

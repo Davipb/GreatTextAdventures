@@ -17,7 +17,6 @@ namespace GreatTextAdventures.Items.Crafting
 		}
 		public string Description => "Looks like you can craft items here.";
 		public bool CanTake => false;
-		public void Update() { }
 
 		public void Use(Person user)
 		{

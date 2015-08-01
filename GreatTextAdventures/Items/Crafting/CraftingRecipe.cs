@@ -39,7 +39,6 @@ namespace GreatTextAdventures.Items.Crafting
 			}
 		}
 		public bool CanTake => true;
-		public void Update() { }
 
 		public IDictionary<string, int> Ingredients { get; }
 		public ILookable Result { get; }

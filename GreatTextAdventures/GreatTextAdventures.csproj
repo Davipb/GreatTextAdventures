@@ -97,6 +97,7 @@
     <Compile Include="Items\ManaFountain.cs" />
     <Compile Include="Items\SpellTome.cs" />
     <Compile Include="Items\Weapons\Weapon.cs" />
+    <Compile Include="IUpdatable.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="People\WizardPerson.cs" />
     <Compile Include="People\ThugPerson.cs" />

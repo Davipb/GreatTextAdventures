@@ -108,7 +108,5 @@ namespace GreatTextAdventures.Items
 				}
 			}
 		}
-
-		public void Update() { /* ¯\_(ツ)_/¯ */ }
 	}
 }

@@ -32,7 +32,5 @@ namespace GreatTextAdventures.Items
 				yield return result;
 			}			
 		}
-
-		public void Update() { /* ¯\_(ツ)_/¯ */ }
 	}
 }

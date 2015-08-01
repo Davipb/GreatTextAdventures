@@ -25,8 +25,5 @@ namespace GreatTextAdventures.Items
 			GameSystem.WriteLine($"{user.DisplayName}'s mana was completely restored");
 			user.Mana = user.MaxMana;
 		}
-
-		public void Update() { }
-
 	}
 }

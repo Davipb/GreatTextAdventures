@@ -26,10 +26,5 @@ namespace GreatTextAdventures
 		/// Represents if the Player can put this object in their inventory
 		/// </summary>
 		bool CanTake { get; }
-
-		/// <summary>
-		/// Called every turn, updates the required components 
-		/// </summary>
-		void Update();
 	}
 }

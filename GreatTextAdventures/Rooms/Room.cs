@@ -8,7 +8,7 @@ namespace GreatTextAdventures.Rooms
 	/// <summary>
 	/// Base class for Rooms, contained in a Map
 	/// </summary>
-	public abstract class Room
+	public abstract class Room : IUpdatable
 	{
 		public List<ILookable> Members { get; set; }
 		public Directions Exits { get; set; }
@@ -35,10 +35,9 @@ namespace GreatTextAdventures.Rooms
 
 		public virtual void Update() 
 		{
-			// Clone the list so the original can be manipulated without generating errors
-			List<ILookable> clone = new List<ILookable>(Members);
-
-			clone.ForEach(x => x.Update());
+			// ToList() used to prevent LINQ's lazy evaluation, since the base collection may be modified
+			var members = Members.OfType<IUpdatable>().ToList();
+			foreach (var item in members) item.Update();
 		}
 	}	
 }

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace GreatTextAdventures.People
 {
-	public abstract class Person : ILookable
+	public abstract class Person : ILookable, IUpdatable
 	{
 		#region Properties
 		public abstract string DisplayName { get; }
@@ -128,9 +128,9 @@ namespace GreatTextAdventures.People
 			List<StatusEffect> copyStatus = new List<StatusEffect>(CurrentStatus);
 			copyStatus.ForEach(x => x.Update());
 
-			// Same for inventory (in case items have special effects)
-			List<ILookable> copyInventory = new List<ILookable>(Inventory);
-			copyInventory.ForEach(x => x.Update());
+			// ToList() used to prevent LINQ's lazy evaluation, since the base collection may be modified
+			var inv = Inventory.OfType<IUpdatable>().ToList();
+			foreach(var item in inv) item.Update();
 
 			if (Health <= 0)
 			{
