@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GreatTextAdventures.People;
 using System.Threading.Tasks;
 
 namespace GreatTextAdventures.Items.Weapons
@@ -35,7 +36,11 @@ namespace GreatTextAdventures.Items.Weapons
 
 		public virtual int Attack => Math.Max(1, baseAttack + attackModifier);
 
-		public virtual int Damage(People.Person user) => Attack + (int)Math.Ceiling(StrBonus * user.Strength * Attack);
+		public virtual int Damage(Person user) => Attack + (int)Math.Ceiling(StrBonus * user.Strength * Attack);
+
+		public event Action<Person, Person, int> Hit;
+
+		public void OnHit(Person user, Person target, int damage) => Hit?.Invoke(user, target, damage);
 
 		protected string baseName;
 		protected string nameModifier;

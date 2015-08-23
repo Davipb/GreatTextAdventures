@@ -96,6 +96,7 @@
     <Compile Include="Items\Chest.cs" />
     <Compile Include="Items\ManaFountain.cs" />
     <Compile Include="Items\SpellTome.cs" />
+    <Compile Include="Items\Weapons\ManaStealWeapon.cs" />
     <Compile Include="Items\Weapons\Weapon.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="Map.cs" />

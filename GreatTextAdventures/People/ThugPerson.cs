@@ -63,8 +63,7 @@ namespace GreatTextAdventures.People
 				return;
 			}
 
-			GameSystem.WriteLine($"{DisplayName} attacked {GameSystem.Player.DisplayName} with {EquippedWeapon.DisplayName}");
-			GameSystem.Player.ReceiveDamage(EquippedWeapon.Damage(this), DamageType.Physical, this);
+			Attack(GameSystem.Player);
 
 		}
 

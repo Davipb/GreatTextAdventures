@@ -37,13 +37,7 @@ namespace GreatTextAdventures.Actions
 				ListItemPossibilities(found);
 				return false;
 			}
-
-			GameSystem.WriteLine($"{GameSystem.Player.DisplayName} attacked {person.DisplayName}");
-			person.ReceiveDamage(
-				GameSystem.Player.EquippedWeapon?.Damage(GameSystem.Player) ?? 1, 
-				DamageType.Physical,
-				GameSystem.Player);
-
+			GameSystem.Player.Attack(person);
 			return true;
 		}
 

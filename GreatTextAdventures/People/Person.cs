@@ -190,9 +190,29 @@ namespace GreatTextAdventures.People
 
 			ReceivingDamage?.Invoke(eventArgs);
 
-			GameSystem.WriteLine($"{DisplayName} was damaged for {eventArgs.ActualDamage} HP");
+			ILookable damager = source as ILookable;
+
+			if (damager != null)
+				GameSystem.WriteLine($"{DisplayName} was damaged for {eventArgs.ActualDamage} HP by {damager.DisplayName}");
+			else
+				GameSystem.WriteLine($"{DisplayName} was damaged for {eventArgs.ActualDamage} HP");
+
 			Health -= eventArgs.ActualDamage;
 			return eventArgs.ActualDamage;
+		}
+
+		public int Attack(Person target)
+		{
+			GameSystem.WriteLine($"{DisplayName} attacked {target.DisplayName} with {EquippedWeapon?.DisplayName ?? "their fists"}");
+
+			int damage = target.ReceiveDamage(
+				EquippedWeapon?.Damage(this) ?? 1,
+				DamageType.Physical,
+				this);
+
+			EquippedWeapon.OnHit(this, target, damage);
+
+			return damage;
 		}
 		
 		#region Event Handlers
