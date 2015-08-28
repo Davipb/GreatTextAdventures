@@ -31,20 +31,15 @@ namespace GreatTextAdventures.Actions
 			}
 			else if (action == "inventory")
 			{
-				if (GameSystem.Player.Inventory.Count == 0 && GameSystem.Player.EquippedWeapon == null)
-				{
-					GameSystem.WriteLine($"{GameSystem.Player.DisplayName}'s inventory is empty");
-				}
-				else
-				{
-					GameSystem.WriteLine($"{GameSystem.Player.DisplayName}'s inventory:");
-
-					foreach(ILookable item in GameSystem.Player.Inventory)
-						GameSystem.WriteLine(item.DisplayName);
-
-					GameSystem.WriteLine($"{GameSystem.Player.EquippedWeapon.DisplayName} [Equipped]");
-				}
-			}
+				GameSystem.WriteLine(
+					GameSystem.Enumerate(
+						GameSystem.Player.Inventory.Select(x => x.DisplayName),
+						$"{GameSystem.Player.DisplayName}'s inventory:",
+						null,
+						$"{GameSystem.Player.DisplayName}'s inventory is empty",
+						"and")
+						);
+            }
 			else
 			{
 				ILookable found = GameSystem.GetLookableWithName(action);
@@ -52,6 +47,7 @@ namespace GreatTextAdventures.Actions
 				// Exit if input is invalid (nothing found)
 				if (found == null) return false;
 
+				GameSystem.WriteLine(found.DisplayName);
 				GameSystem.WriteLine(found.Description);
 			}
 

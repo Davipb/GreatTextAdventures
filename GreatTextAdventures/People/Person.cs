@@ -22,7 +22,6 @@ namespace GreatTextAdventures.People
 			{
 				StringBuilder sb = new StringBuilder();
 
-				sb.AppendLine(DisplayName);
 				sb.AppendLine($"Level: {level}");
 				sb.AppendLine($"Experience: {Experience}/{NeededExperience}");
 				sb.AppendLine($"Health (HP): {Health}/{MaxHealth}");
@@ -32,13 +31,7 @@ namespace GreatTextAdventures.People
 				sb.AppendLine($"Physical Defense (PDF): {PhysicalDefense}");
 				sb.AppendLine($"Magical Defense (MDF): {MagicalDefense}");
 				sb.AppendLine($"Weapon: {EquippedWeapon?.DisplayName ?? "None"}");
-
-				if (KnownSpells != null && KnownSpells.Any())
-				{
-					sb.Append("Known Spells: ");
-					KnownSpells.ForEach(x => sb.Append($"{x.DisplayName} ({x.Cost} mana), "));
-					sb.Remove(sb.Length - 2, 2);
-				}
+				sb.Append(GameSystem.Enumerate(KnownSpells, "Known Spells:", "Known Spell:", "No spells known", "and"));
 
 				return sb.ToString();				
 			}

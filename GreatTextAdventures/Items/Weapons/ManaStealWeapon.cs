@@ -19,7 +19,7 @@ namespace GreatTextAdventures.Items.Weapons
 				var sb = new StringBuilder();
 				sb.AppendLine($"Attack: {Attack}");
 				sb.AppendLine($"Strength Bonus: +{StrBonus * 100f}%/STR");
-				sb.AppendLine($"Steals {ManaStealPerLevel * level} from the enemy on hit");
+				sb.Append($"Steals {ManaStealPerLevel * level} from the enemy on hit");
 				return sb.ToString();			
 			}
 		}

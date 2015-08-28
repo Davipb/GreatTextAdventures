@@ -17,7 +17,7 @@ namespace GreatTextAdventures.Items.Weapons
 				var sb = new StringBuilder();
 				sb.AppendLine($"Attack: {Attack}");
 				sb.AppendLine($"Strength Bonus: +{StrBonus * 100f}%/STR");
-				sb.AppendLine($"{poisonChance}% chance to poison the enemy for {PoisonDurationPerLevel * level} turns on hit");
+				sb.Append($"{poisonChance}% chance to poison the enemy for {PoisonDurationPerLevel * level} turns on hit");
 				return sb.ToString();
 			}
 		}
