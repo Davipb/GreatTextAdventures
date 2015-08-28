@@ -51,12 +51,14 @@ namespace GreatTextAdventures.Items.Crafting
 
 		public static CraftingRecipe Generate(int level)
 		{
-			switch(GameSystem.RNG.Next(0, 2))
+			switch(GameSystem.RNG.Next(0, 3))
 			{
 				case 0:
 					return GenerateWithSpell(level);
 				case 1:
 					return GenerateWithRandomWeapon(level);
+				case 2:
+					return GenerateWithSpecialWeapon(level);
 			}
 
 			throw new Exception("Black Magic");
@@ -77,6 +79,15 @@ namespace GreatTextAdventures.Items.Crafting
 			ingredients.Add("IronIngot", GameSystem.RNG.Next(1, level));
 
 			return new CraftingRecipe(ingredients, RandomWeapon.Generate(level));
+		}
+
+		public static CraftingRecipe GenerateWithSpecialWeapon(int level)
+		{
+			var ingredients = new Dictionary<string, int>();
+			ingredients.Add("IronIngot", 1);
+			ingredients.Add("MagicRune", GameSystem.RNG.Next(1, level));
+
+			return new CraftingRecipe(ingredients, new ManaStealWeapon(level, GameSystem.RNG.Next(level * 5, level * 10)));
 		}
 	}
 }
