@@ -106,10 +106,11 @@ namespace GreatTextAdventures.People
 		protected event Action<ReceivingDamageEventArgs> ReceivingDamage;
 		#endregion
 
-		protected Person()
+		protected Person(int level)
 		{
 			Health = MaxHealth;
 			Mana = MaxMana;
+			Level = level;
 
 			LeveledUp += LeveledUpEventHandler;
 			ReceivingDamage += ReceivingDamageEventHandler;

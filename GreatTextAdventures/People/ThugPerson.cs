@@ -31,9 +31,8 @@ namespace GreatTextAdventures.People
 
 		public override int MaxMana => ManaMinimum + (Level - 1) * ManaPerLevel;
 
-		public ThugPerson(int level) : base()
+		public ThugPerson(int level) : base(level)
 		{			
-			Level = level;
 			EquippedWeapon = RandomWeapon.Generate(Level);
 
 			Strength = GameSystem.RNG.Next(StrMinPerLevel * level, StrMinPerLevel * level);

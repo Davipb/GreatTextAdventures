@@ -25,7 +25,7 @@ namespace GreatTextAdventures.People
 
 		public int PendingSkillPoints { get; set; }
 
-		public PlayerPerson() : base()
+		public PlayerPerson(int level = 1) : base(level)
 		{
 			EquippedWeapon = RandomWeapon.Generate(Level);
 			LeveledUp += LevelUpEventHandler;
