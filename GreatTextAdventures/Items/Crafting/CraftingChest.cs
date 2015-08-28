@@ -8,7 +8,17 @@ namespace GreatTextAdventures.Items.Crafting
 {
 	public class CraftingChest : Chest
 	{
-		public override string DisplayName => "Metal Chest";
+		public override string DisplayName
+		{
+			get
+			{
+				if (Content == null || !Content.Any())
+					return "Metal Chest (empty)";
+				else
+					return $"Metal Chest ({Content.Count} item{(Content.Count > 1 ? "s" : "")})";
+			}
+		}
+
 		public override IEnumerable<string> CodeNames
 		{
 			get

@@ -84,10 +84,24 @@ namespace GreatTextAdventures.Items.Crafting
 		public static CraftingRecipe GenerateWithSpecialWeapon(int level)
 		{
 			var ingredients = new Dictionary<string, int>();
-			ingredients.Add("IronIngot", 1);
-			ingredients.Add("MagicRune", GameSystem.RNG.Next(1, level));
+			ingredients.Add("IronIngot", GameSystem.RNG.Next(1, level));
 
-			return new CraftingRecipe(ingredients, new ManaStealWeapon(level, GameSystem.RNG.Next(level * 5, level * 10)));
+			int baseAttack = GameSystem.RNG.Next(level * 5, level * 10);
+			ILookable returnObject = null;
+
+			switch(GameSystem.RNG.Next(0, 2))
+			{
+				case 0:
+					ingredients.Add("MagicRune", GameSystem.RNG.Next(1, level + 1));
+					returnObject = new ManaStealWeapon(level, baseAttack);
+					break;
+				case 1:
+					ingredients.Add("PoisonVial", GameSystem.RNG.Next(1, level + 1));
+					returnObject = new PoisonWeapon(level, baseAttack);
+					break;
+			}
+
+			return new CraftingRecipe(ingredients, returnObject);
 		}
 	}
 }

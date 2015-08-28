@@ -234,14 +234,9 @@ namespace GreatTextAdventures.Actions
 			#region Crafting
 			else if (split[0] == "crafting")
 			{
-				var dict = new Dictionary<string, int>();
-				dict.Add("IronIngot", 5);
-				GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingRecipe(dict, RandomWeapon.Generate(10)));
-
-				for (int i = 0; i < 5; i++)
-					GameSystem.CurrentMap.CurrentRoom.Members.Add(CraftingMaterial.Create("IronIngot"));
-
-				GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingStation());
+				GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingChest(GameSystem.Player.Level));
+				if (!GameSystem.CurrentMap.CurrentRoom.Members.Any(x => x is CraftingStation))
+					GameSystem.CurrentMap.CurrentRoom.Members.Add(new CraftingStation());
 
 				GameSystem.WriteLine("Added crafting supplies");
 			}

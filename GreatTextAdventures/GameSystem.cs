@@ -218,7 +218,7 @@ namespace GreatTextAdventures
 						 select Tuple.Create(item, item.DisplayName + " [Room]");
 
 			var inInventory = from item in Player.Inventory
-							  where item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name
+							  where (item.CodeNames.Contains(name) || item.DisplayName.ToLowerInvariant() == name) && item != Player.EquippedWeapon
 							  select Tuple.Create(item, item.DisplayName + " [Inventory]");
 
 			var found = inRoom.Union(inInventory).ToList();

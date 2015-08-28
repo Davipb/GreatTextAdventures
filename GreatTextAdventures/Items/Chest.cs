@@ -53,10 +53,8 @@ namespace GreatTextAdventures.Items
 					"and")
 				);
 
-			GameSystem.CurrentMap.CurrentRoom.Members.AddRange(Content);
+			GameSystem.Player.Inventory.AddRange(Content);
 			Content.Clear();
-
-			GameSystem.WriteLine();
 		}
 
 		public static Chest Random(int level)

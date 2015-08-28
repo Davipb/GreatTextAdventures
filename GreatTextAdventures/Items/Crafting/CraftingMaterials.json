@@ -1,17 +1,22 @@
 ﻿{
-    "IronIngot": {
-        "CodeNames": [ "iron ingot", "iron", "ingot" ],
-        "Description": "A shining Iron Ingot.",
-        "DisplayName": "Iron Ingot"
-    },
-    "Parchment": {
-        "CodeNames": [ "parchment" ],
-        "Description": "An old Parchment paper.",
-        "DisplayName": "Parchment"
-    },
-    "MagicRune": {
-        "CodeNames": [ "magic rune", "rune" ],
-        "Description": "A glowing rune that seems to contain magical properties.",
-        "DisplayName": "Magic Rune"
-    }
+  "IronIngot": {
+    "CodeNames": [ "iron ingot", "iron", "ingot" ],
+    "Description": "A shining Iron Ingot.",
+    "DisplayName": "Iron Ingot"
+  },
+  "Parchment": {
+    "CodeNames": [ "parchment" ],
+    "Description": "An old Parchment paper.",
+    "DisplayName": "Parchment"
+  },
+  "MagicRune": {
+    "CodeNames": [ "magic rune", "rune" ],
+    "Description": "A glowing rune that seems to contain magical properties.",
+    "DisplayName": "Magic Rune"
+  },
+  "PoisonVial": {
+    "CodeNames": [ "poison vial", "poison", "vial" ],
+    "Description": "A small vial containing a deadly poison",
+    "DisplayName": "Poison Vial"
+  }
 }
