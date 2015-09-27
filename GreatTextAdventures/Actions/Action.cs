@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using GreatTextAdventures.Items;
-using GreatTextAdventures.People;
-using System.Linq;
+﻿using GreatTextAdventures.Items;
 using GreatTextAdventures.Items.Weapons;
+using GreatTextAdventures.People;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GreatTextAdventures.Actions
 {
@@ -25,7 +25,7 @@ namespace GreatTextAdventures.Actions
 
 		protected static void ListItemPossibilities(ILookable item)
 		{
-			List<GameAction> possible = new List<GameAction>();
+			var possible = new List<GameAction>();
 			possible.Add(GameSystem.Actions.Find(x => x is LookAction));
 
 			if (item.CanTake)

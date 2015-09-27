@@ -19,7 +19,7 @@ namespace GreatTextAdventures.Actions
 				GameSystem.WriteLine("List of actions, grouped per line (actions in the same group have the same function):");
 				foreach(GameAction a in GameSystem.Actions)
 				{
-					StringBuilder sb = new StringBuilder();
+					var sb = new StringBuilder();
 
 					foreach(string alias in a.Aliases)
 					{

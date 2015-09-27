@@ -23,7 +23,7 @@ namespace GreatTextAdventures.Items
 			// Initialize and return every selected decoration
 			foreach(var decor in selected)
 			{
-				DecorationItem result = new DecorationItem();
+				var result = new DecorationItem();
 
 				result.DisplayName = (string)decor["DisplayName"].OrderBy(x => GameSystem.RNG.Next()).First();
 				result.Description = (string)decor["Description"].OrderBy(x => GameSystem.RNG.Next()).First();

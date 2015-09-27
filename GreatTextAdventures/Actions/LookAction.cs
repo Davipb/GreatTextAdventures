@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace GreatTextAdventures.Actions
@@ -8,8 +7,8 @@ namespace GreatTextAdventures.Actions
 	{
 		public override IEnumerable<string> Aliases
 		{
-			get 
-			{ 
+			get
+			{
 				yield return "look";
 				yield return "examine";
 				yield return "analyze";
@@ -18,7 +17,7 @@ namespace GreatTextAdventures.Actions
 
 		public override bool Do(string action)
 		{
-			if (action.StartsWith("at "))
+			if (action.StartsWith("at ", System.StringComparison.Ordinal))
 			{
 				// Remove 'at', so we can accept a more natural speech style (look at stuff, instead of look stuff)
 				action = action.Substring(2).Trim();
@@ -39,7 +38,7 @@ namespace GreatTextAdventures.Actions
 						$"{GameSystem.Player.DisplayName}'s inventory is empty",
 						"and")
 						);
-            }
+			}
 			else
 			{
 				ILookable found = GameSystem.GetLookableWithName(action);

@@ -1,11 +1,11 @@
-﻿using GreatTextAdventures.People;
-using GreatTextAdventures.StatusEffects;
+﻿using GreatTextAdventures.Items;
 using GreatTextAdventures.Items.Crafting;
+using GreatTextAdventures.Items.Weapons;
+using GreatTextAdventures.People;
+using GreatTextAdventures.StatusEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GreatTextAdventures.Items.Weapons;
-using GreatTextAdventures.Items;
 
 namespace GreatTextAdventures.Actions
 {
@@ -42,7 +42,7 @@ namespace GreatTextAdventures.Actions
 				}
 
 				int size;
-				
+
 				if (int.TryParse(split[1], out size))
 				{
 					try
@@ -87,11 +87,8 @@ namespace GreatTextAdventures.Actions
 					GameSystem.WriteLine("Spawned {0}", spawn.DisplayName);
 					return false;
 				}
-				else
-				{					
-					GameSystem.WriteLine("Invalid level '{0}'", split[1]);
-					return false;
-				}
+				GameSystem.WriteLine("Invalid level '{0}'", split[1]);
+				return false;
 			}
 			#endregion
 			#region Loot
@@ -108,7 +105,7 @@ namespace GreatTextAdventures.Actions
 				if (int.TryParse(split[1], out level))
 				{
 					Chest chest = Chest.Random(level);
-                    GameSystem.CurrentMap.CurrentRoom.Members.Add(chest);
+					GameSystem.CurrentMap.CurrentRoom.Members.Add(chest);
 
 					GameSystem.WriteLine($"Spawned {chest.DisplayName}");
 
@@ -130,7 +127,7 @@ namespace GreatTextAdventures.Actions
 
 				if (int.TryParse(split[2], out level))
 				{
-					switch(split[1])
+					switch (split[1])
 					{
 						case "thug":
 							GameSystem.CurrentMap.CurrentRoom.Members.Add(new ThugPerson(level));
@@ -147,11 +144,8 @@ namespace GreatTextAdventures.Actions
 
 					return false;
 				}
-				else
-				{
-					GameSystem.WriteLine("Invalid level '{0}'", split[1]);
-					return false;
-				}
+				GameSystem.WriteLine("Invalid level '{0}'", split[1]);
+				return false;
 			}
 			#endregion
 			#region Heal
@@ -174,7 +168,7 @@ namespace GreatTextAdventures.Actions
 				}
 
 				// First argument is target
-				Person target = GameSystem.GetLookableWithName(split[1]) as Person;
+				var target = GameSystem.GetLookableWithName(split[1]) as Person;
 
 				if (target == null)
 				{
@@ -184,7 +178,7 @@ namespace GreatTextAdventures.Actions
 
 				// Second argument is duration
 				int duration;
-				
+
 				if (!int.TryParse(split[2], out duration))
 				{
 					GameSystem.WriteLine("Invalid duration '{0}'", split[2]);
@@ -194,7 +188,7 @@ namespace GreatTextAdventures.Actions
 				// Third argument is effect name
 				StatusEffect effect = null;
 
-				switch(split[3].ToLowerInvariant())
+				switch (split[3].ToLowerInvariant())
 				{
 					case "poison":
 						effect = new PoisonEffect(target, duration);

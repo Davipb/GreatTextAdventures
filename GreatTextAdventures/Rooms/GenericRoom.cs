@@ -30,9 +30,9 @@ namespace GreatTextAdventures.Rooms
 
 		public static Room Random(Directions obligatory, Directions blocked)
 		{
-			GenericRoom room = new GenericRoom();
+			var room = new GenericRoom();
 
-			List<Directions> newExits = new List<Directions>();
+			var newExits = new List<Directions>();
 
 			// Loop through each possible exit
 			foreach (Directions d in Enum.GetValues(typeof(Directions)))

@@ -1,12 +1,9 @@
-﻿using System;
+﻿using GreatTextAdventures.Actions;
+using GreatTextAdventures.People;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-using GreatTextAdventures.People;
-using GreatTextAdventures.Actions;
-using GreatTextAdventures.Items;
-using GreatTextAdventures.Rooms;
 
 namespace GreatTextAdventures
 {
@@ -113,7 +110,7 @@ namespace GreatTextAdventures
 				{
 					foreach (var alias in act.Aliases)
 					{
-						if (input.StartsWith(alias))
+						if (input.StartsWith(alias, StringComparison.Ordinal))
 						{
 							// If the action allows it, update the game
 							if (act.Do(input.Substring(alias.Length).Trim()))
@@ -159,8 +156,7 @@ namespace GreatTextAdventures
 		{
 			if (displayNames != null)
 				return Choice<T>(items.Zip(displayNames, (x, y) => Tuple.Create<T, string>(x, y)).ToList());
-			else
-				return Choice<T>(items.Select(x => Tuple.Create(x, x.ToString())).ToList());
+			return Choice<T>(items.Select(x => Tuple.Create(x, x.ToString())).ToList());
 		}
 
 		/// <summary>
@@ -172,7 +168,7 @@ namespace GreatTextAdventures
 		public static T Choice<T>(IList<Tuple<T, string>> items)
 		{
 			// Must have items list
-			if (items == null) throw new ArgumentNullException("items");
+			if (items == null) throw new ArgumentNullException(nameof(items));
 
 			// Display all items to the user
 			for (int i = 0; i < items.Count; i++)
@@ -192,14 +188,11 @@ namespace GreatTextAdventures
 				{
 					return items[output - 1].Item1;
 				}
-				else
-				{
-					// Clear the user input, clearing the whole line
-					int currentLineCursor = Console.CursorTop - 1;
-					Console.SetCursorPosition(0, Console.CursorTop - 1);
-					GameSystem.Write(new string(' ', Console.WindowWidth));
-					Console.SetCursorPosition(0, currentLineCursor);
-				}
+				// Clear the user input, clearing the whole line
+				int currentLineCursor = Console.CursorTop - 1;
+				Console.SetCursorPosition(0, Console.CursorTop - 1);
+				GameSystem.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, currentLineCursor);
 			}
 		}
 
@@ -234,15 +227,12 @@ namespace GreatTextAdventures
 				GameSystem.WriteLine($"There is no '{name}'");
 				return null;
 			}
-			else if (found.Count > 1)
+			if (found.Count > 1)
 			{
 				GameSystem.WriteLine($"There are multiple '{name}'. Please specify.");
 				return Choice<ILookable>(found);
 			}
-			else
-			{
-				return found[0].Item1;
-			}
+			return found[0].Item1;
 		}
 
 		/// <summary>
@@ -257,7 +247,7 @@ namespace GreatTextAdventures
 		/// <returns>The formatted enumeration</returns>
 		public static string Enumerate<T>(IEnumerable<T> list, string multiPrefix, string onePrefix, string nonePrefix, string lastSeparator)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 
 			if (list.Count() > 2)
 			{
@@ -296,7 +286,7 @@ namespace GreatTextAdventures
 		/// </summary>
 		/// <param name="text">Text to write</param>
 		/// <param name="args">Arguments to use when formatting the text (see String.Format)</param>
-		public static void Write(string text, params object[] args) => 
+		public static void Write(string text, params object[] args) =>
 			WriteColor(string.Format(text, args), 0, DefaultConsoleColor);
 
 
@@ -322,26 +312,23 @@ namespace GreatTextAdventures
 				// 'Color' function -> &CXX, where XX is a double-digit color code or 'EE' to indicate this 'color level' has ended
 				if (char.ToUpperInvariant(text[++i]) == 'C')
 				{
-					string param = new string(new[] { text[++i], text[++i] });
+					var param = new string(new[] { text[++i], text[++i] });
 
 					if (param.ToUpperInvariant() == "EE")
 					{
 						return i;
 					}
-					else
-					{
-						// Go down a 'color level', writing all input in the specified color until &CEE is found, then go up a 'color level',
-						// returning to the color specified in this method
-						int index;
+					// Go down a 'color level', writing all input in the specified color until &CEE is found, then go up a 'color level',
+					// returning to the color specified in this method
+					int index;
 
-						if (int.TryParse(param, out index))
-						{
-							ConsoleColor newColor = (ConsoleColor)Enum.GetValues(typeof(ConsoleColor)).GetValue(index);
-							i = WriteColor(text, ++i, newColor);
-						}
-						else
-							Console.Write("ERR");
+					if (int.TryParse(param, out index))
+					{
+						var newColor = (ConsoleColor)Enum.GetValues(typeof(ConsoleColor)).GetValue(index);
+						i = WriteColor(text, ++i, newColor);
 					}
+					else
+						Console.Write("ERR");
 				}
 				else
 				{

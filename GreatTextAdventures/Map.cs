@@ -72,7 +72,7 @@ namespace GreatTextAdventures
 		public Bitmap Draw(int size)
 		{
 			// x2 because the size is replicated to each side, x3 because each room is a 3-pixel square
-			Bitmap result = new Bitmap(size * 2 * 3, size * 2 * 3);
+			var result = new Bitmap(size * 2 * 3, size * 2 * 3);
 
 			for (int mapY = -size + 1; mapY < size; mapY++)
 			{

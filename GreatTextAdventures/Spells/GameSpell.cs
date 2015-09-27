@@ -17,7 +17,7 @@ namespace GreatTextAdventures.Spells
 		public abstract string Description { get; }
 		public abstract int Cost { get; }
 
-		public GameSpell(int level)
+		protected GameSpell(int level)
 		{
 			this.level = Math.Max(1, level);
 		}

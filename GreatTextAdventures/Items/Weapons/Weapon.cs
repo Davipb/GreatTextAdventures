@@ -16,7 +16,7 @@ namespace GreatTextAdventures.Items.Weapons
 		{
 			get
 			{
-				StringBuilder sb = new StringBuilder();
+				var sb = new StringBuilder();
 				sb.AppendLine($"Base Attack: {baseAttack}");
 				sb.AppendLine($"Attack Modifier: {(attackModifier == 0 ? "" : attackModifier > 0 ? "+" : "-")}{Math.Abs(attackModifier)}");
 				sb.Append($"Strength Bonus: +{StrBonus * 100f}%/STR");

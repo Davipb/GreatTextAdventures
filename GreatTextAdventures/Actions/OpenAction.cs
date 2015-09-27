@@ -23,7 +23,7 @@ namespace GreatTextAdventures.Actions
 
 			if (found == null) return false;
 
-			IContainer container = found as IContainer;
+			var container = found as IContainer;
 
 			if (container == null)
 			{

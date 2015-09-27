@@ -27,7 +27,7 @@ namespace GreatTextAdventures.Actions
 			// If no items were found, return
 			if (found == null) return false;
 
-			Weapon weapon = found as Weapon;
+			var weapon = found as Weapon;
 
 			if (weapon == null)
 			{

@@ -20,8 +20,7 @@ namespace GreatTextAdventures.Items
 			{
 				if (Content == null || !Content.Any())
 					return "Chest (empty)";
-				else
-					return $"Chest ({Content.Count} item{(Content.Count > 1 ? "s" : "")})";
+				return $"Chest ({Content.Count} item{(Content.Count > 1 ? "s" : "")})";
 			}
 		}
 		public virtual string Description => "A large wooden chest begging to be opened. What are you waiting for?";
@@ -38,6 +37,11 @@ namespace GreatTextAdventures.Items
 		public IList<ILookable> Content { get; } = new List<ILookable>();
 
 		public Chest(int level)
+		{
+			Initialize(level);
+		}
+
+		private void Initialize(int level)
 		{
 			PopulateContent(level);
 		}
@@ -61,10 +65,9 @@ namespace GreatTextAdventures.Items
 		{
 			if (GameSystem.RNG.Next(0, 100) < LockedChestChance)
 				return new LockedChest(level + LockedChestExtraLevels);
-			else if (GameSystem.RNG.Next(0, 100) < CraftingChestChance)
+			if (GameSystem.RNG.Next(0, 100) < CraftingChestChance)
 				return new CraftingChest(level);
-			else
-				return new Chest(level);
+			return new Chest(level);
 		}
 
 		protected virtual void PopulateContent(int level)

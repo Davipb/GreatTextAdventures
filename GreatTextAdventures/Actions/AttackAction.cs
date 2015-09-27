@@ -29,7 +29,7 @@ namespace GreatTextAdventures.Actions
 			// Exit if input is invalid (nothing found)
 			if (found == null) return false;
 
-			Person person = found as Person;
+			var person = found as Person;
 
 			if (person == null)
 			{

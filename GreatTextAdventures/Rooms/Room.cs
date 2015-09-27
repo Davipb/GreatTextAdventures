@@ -18,7 +18,7 @@ namespace GreatTextAdventures.Rooms
 		{
 			get
 			{
-				StringBuilder sb = new StringBuilder("You are in a room. ");
+				var sb = new StringBuilder("You are in a room. ");
 
 				// Check how many exits there are				
 				List<Directions> dirs = (from Directions dir in Enum.GetValues(typeof(Directions))

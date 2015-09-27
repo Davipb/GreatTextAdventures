@@ -26,7 +26,7 @@ namespace GreatTextAdventures.Actions
 
 			if (found == null) return false;
 
-			IUsable item = found as IUsable;
+			var item = found as IUsable;
 
 			if (item == null)
 			{

@@ -20,7 +20,7 @@ namespace GreatTextAdventures.People
 		{ 
 			get
 			{
-				StringBuilder sb = new StringBuilder();
+				var sb = new StringBuilder();
 
 				sb.AppendLine($"Level: {level}");
 				sb.AppendLine($"Experience: {Experience}/{NeededExperience}");
@@ -119,7 +119,7 @@ namespace GreatTextAdventures.People
 		public virtual void Update() 
 		{ 
 			// Copy the status effect list so the original can be modified (when effects wear off, they remove themselves)
-			List<StatusEffect> copyStatus = new List<StatusEffect>(CurrentStatus);
+			var copyStatus = new List<StatusEffect>(CurrentStatus);
 			copyStatus.ForEach(x => x.Update());
 
 			// ToList() used to prevent LINQ's lazy evaluation, since the base collection may be modified
@@ -167,15 +167,12 @@ namespace GreatTextAdventures.People
 				GameSystem.WriteLine($"There is no '{name}'");
 				return null;
 			}
-			else if (found.Count > 1)
+			if (found.Count > 1)
 			{
 				GameSystem.WriteLine($"There are multiple '{name}'. Please specify.");
 				return GameSystem.Choice(found, found.Select(x => x.DisplayName).ToList());
 			}
-			else
-			{
-				return found[0];
-			}
+			return found[0];
 		}
 
 		public int ReceiveDamage(int baseDamage, DamageType type, object source)
@@ -184,7 +181,7 @@ namespace GreatTextAdventures.People
 
 			ReceivingDamage?.Invoke(eventArgs);
 
-			ILookable damager = source as ILookable;
+			var damager = source as ILookable;
 
 			if (damager != null)
 				GameSystem.WriteLine($"{DisplayName} was damaged for {eventArgs.ActualDamage} HP by {damager.DisplayName}");

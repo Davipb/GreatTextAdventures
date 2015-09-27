@@ -1,5 +1,4 @@
 ﻿using GreatTextAdventures.People;
-using System;
 
 namespace GreatTextAdventures.StatusEffects
 {
@@ -15,7 +14,7 @@ namespace GreatTextAdventures.StatusEffects
 		public int Duration { get; set; }
 		protected int currentDuration = 0;
 
-		public StatusEffect(Person owner, int duration)
+		protected StatusEffect(Person owner, int duration)
 		{
 			Owner = owner;
 			Duration = duration;

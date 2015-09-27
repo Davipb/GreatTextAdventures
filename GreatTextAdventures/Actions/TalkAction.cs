@@ -17,7 +17,7 @@ namespace GreatTextAdventures.Actions
 
 		public override bool Do(string action)
 		{
-			if (action.StartsWith("with"))
+			if (action.StartsWith("with", StringComparison.Ordinal))
 			{
 				// Remove 'with' so we can accept more natural strings (talk with dude instead of talk dude)
 				action = action.Substring(4).Trim();
@@ -34,7 +34,7 @@ namespace GreatTextAdventures.Actions
 
 			if (found == null) return false;
 
-			Person person = found as Person;
+			var person = found as Person;
 
 			if (person == null)
 			{

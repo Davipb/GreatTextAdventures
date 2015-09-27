@@ -14,8 +14,7 @@ namespace GreatTextAdventures.Items.Crafting
 			{
 				if (Content == null || !Content.Any())
 					return "Metal Chest (empty)";
-				else
-					return $"Metal Chest ({Content.Count} item{(Content.Count > 1 ? "s" : "")})";
+				return $"Metal Chest ({Content.Count} item{(Content.Count > 1 ? "s" : "")})";
 			}
 		}
 

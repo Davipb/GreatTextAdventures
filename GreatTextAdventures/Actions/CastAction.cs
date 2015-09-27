@@ -48,7 +48,7 @@ namespace GreatTextAdventures.Actions
 			ILookable found = GameSystem.GetLookableWithName(split[1].Trim());
 			if (found == null) return false;
 
-			Person target = found as Person;
+			var target = found as Person;
 
 			if (target == null)
 			{

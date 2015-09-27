@@ -68,7 +68,7 @@ namespace GreatTextAdventures.People
 
 			if (Health <= MaxHealth / CriticalHealthDivider)
 			{
-				HealSpell heal = (HealSpell)KnownSpells.First(x => x is HealSpell);
+				var heal = (HealSpell)KnownSpells.First(x => x is HealSpell);
 
 				if (Mana >= heal.Cost)
 				{
@@ -79,7 +79,7 @@ namespace GreatTextAdventures.People
 
 			if (Mana <= MaxMana / CriticalManaDivider)
 			{
-				ManaHealSpell refresh = (ManaHealSpell)KnownSpells.First(x => x is ManaHealSpell);
+				var refresh = (ManaHealSpell)KnownSpells.First(x => x is ManaHealSpell);
 
 				if (Health > refresh.HealthCost)
 				{
@@ -88,7 +88,7 @@ namespace GreatTextAdventures.People
 				}
 			}
 
-			FireballSpell fire = (FireballSpell)KnownSpells.First(x => x is FireballSpell);
+			var fire = (FireballSpell)KnownSpells.First(x => x is FireballSpell);
 
 			if (Mana >= fire.Cost)
 			{

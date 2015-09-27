@@ -23,7 +23,7 @@ namespace GreatTextAdventures.Items.Crafting
 			if (user != GameSystem.Player)
 				return;
 
-			var recipes = GameSystem.Player.Inventory.Where(x => x is CraftingRecipe).Select(x => (CraftingRecipe)x);
+			var recipes = GameSystem.Player.Inventory.OfType<CraftingRecipe>();
 
 			if (!recipes.Any())
 			{
@@ -36,8 +36,7 @@ namespace GreatTextAdventures.Items.Crafting
 			// Get the number of materials of each type in the Player's inventory
 			var groupedMaterials =
 				GameSystem.Player.Inventory
-				.Where(x => x is CraftingMaterial)
-				.Select(x => (CraftingMaterial)x)
+				.OfType<CraftingMaterial>()
 				.GroupBy(x => x.MaterialName)
 				.ToDictionary(k => k.Key, e => e.Count());
 
@@ -46,8 +45,8 @@ namespace GreatTextAdventures.Items.Crafting
 			{
 				if (!groupedMaterials.ContainsKey(ingredient.Key) || groupedMaterials[ingredient.Key] < ingredient.Value)
 				{
-					string name = (string)CraftingMaterial.AllMaterials[ingredient.Key]["DisplayName"];
-                    int have = groupedMaterials.ContainsKey(ingredient.Key) ? groupedMaterials[ingredient.Key] : 0;
+					var name = (string)CraftingMaterial.AllMaterials[ingredient.Key]["DisplayName"];
+					int have = groupedMaterials.ContainsKey(ingredient.Key) ? groupedMaterials[ingredient.Key] : 0;
 					GameSystem.WriteLine(
 						$"Not enough {name}! Needed: {ingredient.Value}, Have: {have}");
 					return;
@@ -65,6 +64,6 @@ namespace GreatTextAdventures.Items.Crafting
 
 			GameSystem.WriteLine($"{GameSystem.Player.DisplayName} crafted {chosenRecipe.DisplayName}!");
 			GameSystem.Player.Inventory.Add(chosenRecipe.Result);
-        }
+		}
 	}
 }
