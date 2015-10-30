@@ -1,5 +1,4 @@
-﻿using GreatTextAdventures.Items;
-using GreatTextAdventures.Items.Weapons;
+﻿using GreatTextAdventures.Items.Weapons;
 using GreatTextAdventures.Spells;
 using GreatTextAdventures.StatusEffects;
 using System;
@@ -16,8 +15,8 @@ namespace GreatTextAdventures.People
 		public abstract IEnumerable<string> CodeNames { get; }
 		public bool CanTake => false;
 
-		public string Description 
-		{ 
+		public string Description
+		{
 			get
 			{
 				var sb = new StringBuilder();
@@ -31,9 +30,9 @@ namespace GreatTextAdventures.People
 				sb.AppendLine($"Physical Defense (PDF): {PhysicalDefense}");
 				sb.AppendLine($"Magical Defense (MDF): {MagicalDefense}");
 				sb.AppendLine($"Weapon: {EquippedWeapon?.DisplayName ?? "None"}");
-				sb.Append(GameSystem.Enumerate(KnownSpells, "Known Spells:", "Known Spell:", "No spells known", "and"));
+				sb.Append(GameSystem.Enumerate(KnownSpells.Select(x => x.DisplayName), "Known Spells:", "Known Spell:", "No spells known", "and"));
 
-				return sb.ToString();				
+				return sb.ToString();
 			}
 		}
 
@@ -54,13 +53,13 @@ namespace GreatTextAdventures.People
 			set { mana = Math.Max(0, Math.Min(MaxMana, value)); }
 		}
 
-		public abstract int MaxMana { get; }		
+		public abstract int MaxMana { get; }
 
 		private int level = 1;
 		public int Level
 		{
 			get { return level; }
-			set 
+			set
 			{
 				int oldLevel = level;
 				level = Math.Max(1, value);
@@ -68,7 +67,7 @@ namespace GreatTextAdventures.People
 				if (level > oldLevel)
 					LeveledUp?.Invoke();
 			}
-		}		
+		}
 
 		protected long experience = 0;
 		public long Experience
@@ -116,15 +115,15 @@ namespace GreatTextAdventures.People
 			ReceivingDamage += ReceivingDamageEventHandler;
 		}
 
-		public virtual void Update() 
-		{ 
+		public virtual void Update()
+		{
 			// Copy the status effect list so the original can be modified (when effects wear off, they remove themselves)
 			var copyStatus = new List<StatusEffect>(CurrentStatus);
 			copyStatus.ForEach(x => x.Update());
 
 			// ToList() used to prevent LINQ's lazy evaluation, since the base collection may be modified
 			var inv = Inventory.OfType<IUpdatable>().ToList();
-			foreach(var item in inv) item.Update();
+			foreach (var item in inv) item.Update();
 
 			if (Health <= 0)
 			{
@@ -138,7 +137,7 @@ namespace GreatTextAdventures.People
 					EquippedWeapon = null;
 				}
 
-				foreach(ILookable item in Inventory)
+				foreach (ILookable item in Inventory)
 				{
 					GameSystem.WriteLine($"{DisplayName} dropped {item.DisplayName}");
 					GameSystem.CurrentMap.CurrentRoom.Members.Add(item);
@@ -177,7 +176,7 @@ namespace GreatTextAdventures.People
 
 		public int ReceiveDamage(int baseDamage, DamageType type, object source)
 		{
-			var eventArgs = new ReceivingDamageEventArgs(baseDamage, type, source);			
+			var eventArgs = new ReceivingDamageEventArgs(baseDamage, type, source);
 
 			ReceivingDamage?.Invoke(eventArgs);
 
@@ -205,7 +204,7 @@ namespace GreatTextAdventures.People
 
 			return damage;
 		}
-		
+
 		#region Event Handlers
 		void LeveledUpEventHandler()
 		{
