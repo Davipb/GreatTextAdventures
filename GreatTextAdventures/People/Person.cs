@@ -89,6 +89,8 @@ namespace GreatTextAdventures.People
 		public int Intelligence { get; set; }
 		public int PhysicalDefense { get; set; }
 		public int MagicalDefense { get; set; }
+
+		public bool Dead { get; set; }
 		#endregion
 
 		public List<GameSpell> KnownSpells { get; } = new List<GameSpell>();

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace GreatTextAdventures
 {
@@ -14,7 +15,14 @@ namespace GreatTextAdventures
 	{
 		// These two are used in Write/WriteLine
 		const char SpecialFunctionChar = '&';
+
+		const int DefaultCharacterTime = 5;
+		const int DefaultNewLineTime = 150;
+		const int DefaultCharacterBeepFrequency = 500;
+		const int DefaultCharacterBeepTime = 1;
 		const ConsoleColor DefaultConsoleColor = ConsoleColor.Gray;
+
+
 
 		public static List<GameAction> Actions { get; set; }
 		public static Map CurrentMap { get; set; }
@@ -84,7 +92,9 @@ namespace GreatTextAdventures
 		public static void Loop()
 		{
 			GameSystem.WriteLine();
+			GameSystem.WriteLine(Player.DisplayName);
 			GameSystem.WriteLine(Player.Description);
+			GameSystem.WriteLine();
 
 			CurrentMap.Update();
 			Player.Update();
@@ -97,6 +107,9 @@ namespace GreatTextAdventures
 
 				// Read and standardize all input to trimmed lowercase
 				string input = Console.ReadLine().Trim().ToLowerInvariant();
+
+				// Make sure input doesn't have special codes
+				input = input.Replace(SpecialFunctionChar, '_');
 
 				// Beautification
 				GameSystem.WriteLine();
@@ -253,24 +266,24 @@ namespace GreatTextAdventures
 			{
 				// Put items in format "<multiPrefix> a, b, c, ..., d, <lastSeparator> e"
 				sb.Append(multiPrefix);
-				sb.Append(" ");
+				sb.Append("&W03 ");
 
-				sb.AppendFormat($"{list.First().ToString()},");
+				sb.AppendFormat($"{list.First().ToString()},&W03");
 
 				foreach (T elem in list.Skip(1).Take(list.Count() - 2))
-					sb.AppendFormat($" {elem.ToString()},");
+					sb.AppendFormat($" {elem.ToString()},&W03");
 
-				sb.AppendFormat($" {lastSeparator} {list.Last().ToString()}");
+				sb.AppendFormat($" {lastSeparator}&W03 {list.Last().ToString()}&W03");
 			}
 			else if (list.Count() == 2)
 			{
 				// Two items, put them in format "<multiPrefix> a <lastSeparator> b"
-				sb.AppendFormat($"{multiPrefix} {list.First()} {lastSeparator} {list.Last()}");
+				sb.AppendFormat($"{multiPrefix}&W03 {list.First()}&W03 {lastSeparator}&W03 {list.Last()}&W03");
 			}
 			else if (list.Count() > 0)
 			{
 				// One item, put it in format "<onePrefix/multiPrefix> a"
-				sb.AppendFormat($"{onePrefix ?? multiPrefix} {list.First()}");
+				sb.AppendFormat($"{onePrefix ?? multiPrefix}&W03 {list.First()}&W03");
 			}
 			else
 			{
@@ -287,7 +300,7 @@ namespace GreatTextAdventures
 		/// <param name="text">Text to write</param>
 		/// <param name="args">Arguments to use when formatting the text (see String.Format)</param>
 		public static void Write(string text, params object[] args) =>
-			WriteColor(string.Format(text, args), 0, DefaultConsoleColor);
+			WriteFormat(string.Format(text, args), DefaultConsoleColor, DefaultCharacterTime);
 
 
 		/// <summary>
@@ -297,11 +310,24 @@ namespace GreatTextAdventures
 		public static void Write(object obj) =>
 			Write(obj.ToString());
 
-		private static int WriteColor(string text, int startingIndex, ConsoleColor color)
+		public static void WriteFormat(string text, ConsoleColor color, int charTime)
 		{
-			for (int i = startingIndex; i < text.Length; i++)
+			Stack<ConsoleColor> ColorStack = new Stack<ConsoleColor>();
+			ColorStack.Push(color);
+
+			for (int i = 0; i < text.Length; i++)
 			{
-				Console.ForegroundColor = color;
+				if (text[i] == '\n')
+				{
+					Thread.Sleep(DefaultNewLineTime);
+				}
+				else if (!char.IsWhiteSpace(text[i]) && charTime > 0)
+				{
+					Thread.Sleep(charTime);
+					Console.Beep(DefaultCharacterBeepFrequency, DefaultCharacterBeepTime);
+				}
+
+				Console.ForegroundColor = ColorStack.Peek();
 
 				if (text[i] != SpecialFunctionChar)
 				{
@@ -309,34 +335,51 @@ namespace GreatTextAdventures
 					continue;
 				}
 
-				// 'Color' function -> &CXX, where XX is a double-digit color code or 'EE' to indicate this 'color level' has ended
-				if (char.ToUpperInvariant(text[++i]) == 'C')
-				{
-					var param = new string(new[] { text[++i], text[++i] });
 
-					if (param.ToUpperInvariant() == "EE")
-					{
-						return i;
-					}
-					// Go down a 'color level', writing all input in the specified color until &CEE is found, then go up a 'color level',
-					// returning to the color specified in this method
-					int index;
-
-					if (int.TryParse(param, out index))
-					{
-						var newColor = (ConsoleColor)Enum.GetValues(typeof(ConsoleColor)).GetValue(index);
-						i = WriteColor(text, ++i, newColor);
-					}
-					else
-						Console.Write("ERR");
-				}
-				else
+				switch (char.ToUpperInvariant(text[++i]))
 				{
-					Console.Write("ERR");
+					// 'Color' function -> &CXX, where XX is a double-digit color code or 'EE' to indicate the last color has ended
+					case 'C':
+						{
+							var param = new string(new[] { text[++i], text[++i] });
+							if (param.ToUpperInvariant() == "EE")
+							{
+								ColorStack.Pop();
+								break;
+							}
+
+							int index;
+							if (int.TryParse(param, out index))
+							{
+								var newColor = (ConsoleColor)Enum.GetValues(typeof(ConsoleColor)).GetValue(index);
+								ColorStack.Push(newColor);
+							}
+							else
+							{
+								Console.Write($"<C+{param}>");
+							}
+						}
+						break;
+
+					// 'Wait' function -> &WXX, where XX is a double-digit time unit to wait before writing the next character. 1 time unit = 100 ms
+					case 'W':
+						{
+							var param = new string(new[] { text[++i], text[++i] });
+
+							int time;
+
+							if (int.TryParse(param, out time))
+								Thread.Sleep(time * 100);
+							else
+								Console.WriteLine($"<W+{param}>");
+						}
+						break;
+
+					default:
+						Console.Write($"<?>");
+						break;
 				}
 			}
-
-			return text.Length - 1;
 		}
 
 		/// <summary>

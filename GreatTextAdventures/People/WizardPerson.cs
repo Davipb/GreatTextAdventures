@@ -24,7 +24,7 @@ namespace GreatTextAdventures.People
 
 		bool detected = false;
 
-		public override string DisplayName => $"Wizard (Lv {Level})";
+		public override string DisplayName => $"&C12Wizard (Lv {Level})&CEE";
 		public override IEnumerable<string> CodeNames
 		{
 			get { yield return "wizard"; }

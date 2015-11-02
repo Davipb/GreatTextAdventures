@@ -20,7 +20,7 @@ namespace GreatTextAdventures.People
 
 		bool detected = false;
 
-		public override string DisplayName => $"Thug (Lv {Level})";
+		public override string DisplayName => $"&C12Thug (Lv {Level})&CEE";
 
 		public override IEnumerable<string> CodeNames
 		{
@@ -32,7 +32,7 @@ namespace GreatTextAdventures.People
 		public override int MaxMana => ManaMinimum + (Level - 1) * ManaPerLevel;
 
 		public ThugPerson(int level) : base(level)
-		{			
+		{
 			EquippedWeapon = RandomWeapon.Generate(Level);
 
 			Strength = GameSystem.RNG.Next(StrMinPerLevel * level, StrMinPerLevel * level);
@@ -50,7 +50,7 @@ namespace GreatTextAdventures.People
 				int exp = ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
 
 				GameSystem.WriteLine($"{DisplayName} dropped {exp} experience");
-				GameSystem.Player.Experience += exp;				
+				GameSystem.Player.Experience += exp;
 
 				return;
 			}

@@ -1,9 +1,7 @@
 ﻿using GreatTextAdventures.Items.Weapons;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GreatTextAdventures.Items.Crafting
 {
@@ -25,7 +23,6 @@ namespace GreatTextAdventures.Items.Crafting
 			get
 			{
 				var sb = new StringBuilder();
-				sb.AppendLine("Crafting Recipe");
 				sb.AppendLine("Ingredients:");
 
 				foreach (var ingredient in Ingredients)
@@ -34,6 +31,7 @@ namespace GreatTextAdventures.Items.Crafting
 				sb.AppendLine();
 				sb.AppendLine("Result:");
 				sb.Append(Result.DisplayName);
+				sb.Append(Result.Description);
 
 				return sb.ToString();
 			}
@@ -51,7 +49,7 @@ namespace GreatTextAdventures.Items.Crafting
 
 		public static CraftingRecipe Generate(int level)
 		{
-			switch(GameSystem.RNG.Next(0, 3))
+			switch (GameSystem.RNG.Next(0, 3))
 			{
 				case 0:
 					return GenerateWithSpell(level);
@@ -89,7 +87,7 @@ namespace GreatTextAdventures.Items.Crafting
 			int baseAttack = GameSystem.RNG.Next(level * 5, level * 10);
 			ILookable returnObject = null;
 
-			switch(GameSystem.RNG.Next(0, 2))
+			switch (GameSystem.RNG.Next(0, 2))
 			{
 				case 0:
 					ingredients.Add("MagicRune", GameSystem.RNG.Next(1, level + 1));
