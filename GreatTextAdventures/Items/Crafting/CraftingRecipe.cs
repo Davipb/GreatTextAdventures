@@ -30,7 +30,7 @@ namespace GreatTextAdventures.Items.Crafting
 
 				sb.AppendLine();
 				sb.AppendLine("Result:");
-				sb.Append(Result.DisplayName);
+				sb.AppendLine(Result.DisplayName);
 				sb.Append(Result.Description);
 
 				return sb.ToString();

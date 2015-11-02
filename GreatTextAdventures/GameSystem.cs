@@ -312,7 +312,7 @@ namespace GreatTextAdventures
 
 		public static void WriteFormat(string text, ConsoleColor color, int charTime)
 		{
-			Stack<ConsoleColor> ColorStack = new Stack<ConsoleColor>();
+			var ColorStack = new Stack<ConsoleColor>();
 			ColorStack.Push(color);
 
 			for (int i = 0; i < text.Length; i++)

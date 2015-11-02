@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace GreatTextAdventures.Items.Crafting
 {
@@ -16,6 +16,11 @@ namespace GreatTextAdventures.Items.Crafting
 
 		public string MaterialName { get; }
 
+		static CraftingMaterial()
+		{
+			AllMaterials = JObject.Parse(File.ReadAllText(@"Items\Crafting\CraftingMaterials.json"));
+		}
+
 		protected CraftingMaterial(string name, string description, string material, IEnumerable<string> codenames)
 		{
 			DisplayName = name;
@@ -26,9 +31,6 @@ namespace GreatTextAdventures.Items.Crafting
 
 		public static CraftingMaterial Create(string material)
 		{
-			if (AllMaterials == null)
-				AllMaterials = JObject.Parse(File.ReadAllText(@"Items\Crafting\CraftingMaterials.json"));
-
 			// Returns null when the key 'material' has not been found i.e. the material doesn't exist
 			if (AllMaterials[material] == null)
 				return null;
@@ -39,6 +41,6 @@ namespace GreatTextAdventures.Items.Crafting
 				material,
 				AllMaterials[material]["CodeNames"].Select(x => (string)x)
 				);
-        }
+		}
 	}
 }

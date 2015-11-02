@@ -62,8 +62,11 @@ namespace GreatTextAdventures.Items.Crafting
 							x => x is CraftingMaterial && ((CraftingMaterial)x).MaterialName == ingredient.Key));
 			}
 
-			GameSystem.WriteLine($"{GameSystem.Player.DisplayName} crafted {chosenRecipe.DisplayName}!");
+			GameSystem.WriteLine($"{GameSystem.Player.DisplayName} crafted {chosenRecipe.Result.DisplayName}!");
 			GameSystem.Player.Inventory.Add(chosenRecipe.Result);
+
+			GameSystem.WriteLine("The recipe was destroyed in the process.");
+			GameSystem.Player.Inventory.Remove(chosenRecipe);
 		}
 	}
 }
