@@ -105,13 +105,15 @@ namespace GreatTextAdventures.People
 		#region Events
 		protected event Action LeveledUp;
 		protected event Action<ReceivingDamageEventArgs> ReceivingDamage;
+		protected event Action Dying;
+		protected event Action Died;
 		#endregion
 
 		protected Person(int level)
 		{
+			Level = level;
 			Health = MaxHealth;
 			Mana = MaxMana;
-			Level = level;
 
 			LeveledUp += LeveledUpEventHandler;
 			ReceivingDamage += ReceivingDamageEventHandler;
@@ -129,7 +131,10 @@ namespace GreatTextAdventures.People
 
 			if (Health <= 0)
 			{
+				Dying?.Invoke();
+
 				GameSystem.WriteLine($"{DisplayName} died");
+				Dead = true;
 
 				if (EquippedWeapon != null)
 				{
@@ -146,8 +151,9 @@ namespace GreatTextAdventures.People
 				}
 
 				Inventory.Clear();
-
 				GameSystem.CurrentMap.CurrentRoom.Members.Remove(this);
+
+				Died?.Invoke();
 			}
 		}
 
@@ -202,7 +208,7 @@ namespace GreatTextAdventures.People
 				DamageType.Physical,
 				this);
 
-			EquippedWeapon.OnHit(this, target, damage);
+			EquippedWeapon?.OnHit(this, target, damage);
 
 			return damage;
 		}

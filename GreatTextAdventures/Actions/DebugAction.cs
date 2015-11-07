@@ -71,22 +71,39 @@ namespace GreatTextAdventures.Actions
 			#region Weapon
 			else if (split[0] == "weapon")
 			{
-				if (split.Length != 2)
+				if (split.Length != 3)
 				{
 					GameSystem.WriteLine("Invalid number of arguments");
 					return false;
 				}
 
 				int level;
-
-				if (int.TryParse(split[1], out level))
+				if (int.TryParse(split[2], out level))
 				{
-					Weapon spawn = RandomWeapon.Generate(level);
-					GameSystem.CurrentMap.CurrentRoom.Members.Add(spawn);
+					switch (split[1])
+					{
+						case "random":
+							{
+								var spawn = RandomWeapon.Generate(level);
+								GameSystem.CurrentMap.CurrentRoom.Members.Add(spawn);
+								GameSystem.WriteLine("Spawned {0}", spawn.DisplayName);
+								break;
+							}
+						case "skeletonsword":
+							{
+								var spawn = new SkeletonSwordWeapon(level);
+								GameSystem.CurrentMap.CurrentRoom.Members.Add(spawn);
+								GameSystem.WriteLine($"Spawned {spawn.DisplayName}");
+							}
+							break;
+						default:
+							GameSystem.WriteLine($"Invalid weapon {split[1]}");
+							break;
 
-					GameSystem.WriteLine("Spawned {0}", spawn.DisplayName);
+					}
 					return false;
 				}
+
 				GameSystem.WriteLine("Invalid level '{0}'", split[1]);
 				return false;
 			}
@@ -136,6 +153,10 @@ namespace GreatTextAdventures.Actions
 						case "wizard":
 							GameSystem.CurrentMap.CurrentRoom.Members.Add(new WizardPerson(level));
 							GameSystem.WriteLine("Spawned Wizard level {0}", level);
+							break;
+						case "skeletonwarrior":
+							GameSystem.CurrentMap.CurrentRoom.Members.Add(new SkeletonWarriorPerson(level));
+							GameSystem.WriteLine("Spawned Skeleton Warrior level {0}", level);
 							break;
 						default:
 							GameSystem.WriteLine("Unknown enemy type '{0}'", split[1]);
@@ -235,6 +256,8 @@ namespace GreatTextAdventures.Actions
 				GameSystem.WriteLine("Added crafting supplies");
 			}
 			#endregion
+			else if (split[0] == "graveyard") GameSystem.CurrentMap.CurrentRoom.Members.Add(new GraveyardSign());
+
 
 			return false;
 		}

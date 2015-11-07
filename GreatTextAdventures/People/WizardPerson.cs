@@ -22,6 +22,9 @@ namespace GreatTextAdventures.People
 		const int IntMinPerLevel = 1;
 		const int IntMaxPerLevel = 2;
 
+		const int MDFMinPerLevel = 1;
+		const int MDFMaxPerLevel = 2;
+
 		bool detected = false;
 
 		public override string DisplayName => $"&C12Wizard (Lv {Level})&CEE";
@@ -41,23 +44,16 @@ namespace GreatTextAdventures.People
 
 			Strength = 1;
 			Intelligence = GameSystem.RNG.Next(IntMinPerLevel * Level, IntMaxPerLevel * Level);
+			MagicalDefense = GameSystem.RNG.Next(MDFMinPerLevel * Level, MDFMaxPerLevel * level);
+
+			Died += GiveExperience;
 		}
 
 		public override void Update()
 		{
 			base.Update();
 
-			if (Health <= 0)
-			{
-				int delta = this.Level - GameSystem.Player.Level;
-				// Math.Max is used to ensure the 'delta bonus' is always positive
-				int exp = ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
-
-				GameSystem.WriteLine($"{DisplayName} dropped {exp} experience");
-				GameSystem.Player.Experience += exp;
-
-				return;
-			}
+			if (Dead) return;
 
 			if (!detected)
 			{
@@ -97,6 +93,16 @@ namespace GreatTextAdventures.People
 			}
 
 			Attack(GameSystem.Player);
+		}
+
+		void GiveExperience()
+		{
+			int delta = Level - GameSystem.Player.Level;
+			// Math.Max is used to ensure the 'delta bonus' is always positive
+			int exp = ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
+
+			GameSystem.WriteLine($"{DisplayName} dropped {exp} experience");
+			GameSystem.Player.Experience += exp;
 		}
 
 		public override void Talk()

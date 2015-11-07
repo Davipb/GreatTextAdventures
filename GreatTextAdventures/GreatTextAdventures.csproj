@@ -90,6 +90,7 @@
     <Compile Include="Items\Crafting\CraftingRecipe.cs" />
     <Compile Include="Items\Crafting\CraftingStation.cs" />
     <Compile Include="Items\DecorationItem.cs" />
+    <Compile Include="Items\GraveyardSign.cs" />
     <Compile Include="Items\IContainer.cs" />
     <Compile Include="Items\IUsable.cs" />
     <Compile Include="Items\LockedChest.cs" />
@@ -98,9 +99,11 @@
     <Compile Include="Items\SpellTome.cs" />
     <Compile Include="Items\Weapons\ManaStealWeapon.cs" />
     <Compile Include="Items\Weapons\PoisonWeapon.cs" />
+    <Compile Include="Items\Weapons\SkeletonSwordWeapon.cs" />
     <Compile Include="Items\Weapons\Weapon.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="People\SkeletonWarriorPerson.cs" />
     <Compile Include="People\WizardPerson.cs" />
     <Compile Include="People\ThugPerson.cs" />
     <Compile Include="People\Person.cs" />

@@ -37,23 +37,15 @@ namespace GreatTextAdventures.People
 
 			Strength = GameSystem.RNG.Next(StrMinPerLevel * level, StrMinPerLevel * level);
 			Intelligence = 0;
+
+			Died += GiveExperience;
 		}
 
 		public override void Update()
 		{
 			base.Update();
 
-			if (Health <= 0)
-			{
-				int delta = Level - GameSystem.Player.Level;
-				// Math.Max is used to ensure the 'delta bonus' is always positive
-				int exp = ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
-
-				GameSystem.WriteLine($"{DisplayName} dropped {exp} experience");
-				GameSystem.Player.Experience += exp;
-
-				return;
-			}
+			if (Dead) return;
 
 			if (!detected)
 			{
@@ -64,6 +56,16 @@ namespace GreatTextAdventures.People
 
 			Attack(GameSystem.Player);
 
+		}
+
+		void GiveExperience()
+		{
+			int delta = Level - GameSystem.Player.Level;
+			// Math.Max is used to ensure the 'delta bonus' is always positive
+			int exp = ExperiencePerLevel * Level + Math.Max(0, delta * ExperienceDeltaMultiplier);
+
+			GameSystem.WriteLine($"{DisplayName} dropped {exp} experience");
+			GameSystem.Player.Experience += exp;
 		}
 
 		public override void Talk()
